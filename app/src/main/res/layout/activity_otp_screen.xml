@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".activity.RegisterScreen">
+
+    <include
+        layout="@layout/item_bbc_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_signUP"
+            style="@style/HighLightedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_otp"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_signUP"
+            android:layout_above="@id/btn_next"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/et_otp_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@android:color/transparent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:background="@drawable/otp_edit_text"/>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/et_otp_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@android:color/transparent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:background="@drawable/otp_edit_text"/>
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/et_otp_three"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@android:color/transparent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:background="@drawable/otp_edit_text"/>
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/et_otp_four"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@android:color/transparent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:background="@drawable/otp_edit_text"/>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="20dp"
+                style="@style/SecondryText"
+                android:text="@string/otp_has_been_sent_to_you_email_account"/>
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_above="@id/tv_dont_get_otp"
+            android:background="@drawable/color_combination"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteColor" />
+
+        <TextView
+            android:id="@+id/tv_dont_get_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/didn_t_get_otp"
+            style="@style/SecondryText"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp" />
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -13,5 +13,8 @@
     <string name="reset_btn">Reset</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_an_account_sign_in">Already have an account? Sign in</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="didn_t_get_otp">Didn\'t get OTP</string>
+    <string name="otp_has_been_sent_to_you_email_account">OTP has been sent to you email account</string>
     <string name="next">Next</string>
 </resources>
