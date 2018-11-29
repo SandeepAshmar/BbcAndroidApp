@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">BbcWeakestLink</string>
+    <string name="app_name">BBC</string>
+    <string name="login_signIn_text">Sign In</string>
+    <string name="login_signUp_link">Don\'t have account? Sign up</string>
+    <string name="facebook_button_text">Login with Facebook</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="login">Login</string>
 </resources>
