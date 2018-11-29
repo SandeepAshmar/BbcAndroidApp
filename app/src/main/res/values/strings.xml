@@ -8,4 +8,7 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
+    <string name="reset_password_screen">Reset Password</string>
+    <string name="confirm_password_reset">Confirm Password</string>
+    <string name="reset_btn">Reset</string>
 </resources>
