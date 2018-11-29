@@ -35,7 +35,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_forgot:
-                startActivity(new Intent(this, ForgotPassword.class));
+                startActivity(new Intent(this, ForgotPasswordScreen.class));
                 break;
 
             case R.id.tv_Login_SignUp_Link:
@@ -63,10 +63,10 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(this, "Please enter email id", Toast.LENGTH_SHORT).show();
         } else if (password.isEmpty()) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-        } else if (!email.matches(EMAIL_PATTERN)) {
-            Toast.makeText(this, "Please enter valid email id", Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (email.matches(EMAIL_PATTERN)) {
             loginUser();
+        } else {
+            Toast.makeText(this, "Please enter valid email id", Toast.LENGTH_SHORT).show();
         }
 
     }

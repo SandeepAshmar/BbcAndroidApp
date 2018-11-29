@@ -1,5 +1,6 @@
 package com.monet.bbc.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class ForgotPasswordScreen extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.edt_forgot_email:
+            case R.id.btn_forgot:
                 validate();
                 break;
         }
@@ -40,15 +41,16 @@ public class ForgotPasswordScreen extends AppCompatActivity implements View.OnCl
 
         if(email.isEmpty()){
             Toast.makeText(this, "Please enter email id", Toast.LENGTH_SHORT).show();
-        }else if(!email.matches(EMAIL_PATTERN)){
-            Toast.makeText(this, "Please enter valid email id", Toast.LENGTH_SHORT).show();
-        }else{
+        }else if(email.matches(EMAIL_PATTERN)){
             sendOtp();
+        }else{
+            Toast.makeText(this, "Please enter valid email id", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private void sendOtp() {
         Toast.makeText(this, "api call", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, OtpScreen.class));
     }
 }
