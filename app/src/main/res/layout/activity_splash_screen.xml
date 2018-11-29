@@ -6,5 +6,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/color_combination"
     tools:context=".SplashScreen">
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logo_with_text"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
