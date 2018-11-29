@@ -10,7 +10,7 @@ import com.monet.bbc.R;
 
 import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
 
-public class ForgotPassword extends AppCompatActivity implements View.OnClickListener{
+public class ForgotPasswordScreen extends AppCompatActivity implements View.OnClickListener{
 
     private EditText edt_forgot_email;
     private String email;
