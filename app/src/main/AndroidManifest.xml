@@ -24,9 +24,9 @@
             android:name=".activity.LoginScreen"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.RegisterScreen"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.ResetPasswordScreen"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
