@@ -25,6 +25,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.RegisterScreen"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.ResetPasswordScreen"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
