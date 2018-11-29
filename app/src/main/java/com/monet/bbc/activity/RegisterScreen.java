@@ -8,11 +8,12 @@ import android.widget.Toast;
 
 import com.monet.bbc.R;
 
+import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
+
 public class RegisterScreen extends AppCompatActivity implements View.OnClickListener{
 
     private EditText edt_register_email, edt_register_password, edt_register_confirm_password;
     private String email, pass, conPass;
-    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
             if(email.isEmpty()){
                 Toast.makeText(this, "Please enter email id", Toast.LENGTH_SHORT).show();
-            }else if(email.matches(emailPattern)){
+            }else if(email.matches(EMAIL_PATTERN)){
                 Toast.makeText(this, "Please enter valid email id", Toast.LENGTH_SHORT).show();
             }else if(pass.isEmpty()){
                 Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();

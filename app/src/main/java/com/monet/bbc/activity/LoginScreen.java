@@ -9,11 +9,12 @@ import android.widget.Toast;
 
 import com.monet.bbc.R;
 
+import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
+
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edt_login_email, edt_login_password;
     private String email, password;
-    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_forgot:
-                startActivity(new Intent(this, ResetPasswordScreen.class));
+                startActivity(new Intent(this, ForgotPassword.class));
                 break;
 
             case R.id.tv_Login_SignUp_Link:
@@ -62,7 +63,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(this, "Please enter email id", Toast.LENGTH_SHORT).show();
         } else if (password.isEmpty()) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-        } else if (!email.matches(emailPattern)) {
+        } else if (!email.matches(EMAIL_PATTERN)) {
             Toast.makeText(this, "Please enter valid email id", Toast.LENGTH_SHORT).show();
         } else {
             loginUser();
