@@ -6,7 +6,6 @@ import android.os.Bundle;
 import com.monet.bbc.R;
 
 public class LoginScreen extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
