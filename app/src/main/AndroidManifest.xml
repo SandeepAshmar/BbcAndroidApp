@@ -23,9 +23,13 @@
         <activity
             android:name=".activity.LoginScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.RegisterScreen"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ResetPasswordScreen"
+        <activity
+            android:name=".activity.RegisterScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ResetPasswordScreen"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ForgotPassword"
             android:screenOrientation="portrait"/>
     </application>
 
