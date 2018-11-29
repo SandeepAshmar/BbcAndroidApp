@@ -7,4 +7,5 @@
     <color name="placeholderColor">#A4B2BF</color>
     <color name="secondryColor">#757575</color>
     <color name="whiteColor">#ffffff</color>
+    <color name="blackColor">#000000</color>
 </resources>

@@ -36,7 +36,6 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count == 1) {
-                    Toast.makeText(OtpScreen.this, "Its Working...", Toast.LENGTH_SHORT).show();
                     otpTwo.requestFocus();
                 }
             }

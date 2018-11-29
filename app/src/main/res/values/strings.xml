@@ -17,4 +17,5 @@
     <string name="didn_t_get_otp">Didn\'t get OTP</string>
     <string name="otp_has_been_sent_to_you_email_account">OTP has been sent to you email account</string>
     <string name="next">Next</string>
+    <string name="settings_toolbar">Settings</string>
 </resources>

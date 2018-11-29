@@ -32,7 +32,12 @@
         <activity
             android:name=".activity.ForgotPasswordScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.OtpScreen"
+        <activity
+            android:name=".activity.OtpScreen"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".activity.SettingScreen"
             android:screenOrientation="portrait">
 
         </activity>
