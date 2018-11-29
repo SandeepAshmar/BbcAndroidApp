@@ -11,4 +11,6 @@
     <string name="reset_password_screen">Reset Password</string>
     <string name="confirm_password_reset">Confirm Password</string>
     <string name="reset_btn">Reset</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_an_account_sign_in">Already have an account? Sign in</string>
 </resources>

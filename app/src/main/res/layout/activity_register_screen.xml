@@ -14,90 +14,102 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical">
+            android:layout_marginRight="20dp">
 
             <TextView
+                android:id="@+id/tv_signUP"
                 style="@style/HighLightedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_up" />
+                android:text="@string/sign_up"
+                android:layout_marginTop="30dp"
+                android:layout_alignParentTop="true"/>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_login_email"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
-                <EditText
-                    android:id="@+id/edt_login_email"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tv_signUP"
+                android:layout_above="@id/btn_register"
+                android:gravity="center">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_register_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/edt_register_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textSize="14sp"
+                        android:hint="@string/login_email_hint" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_register_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textSize="14sp"
-                    android:hint="@string/login_email_hint" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_below="@id/til_register_email"
+                    android:layout_marginTop="15dp">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_login_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                    <EditText
+                        android:id="@+id/edt_register_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textSize="14sp"
+                        android:hint="@string/login_password_hint" />
 
-                <EditText
-                    android:id="@+id/edt_login_password"
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_register_confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textSize="14sp"
-                    android:hint="@string/login_password_hint" />
+                    android:layout_below="@id/til_register_password"
+                    android:layout_marginTop="15dp">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/edt_register_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textSize="14sp"
+                        android:hint="@string/confirm_password" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginBottom="20dp"
+                android:layout_above="@id/tv_signIn"
                 android:background="@drawable/color_combination"
-                android:text="@string/login"
+                android:text="@string/sign_up"
                 android:textAllCaps="false"
-                android:textColor="@color/whiteColor"/>
+                android:textColor="@color/whiteColor" />
 
             <TextView
+                android:id="@+id/tv_signIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/forgot_password"
+                android:text="@string/already_have_an_account_sign_in"
                 style="@style/SecondryText"
-                android:layout_margin="10dp" />
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp" />
+        </RelativeLayout>
 
-            <Button
-                android:id="@+id/btn_fb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/fb_btn"
-                android:textAllCaps="false"
-                android:text="@string/facebook_button_text"
-                android:textColor="@color/colorPrimaryDark" />
 
-            <TextView
-                android:id="@+id/tv_Login_SignUp_Link"
-                style="@style/SecondryText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/login_signUp_link" />
-
-        </LinearLayout>
-
-    </ScrollView>
 </LinearLayout>
