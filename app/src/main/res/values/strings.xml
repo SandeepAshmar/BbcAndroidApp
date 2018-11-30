@@ -18,4 +18,11 @@
     <string name="otp_has_been_sent_to_you_email_account">OTP has been sent to you email account</string>
     <string name="next">Next</string>
     <string name="settings_toolbar">Settings</string>
+    <string name="setting_account">Account</string>
+    <string name="setting_pswd_rst">Password Reset</string>
+    <string name="setting_notifications">Notifications</string>
+    <string name="setting_shareEarn">Share and Earn</string>
+    <string name="setting_termConditions">Terms and conditions</string>
+    <string name="setting_help">Help</string>
+    <string name="current_password">Current password</string>
 </resources>

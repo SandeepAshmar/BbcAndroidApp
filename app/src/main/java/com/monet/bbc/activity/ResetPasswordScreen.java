@@ -10,7 +10,7 @@ import com.monet.bbc.R;
 
 public class ResetPasswordScreen extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText edt_reset_password, edt_reset_confirm_password;
+    private EditText edt_reset_password, edt_reset_confirm_password, edt_reset_current_password;
     private String pass, conPass;
 
     @Override
@@ -20,7 +20,7 @@ public class ResetPasswordScreen extends AppCompatActivity implements View.OnCli
 
         edt_reset_password = findViewById(R.id.edt_reset_password);
         edt_reset_confirm_password = findViewById(R.id.edt_reset_confirm_password);
-
+        edt_reset_current_password = findViewById(R.id.edt_reset_current_password);
         findViewById(R.id.btn_reset).setOnClickListener(this);
     }
 

@@ -93,7 +93,9 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/fb_btn"
                     android:textAllCaps="false"
+                    android:drawableLeft="@drawable/ic_facebook"
                     android:text="@string/facebook_button_text"
+                    android:paddingLeft="20dp"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView
