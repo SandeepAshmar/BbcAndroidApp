@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/enter_otp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_alignParentTop="true"/>
 
         <LinearLayout
@@ -124,23 +124,71 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 style="@style/SecondryText"
                 android:text="@string/otp_has_been_sent_to_you_email_account"/>
 
+            <RelativeLayout
+                android:id="@+id/rl_otp_try"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.github.lzyzsd.circleprogress.DonutProgress
+                    android:id="@+id/prog_otp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:rotation="270"
+                    android:layout_centerInParent="true"
+                    app:donut_finished_color="@color/colorPrimaryDark"
+                    app:donut_finished_stroke_width="5dp"
+                    app:donut_unfinished_color="@color/donutProgUnfinished"
+                    app:donut_unfinished_stroke_width="5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_otp_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="24dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:hint="time"/>
+
+                <ImageView
+                    android:id="@+id/img_opt_rty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_try_again"
+                    android:layout_marginTop="20dp"
+                    android:visibility="invisible"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_otp_try_again"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_otp_time"
+                    android:layout_centerHorizontal="true"
+                    android:text="Sec"
+                    android:textColor="@color/colorPrimaryDark" />
+
+            </RelativeLayout>
+
+
+
         </LinearLayout>
-
-
 
         <Button
             android:id="@+id/btn_otp_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:layout_above="@id/tv_dont_get_otp"
             android:background="@drawable/color_combination"
             android:text="Next"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:textColor="@color/whiteColor" />
 
         <TextView
@@ -150,6 +198,8 @@
             android:text="@string/didn_t_get_otp"
             style="@style/SecondryText"
             android:layout_alignParentBottom="true"
+            android:visibility="invisible"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp" />
     </RelativeLayout>
 
