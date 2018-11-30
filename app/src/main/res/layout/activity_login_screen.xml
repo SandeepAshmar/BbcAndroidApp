@@ -48,6 +48,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
                         android:textSize="14sp"
+                        android:drawableRight="@drawable/ic_mail"
                         android:hint="@string/login_email_hint" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -63,6 +64,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:textSize="14sp"
+                        android:drawableRight="@drawable/ic_lock"
                         android:hint="@string/login_password_hint" />
 
                 </android.support.design.widget.TextInputLayout>
