@@ -8,6 +8,7 @@
     <color name="secondryColor">#757575</color>
     <color name="whiteColor">#ffffff</color>
     <color name="blackColor">#000000</color>
+    <color name="navSelectedBackground">#1906a9dc</color>
     
     <color name="donutProgUnfinished">#D7DBDB</color>
 </resources>

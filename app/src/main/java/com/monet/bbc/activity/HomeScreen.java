@@ -2,14 +2,10 @@ package com.monet.bbc.activity;
 
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
@@ -21,8 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.monet.bbc.R;
 import com.monet.bbc.fragment.FavouriteFragment;
 import com.monet.bbc.fragment.HomeFragment;
@@ -32,6 +30,8 @@ import com.monet.bbc.fragment.TrendingFragment;
 
 import java.lang.reflect.Field;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -40,9 +40,12 @@ public class HomeScreen extends AppCompatActivity
     private LiveFragment liveFragment;
     private PlaylistFragment playlistFragment;
     private TrendingFragment trendingFragment;
-
+    private CircleImageView img_navProfile;
+    private DonutProgress dp_navProfile;
+    private LinearLayout ll_navLogout;
+    private DrawerLayout drawer;
     private Toolbar toolbar;
-    private TextView tv_navigationPoints, tv_navigationName, tv_navigationPlace;
+    private TextView tv_navScore, tv_navRewards, tv_navRanking, tv_navName, tv_navPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +53,27 @@ public class HomeScreen extends AppCompatActivity
         setContentView(R.layout.activity_home_screen);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        ll_navLogout = findViewById(R.id.ll_navLogout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        ll_navLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeScreen.this, LoginScreen.class));
+                finish();
+            }
+        });
 
         setRightSideDrawer();
     }
 
     private void setRightSideDrawer() {
+
         Menu menu = bottomNavigationView.getMenu();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -70,13 +84,18 @@ public class HomeScreen extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        tv_navigationPoints = headerView.findViewById(R.id.tv_navigationPoints);
-        tv_navigationName = headerView.findViewById(R.id.tv_navigationName);
-        tv_navigationPlace = headerView.findViewById(R.id.tv_navigationPlace);
+        tv_navName = headerView.findViewById(R.id.tv_navName);
+        tv_navPlace = headerView.findViewById(R.id.tv_navPlace);
+        dp_navProfile = headerView.findViewById(R.id.dp_navProfile);
+        img_navProfile = headerView.findViewById(R.id.img_navProfile);
+        tv_navScore = headerView.findViewById(R.id.tv_navScore);
+        tv_navRewards = headerView.findViewById(R.id.tv_navRewards);
+        tv_navRanking = headerView.findViewById(R.id.tv_navRanking);
+        tv_navName.setText("Sandeep Malik");
+        tv_navPlace.setText("Sonepat, Haryana");
+        dp_navProfile.setText("");
 
-        tv_navigationPoints.setText("3695");
-        tv_navigationName.setText("Sandeep Malik");
-        tv_navigationPlace.setText("Sonepat, Haryana");
+        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -133,7 +152,6 @@ public class HomeScreen extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -169,19 +187,15 @@ public class HomeScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_profile) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_rewards) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_leaderboard) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.nav_home) {
+        } else if (id == R.id.nav_setting) {
+            startActivity(new Intent(this, SettingScreen.class));
+        }  else if (id == R.id.nav_home) {
             setFragment(homeFragment);
         } else if (id == R.id.nav_live) {
             setFragment(liveFragment);
@@ -193,8 +207,16 @@ public class HomeScreen extends AppCompatActivity
             setFragment(favouriteFragment);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+//    @Override
+//    protected void onResume() {
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        }
+//        super.onResume();
+//    }
 }

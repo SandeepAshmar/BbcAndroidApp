@@ -5,58 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/color_combination"
-    android:gravity="bottom"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_navigationProfile"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:background="@drawable/ic_person_grye_24dp"
-        android:layout_alignParentBottom="true"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:paddingLeft="15dp"
-        android:layout_toRightOf="@id/img_navigationProfile">
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:paddingLeft="15dp">
+
+        <RelativeLayout
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_navProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/nav_header_desc"/>
+
+            <com.github.lzyzsd.circleprogress.DonutProgress
+                android:id="@+id/dp_navProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rotation="270"
+                app:donut_progress="80"
+                app:donut_unfinished_color="@android:color/transparent"
+                app:donut_finished_color="@color/whiteColor"
+                app:donut_finished_stroke_width="2dp"
+                app:donut_unfinished_stroke_width="2dp"/>
+
+        </RelativeLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/your_score"
-            android:textColor="@color/whiteColor"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
-            android:id="@+id/tv_navigationPoints"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:hint="1234"
-            android:textColorHint="@color/whiteColor"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:textColor="@color/whiteColor"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/capsule_nav"/>
-
-        <TextView
-            android:id="@+id/tv_navigationName"
+            android:id="@+id/tv_navName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:hint="username"
-            android:textSize="16dp"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="@color/whiteColor"
             android:textColorHint="@color/whiteColor"
             android:layout_margin="5dp"/>
 
@@ -71,18 +64,131 @@
                 android:src="@drawable/ic_place_white_24dp"/>
 
             <TextView
-                android:id="@+id/tv_navigationPlace"
+                android:id="@+id/tv_navPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="City, State"
                 android:textColor="@color/whiteColor"
                 android:textColorHint="@color/whiteColor"
                 android:paddingLeft="10dp"
+                android:gravity="center"
                 android:paddingRight="10dp"
                 android:textSize="12dp"
                 android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/color_combination"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_navScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_centerHorizontal="true"
+                android:hint="1234"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/whiteColor"
+                android:textColor="@color/whiteColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score"
+                android:gravity="center"
+                android:textColor="@color/whiteColor"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#28000000"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/color_combination"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_navRewards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_centerHorizontal="true"
+                android:hint="1234"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/whiteColor"
+                android:textColor="@color/whiteColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rewards"
+                android:gravity="center"
+                android:textColor="@color/whiteColor"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#28000000"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/color_combination"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_navRanking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_centerHorizontal="true"
+                android:hint="1234"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/whiteColor"
+                android:textColor="@color/whiteColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ranking"
+                android:gravity="center"
+                android:textColor="@color/whiteColor"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+
 
     </LinearLayout>
 
