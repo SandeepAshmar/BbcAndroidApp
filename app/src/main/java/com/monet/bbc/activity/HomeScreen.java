@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.monet.bbc.R;
 import com.monet.bbc.fragment.FavouriteFragment;
@@ -40,17 +41,25 @@ public class HomeScreen extends AppCompatActivity
     private PlaylistFragment playlistFragment;
     private TrendingFragment trendingFragment;
 
+    private Toolbar toolbar;
+    private TextView tv_navigationPoints, tv_navigationName, tv_navigationPlace;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        setRightSideDrawer();
+    }
+
+    private void setRightSideDrawer() {
         Menu menu = bottomNavigationView.getMenu();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -60,6 +69,15 @@ public class HomeScreen extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        tv_navigationPoints = headerView.findViewById(R.id.tv_navigationPoints);
+        tv_navigationName = headerView.findViewById(R.id.tv_navigationName);
+        tv_navigationPlace = headerView.findViewById(R.id.tv_navigationPlace);
+
+        tv_navigationPoints.setText("3695");
+        tv_navigationName.setText("Sandeep Malik");
+        tv_navigationPlace.setText("Sonepat, Haryana");
+
         navigationView.setNavigationItemSelectedListener(this);
 
         menu.add(Menu.NONE, R.id.nav_home, Menu.NONE, "Home")
