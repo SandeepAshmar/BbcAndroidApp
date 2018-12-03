@@ -40,9 +40,9 @@
             android:layout_gravity="bottom"
             android:animateLayoutChanges="false"
             android:splitMotionEvents="false"
-            app:itemIconTint="@color/whiteColor"
-            android:background="@color/colorPrimaryDark"
-            app:itemTextColor="@color/whiteColor" />
+            app:itemIconTint="@color/nav_color"
+            app:itemTextColor="@color/nav_color"
+            android:background="@color/colorPrimaryDark" />
 
 
 

@@ -48,6 +48,8 @@ public class HomeScreen extends AppCompatActivity
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private TextView tv_navScore, tv_navRewards, tv_navRanking, tv_navName, tv_navPlace;
+    private NavigationView navigationView;
+    private int navItemClicked = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class HomeScreen extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         tv_navName = headerView.findViewById(R.id.tv_navName);
         tv_navPlace = headerView.findViewById(R.id.tv_navPlace);
@@ -190,15 +192,18 @@ public class HomeScreen extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
+            navItemClicked = 0;
             // Handle the camera action
         } else if (id == R.id.nav_rewards) {
 
+            navItemClicked = 1;
         } else if (id == R.id.nav_leaderboard) {
 
+            navItemClicked = 2;
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(this, SettingScreen.class);
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-//            startActivity(new Intent(this, SettingScreen.class));
+            navItemClicked = 3;
         }  else if (id == R.id.nav_home) {
             setFragment(homeFragment);
         } else if (id == R.id.nav_live) {
@@ -210,10 +215,17 @@ public class HomeScreen extends AppCompatActivity
         } else if (id == R.id.nav_favourite) {
             setFragment(favouriteFragment);
         }
-
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            navigationView.getMenu().getItem(navItemClicked).setChecked(false);
+            navItemClicked = -1;
+            navigationView.setSelected(true);
+        }
+        super.onResume();
+    }
 }

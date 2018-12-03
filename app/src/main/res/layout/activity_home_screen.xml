@@ -15,7 +15,7 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
@@ -23,21 +23,22 @@
         app:itemTextColor="@drawable/drawer_item_color"
         app:itemBackground="@drawable/drawer_item_background_color"
         app:headerLayout="@layout/nav_header_home_screen"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         app:menu="@menu/activity_home_screen_drawer">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:clickable="true"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="56dp"
                 android:background="@color/placeholderColor"/>
 
             <LinearLayout
@@ -46,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_margin="10dp">
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -62,7 +64,7 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </android.support.design.widget.NavigationView>
