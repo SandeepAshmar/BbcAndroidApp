@@ -81,15 +81,15 @@ public class HomeScreen extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         menu.add(Menu.NONE, R.id.nav_home, Menu.NONE, "Home")
-                .setIcon(R.mipmap.live);
+                .setIcon(R.drawable.ic_home);
         menu.add(Menu.NONE, R.id.nav_live, Menu.NONE, "Live")
-                .setIcon(R.mipmap.live);
+                .setIcon(R.drawable.ic_live);
         menu.add(Menu.NONE, R.id.nav_trending, Menu.NONE, "Trending")
-                .setIcon(R.mipmap.live);
+                .setIcon(R.drawable.ic_trending);
         menu.add(Menu.NONE, R.id.nav_playlist, Menu.NONE, "Playlist")
-                .setIcon(R.mipmap.live);
+                .setIcon(R.drawable.ic_playlist);
         menu.add(Menu.NONE, R.id.nav_favourite, Menu.NONE, "Favourite")
-                .setIcon(R.mipmap.live);
+                .setIcon(R.drawable.ic_favourite);
 
         favouriteFragment = new FavouriteFragment();
         homeFragment = new HomeFragment();
@@ -131,7 +131,6 @@ public class HomeScreen extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment);
         fragmentTransaction.commit();
-
     }
 
     @Override
