@@ -1,5 +1,7 @@
 package com.monet.bbc.activity;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,15 +33,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_forgot:
-                startActivity(new Intent(this, ForgotPasswordScreen.class));
+                startActivity(new Intent(this, ForgotPasswordScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
 
             case R.id.tv_Login_SignUp_Link:
-                startActivity(new Intent(this, RegisterScreen.class));
+                startActivity(new Intent(this, RegisterScreen.class) , ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
 
             case R.id.btn_login:
@@ -71,8 +74,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    @SuppressLint("NewApi")
     private void loginUser() {
-        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+        startActivity(new Intent(LoginScreen.this, HomeScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
         Toast.makeText(this, "api will call here", Toast.LENGTH_SHORT).show();
 

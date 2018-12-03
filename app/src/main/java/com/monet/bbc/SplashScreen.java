@@ -1,5 +1,7 @@
 package com.monet.bbc;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -30,9 +32,11 @@ public class SplashScreen extends AppCompatActivity {
 
         }
 
+        @SuppressLint("NewApi")
         @Override
         public void onFinish() {
-            startActivity(new Intent(SplashScreen.this, LoginScreen.class));
+            startActivity(new Intent(SplashScreen.this, LoginScreen.class),
+                    ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this).toBundle());
             finish();
         }
     }

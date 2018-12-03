@@ -1,5 +1,7 @@
 package com.monet.bbc.activity;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +52,7 @@ public class SettingScreen extends AppCompatActivity implements View.OnClickList
         return super.onSupportNavigateUp();
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -57,7 +60,7 @@ public class SettingScreen extends AppCompatActivity implements View.OnClickList
                 toast("Account");
                 break;
             case R.id.tv_password_reset:
-                startActivity(new Intent(this,ResetPasswordScreen.class));
+                startActivity(new Intent(this,ResetPasswordScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
             case R.id.switch_notification:
                 saveNotificationStatus();

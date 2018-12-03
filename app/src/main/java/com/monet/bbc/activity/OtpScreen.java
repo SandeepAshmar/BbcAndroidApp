@@ -1,5 +1,7 @@
 package com.monet.bbc.activity;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.media.Image;
 import android.os.CountDownTimer;
@@ -152,10 +154,11 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    @SuppressLint("NewApi")
     private void validate() {
         if (otp.equals("1234")) {
             runTimer.cancel();
-            startActivity(new Intent(this, ResetPasswordScreen.class));
+            startActivity(new Intent(this, ResetPasswordScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
         } else {
             Toast.makeText(this, "please enter 1234 in otp", Toast.LENGTH_SHORT).show();

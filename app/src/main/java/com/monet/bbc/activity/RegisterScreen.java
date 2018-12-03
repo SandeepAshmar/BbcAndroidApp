@@ -1,5 +1,7 @@
 package com.monet.bbc.activity;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.tv_registerSignIn).setOnClickListener(this);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -36,7 +39,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
                 validate();
                 break;
             case R.id.tv_registerSignIn:
-                startActivity(new Intent(this, LoginScreen.class));
+                startActivity(new Intent(this, LoginScreen.class) , ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 finish();
                 break;
         }
@@ -63,9 +66,10 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    @SuppressLint("NewApi")
     private void registerUser() {
         Toast.makeText(this, "user register, api call", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, LoginScreen.class));
+        startActivity(new Intent(this, LoginScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
     }
 }

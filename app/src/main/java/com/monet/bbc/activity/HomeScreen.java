@@ -2,6 +2,7 @@ package com.monet.bbc.activity;
 
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -32,6 +33,7 @@ import java.lang.reflect.Field;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressLint("NewApi")
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -64,7 +66,7 @@ public class HomeScreen extends AppCompatActivity
         ll_navLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeScreen.this, LoginScreen.class));
+                startActivity(new Intent(HomeScreen.this, LoginScreen.class), ActivityOptions.makeSceneTransitionAnimation(HomeScreen.this).toBundle());
                 finish();
             }
         });
@@ -194,7 +196,9 @@ public class HomeScreen extends AppCompatActivity
         } else if (id == R.id.nav_leaderboard) {
 
         } else if (id == R.id.nav_setting) {
-            startActivity(new Intent(this, SettingScreen.class));
+            Intent intent = new Intent(this, SettingScreen.class);
+            startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+//            startActivity(new Intent(this, SettingScreen.class));
         }  else if (id == R.id.nav_home) {
             setFragment(homeFragment);
         } else if (id == R.id.nav_live) {
@@ -212,11 +216,4 @@ public class HomeScreen extends AppCompatActivity
         return true;
     }
 
-//    @Override
-//    protected void onResume() {
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        }
-//        super.onResume();
-//    }
 }

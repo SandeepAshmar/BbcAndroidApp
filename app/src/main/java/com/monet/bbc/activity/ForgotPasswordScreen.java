@@ -1,5 +1,7 @@
 package com.monet.bbc.activity;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,8 +51,9 @@ public class ForgotPasswordScreen extends AppCompatActivity implements View.OnCl
 
     }
 
+    @SuppressLint("NewApi")
     private void sendOtp() {
         Toast.makeText(this, "api call", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, OtpScreen.class));
+        startActivity(new Intent(this, OtpScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 }
