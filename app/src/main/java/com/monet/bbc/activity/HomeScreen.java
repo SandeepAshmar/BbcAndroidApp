@@ -100,9 +100,7 @@ public class HomeScreen extends AppCompatActivity
         setFragment(homeFragment);
         disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
-
-    }
+  }
 
     @SuppressLint("RestrictedApi")
     public static void disableShiftMode(BottomNavigationView view) {
