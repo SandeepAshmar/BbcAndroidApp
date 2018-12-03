@@ -25,4 +25,11 @@
     <string name="setting_termConditions">Terms and conditions</string>
     <string name="setting_help">Help</string>
     <string name="current_password">Current password</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>

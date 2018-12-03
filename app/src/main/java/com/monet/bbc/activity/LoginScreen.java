@@ -72,7 +72,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     private void loginUser() {
-
+        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+        finish();
         Toast.makeText(this, "api will call here", Toast.LENGTH_SHORT).show();
 
     }

@@ -23,7 +23,7 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
     private EditText otpOne, otpTwo, otpThree, otpFour;
     private String otp;
     private DonutProgress prog_otp;
-    private TextView tv_otp_time, tv_dont_get_otp, tv_otp_try_again;
+    private TextView tv_otp_time, tv_otp_try_again;
     private int progreTime = 60;
     private int progTime = 0;
     private RunTimer runTimer;
@@ -41,7 +41,6 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         otpFour = findViewById(R.id.et_otp_four);
         tv_otp_time = findViewById(R.id.tv_otp_time);
         prog_otp = findViewById(R.id.prog_otp);
-        tv_dont_get_otp = findViewById(R.id.tv_dont_get_otp);
         tv_otp_try_again = findViewById(R.id.tv_otp_try_again);
         rl_otp_try = findViewById(R.id.rl_otp_try);
         img_opt_rty = findViewById(R.id.img_opt_rty);
@@ -53,6 +52,13 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         rl_otp_try.setOnClickListener(this);
         rl_otp_try.setClickable(false);
 
+        otpValidation();
+
+        runTimer = new RunTimer(60000, 1000);
+        runTimer.start();
+    }
+
+    private void otpValidation() {
         otpOne.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,9 +141,6 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
             }
         });
-
-        runTimer = new RunTimer(60000, 1000);
-        runTimer.start();
     }
 
     @Override
@@ -150,8 +153,8 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
     }
 
     private void validate() {
-        runTimer.cancel();
         if (otp.equals("1234")) {
+            runTimer.cancel();
             startActivity(new Intent(this, ResetPasswordScreen.class));
             finish();
         } else {
