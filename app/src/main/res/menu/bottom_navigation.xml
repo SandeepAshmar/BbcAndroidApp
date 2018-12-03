@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@mipmap/live"
+        android:title="Live" />
+
+    <item
+        android:id="@+id/nav_live"
+        android:icon="@mipmap/live"
+        android:title="Featured" />
+
+    <item
+        android:id="@+id/nav_trending"
+        android:icon="@mipmap/live"
+        android:title="Popular" />
+
+    <item
+        android:id="@+id/nav_playlist"
+        android:icon="@mipmap/live"
+        android:title="Favourites" />
+
+    <item
+        android:id="@+id/nav_favourite"
+        android:icon="@mipmap/live"
+        android:title="Favourites" />
+</menu>

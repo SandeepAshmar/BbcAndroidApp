@@ -1,8 +1,17 @@
 package com.monet.bbc.activity;
 
+
+import android.annotation.SuppressLint;
+import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,18 +23,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.monet.bbc.R;
+import com.monet.bbc.fragment.FavouriteFragment;
+import com.monet.bbc.fragment.HomeFragment;
+import com.monet.bbc.fragment.LiveFragment;
+import com.monet.bbc.fragment.PlaylistFragment;
+import com.monet.bbc.fragment.TrendingFragment;
+
+import java.lang.reflect.Field;
 
 public class HomeScreen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
+    private BottomNavigationView bottomNavigationView;
+    private FavouriteFragment favouriteFragment;
+    private HomeFragment homeFragment;
+    private LiveFragment liveFragment;
+    private PlaylistFragment playlistFragment;
+    private TrendingFragment trendingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Menu menu = bottomNavigationView.getMenu();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -35,6 +61,59 @@ public class HomeScreen extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        menu.add(Menu.NONE, R.id.nav_home, Menu.NONE, "Home")
+                .setIcon(R.mipmap.live);
+        menu.add(Menu.NONE, R.id.nav_live, Menu.NONE, "Live")
+                .setIcon(R.mipmap.live);
+        menu.add(Menu.NONE, R.id.nav_trending, Menu.NONE, "Trending")
+                .setIcon(R.mipmap.live);
+        menu.add(Menu.NONE, R.id.nav_playlist, Menu.NONE, "Playlist")
+                .setIcon(R.mipmap.live);
+        menu.add(Menu.NONE, R.id.nav_favourite, Menu.NONE, "Favourite")
+                .setIcon(R.mipmap.live);
+
+        favouriteFragment = new FavouriteFragment();
+        homeFragment = new HomeFragment();
+        liveFragment = new LiveFragment();
+        playlistFragment = new PlaylistFragment();
+        trendingFragment = new TrendingFragment();
+
+        setFragment(homeFragment);
+        disableShiftMode(bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+
+    }
+
+    @SuppressLint("RestrictedApi")
+    public static void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            /*shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }*/
+        } catch (NoSuchFieldException e) {
+            Log.e("BNVHelper", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.e("BNVHelper", "Unable to change value of shift mode", e);
+        }
+    }
+
+    private void setFragment(android.support.v4.app.Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.commit();
+
     }
 
     @Override
@@ -87,6 +166,16 @@ public class HomeScreen extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_home) {
+            setFragment(homeFragment);
+        } else if (id == R.id.nav_live) {
+            setFragment(liveFragment);
+        } else if (id == R.id.nav_trending) {
+            setFragment(trendingFragment);
+        } else if (id == R.id.nav_playlist) {
+            setFragment(playlistFragment);
+        } else if (id == R.id.nav_favourite) {
+            setFragment(favouriteFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
