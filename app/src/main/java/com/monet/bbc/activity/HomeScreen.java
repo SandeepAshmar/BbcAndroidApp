@@ -99,7 +99,7 @@ public class HomeScreen extends AppCompatActivity
         tv_navPlace.setText("Sonepat, Haryana");
         dp_navProfile.setText("");
 
-        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
+//        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
 
         navigationView.setNavigationItemSelectedListener(this);
 

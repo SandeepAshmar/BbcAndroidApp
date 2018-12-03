@@ -38,6 +38,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
+                android:background="@drawable/ic_person_grye_24dp"
                 android:contentDescription="@string/nav_header_desc"/>
 
             <com.github.lzyzsd.circleprogress.DonutProgress
@@ -113,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_centerHorizontal="true"
-                android:hint="1234"
+                android:hint="0"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:textColorHint="@color/whiteColor"
@@ -149,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_centerHorizontal="true"
-                android:hint="1234"
+                android:hint="0"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:textColorHint="@color/whiteColor"
@@ -184,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_centerHorizontal="true"
-                android:hint="1234"
+                android:hint="0"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:textColorHint="@color/whiteColor"
