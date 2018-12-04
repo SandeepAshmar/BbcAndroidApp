@@ -68,7 +68,8 @@ public class HomeScreen extends AppCompatActivity
         ll_navLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeScreen.this, LoginScreen.class), ActivityOptions.makeSceneTransitionAnimation(HomeScreen.this).toBundle());
+                startActivity(new Intent(HomeScreen.this, LoginScreen.class),
+                        ActivityOptions.makeSceneTransitionAnimation(HomeScreen.this).toBundle());
                 finish();
             }
         });
@@ -99,7 +100,7 @@ public class HomeScreen extends AppCompatActivity
         tv_navPlace.setText("Sonepat, Haryana");
         dp_navProfile.setText("");
 
-//        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
+        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -195,7 +196,8 @@ public class HomeScreen extends AppCompatActivity
             navItemClicked = 0;
             // Handle the camera action
         } else if (id == R.id.nav_rewards) {
-
+            Intent intent = new Intent(this, RewardsScreen.class);
+            startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             navItemClicked = 1;
         } else if (id == R.id.nav_leaderboard) {
 

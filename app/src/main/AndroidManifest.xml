@@ -44,7 +44,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RewardsScreen"></activity>
+        <activity android:name=".activity.RewardsScreen"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
