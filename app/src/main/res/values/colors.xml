@@ -11,4 +11,5 @@
     <color name="navSelectedBackground">#1906a9dc</color>
     
     <color name="donutProgUnfinished">#D7DBDB</color>
+    <color name="leaderBoradUserBackgroundColor">#3206a9dc</color>
 </resources>

@@ -200,7 +200,8 @@ public class HomeScreen extends AppCompatActivity
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             navItemClicked = 1;
         } else if (id == R.id.nav_leaderboard) {
-
+            Intent intent = new Intent(this, LeaderboardScreen.class);
+            startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             navItemClicked = 2;
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(this, SettingScreen.class);

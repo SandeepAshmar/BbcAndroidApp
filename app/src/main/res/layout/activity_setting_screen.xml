@@ -11,6 +11,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/setting_toolbar"
         android:layout_width="match_parent"
+        android:background="@drawable/color_combination"
         android:layout_height="wrap_content">
 
         <TextView
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/settings_toolbar"
-            android:textColor="@color/blackColor" />
+            android:textColor="@color/whiteColor" />
 
     </android.support.v7.widget.Toolbar>
 
