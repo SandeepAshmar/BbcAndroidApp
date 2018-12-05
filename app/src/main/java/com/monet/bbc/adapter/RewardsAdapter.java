@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
     Context context;
     int size;
     ScratchImageView simg_scratch;
+    int pos = -1;
 
     public RewardsAdapter(Context context, int size) {
         this.context = context;
@@ -53,23 +56,28 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        holder.rl_scratch.setVisibility(View.GONE);
 
-        if (position == 2) {
             holder.rl_scratch.setVisibility(View.VISIBLE);
+
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down);
+        animation.setDuration(500);
+        holder.itemView.startAnimation(animation);
+
+        if(pos == position){
+            holder.rl_scratch.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
+                openDialog(position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return size;
+        return 50;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -85,7 +93,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
         }
     }
 
-    private void openDialog() {
+    private void openDialog(final int position) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.reward_dialog);
@@ -99,8 +107,10 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
 
             @Override
             public void onRevealPercentChangedListener(ScratchImageView scratchImageView, float v) {
-                if(v > 0.10){
+                if(v > 0.10 && v <0.11){
                     Log.d("done", "done");
+                    pos = position;
+                    notifyItemChanged(position);
                 }
             }
         });

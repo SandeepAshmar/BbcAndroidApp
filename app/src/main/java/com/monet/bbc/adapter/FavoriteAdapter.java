@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,6 +37,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Glide.with(context).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(holder.imageView);
+
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down);
+        animation.setDuration(500);
+        holder.itemView.startAnimation(animation);
 
         holder.img_favorite_share.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,14 +1,18 @@
 package com.monet.bbc.activity;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
+import android.transition.Slide;
+import android.view.Gravity;
 
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.RewardsAdapter;
+
+import static com.monet.bbc.utils.AppUtils.runRightSideAnimation;
 
 public class RewardsScreen extends AppCompatActivity {
 
@@ -17,6 +21,7 @@ public class RewardsScreen extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RewardsAdapter adapter;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,8 @@ public class RewardsScreen extends AppCompatActivity {
         adapter = new RewardsAdapter(this, 10);
         recyclerView.setAdapter(adapter);
     }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {

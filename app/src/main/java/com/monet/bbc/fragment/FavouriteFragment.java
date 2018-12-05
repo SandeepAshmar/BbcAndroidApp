@@ -1,10 +1,13 @@
 package com.monet.bbc.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +15,9 @@ import android.view.ViewGroup;
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.FavoriteAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import static com.monet.bbc.utils.AppUtils.runFallDownAnimation;
+import static com.monet.bbc.utils.AppUtils.runRightSideAnimation;
+
 public class FavouriteFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -22,6 +25,7 @@ public class FavouriteFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     View view;
 
+    @SuppressLint("NewApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,7 +38,14 @@ public class FavouriteFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         favoriteAdapter = new FavoriteAdapter(getActivity(), 50);
         recyclerView.setAdapter(favoriteAdapter);
-
+//        runRightSideAnimation(recyclerView);
+//
+//        recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//
+//            }
+//        });
 
         return view;
     }
