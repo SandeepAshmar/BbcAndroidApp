@@ -14,27 +14,28 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
+public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHolder> {
 
     Context context;
     int size;
     boolean isGridView;
 
-    public FavoriteAdapter(Context context, int size, boolean isGridView) {
+    public PlayListAdapter(Context context, int size, boolean isGridView){
         this.context = context;
         this.size = size;
         this.isGridView = isGridView;
     }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlayListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
         if(isGridView){
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_favorite_grid, parent, false);
+                    .inflate(R.layout.item_playlist_grid, parent, false);
         }else{
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_favorite, parent, false);
+                    .inflate(R.layout.item_playlist, parent, false);
         }
 
 
@@ -61,6 +62,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "PlayList"+position, Toast.LENGTH_SHORT).show();
+                notifyItemRemoved(position);
+                size = size - 1;
             }
         });
 
@@ -68,8 +71,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Love" + position, Toast.LENGTH_SHORT).show();
-                notifyItemRemoved(position);
-                size = size - 1;
+                holder.img_favorite_love.setBackgroundResource(R.drawable.ic_love_deselect);
+
 
             }
         });
@@ -92,4 +95,5 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             img_favorite_love = itemView.findViewById(R.id.img_favorite_love);
         }
     }
+
 }

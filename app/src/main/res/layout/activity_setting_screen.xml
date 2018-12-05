@@ -79,7 +79,7 @@
                 style="@style/SettingText"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:drawableStart="@drawable/ic_share"
+                android:drawableStart="@drawable/ic_sharecolored"
                 android:text="@string/setting_shareEarn" />
 
             <View

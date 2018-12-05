@@ -73,7 +73,7 @@
                     android:layout_height="16dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="8dp"
-                    android:src="@drawable/ic_playlistadd" />
+                    android:src="@drawable/ic_playlist_added" />
 
                 <ImageView
                     android:id="@+id/img_favorite_love"
