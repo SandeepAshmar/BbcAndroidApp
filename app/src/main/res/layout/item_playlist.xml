@@ -5,14 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/img_favorite_item"
+            android:id="@+id/img_playlist_item"
             android:layout_width="88dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_view" />
@@ -23,7 +22,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_favorite_item_title"
+                android:id="@+id/tv_playlist_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -46,7 +45,7 @@
                     android:src="@drawable/ic_eye" />
 
                 <TextView
-                    android:id="@+id/tv_favorite_viewed"
+                    android:id="@+id/tv_playlist_viewed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
@@ -60,7 +59,7 @@
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:id="@+id/img_favorite_share"
+                    android:id="@+id/img_playlist_share"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center_vertical"
@@ -68,7 +67,7 @@
                     android:src="@drawable/ic_share" />
 
                 <ImageView
-                    android:id="@+id/img_favorite_playList"
+                    android:id="@+id/img_playlist_add_remove"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center_vertical"
@@ -76,7 +75,7 @@
                     android:src="@drawable/ic_playlist_added" />
 
                 <ImageView
-                    android:id="@+id/img_favorite_love"
+                    android:id="@+id/img_playlist_love"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center_vertical"

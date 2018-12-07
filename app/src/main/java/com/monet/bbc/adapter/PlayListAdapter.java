@@ -19,8 +19,9 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
     Context context;
     int size;
     boolean isGridView;
+    boolean isAddedFavorite = false;
 
-    public PlayListAdapter(Context context, int size, boolean isGridView){
+    public PlayListAdapter(Context context, int size, boolean isGridView) {
         this.context = context;
         this.size = size;
         this.isGridView = isGridView;
@@ -30,14 +31,13 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
     @Override
     public PlayListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
-        if(isGridView){
+        if (isGridView) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_playlist_grid, parent, false);
-        }else{
+        } else {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_playlist, parent, false);
         }
-
 
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -51,27 +51,34 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         animation.setDuration(500);
         holder.itemView.startAnimation(animation);
 
-        holder.img_favorite_share.setOnClickListener(new View.OnClickListener() {
+        holder.img_playlist_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Share"+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Share" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
-        holder.img_favorite_playList.setOnClickListener(new View.OnClickListener() {
+        holder.img_playlist_add_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "PlayList"+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "PlayList" + position, Toast.LENGTH_SHORT).show();
                 notifyItemRemoved(position);
                 size = size - 1;
             }
         });
 
-        holder.img_favorite_love.setOnClickListener(new View.OnClickListener() {
+        holder.img_playlist_love.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Love" + position, Toast.LENGTH_SHORT).show();
-                holder.img_favorite_love.setBackgroundResource(R.drawable.ic_love_deselect);
+                if (isAddedFavorite) {
+                    holder.img_playlist_add_remove.setBackgroundResource(R.drawable.ic_playlist_added);
+                    isAddedFavorite = false;
+                } else {
+                    holder.img_playlist_add_remove.setBackgroundResource(R.drawable.ic_playlistadd);
+                    isAddedFavorite = true;
+                }
+                notifyItemChanged(position);
 
 
             }
@@ -84,15 +91,15 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         return size;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView, img_favorite_share, img_favorite_playList,img_favorite_love;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView, img_playlist_share, img_playlist_add_remove, img_playlist_love;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.img_favorite_item);
-            img_favorite_share = itemView.findViewById(R.id.img_favorite_share);
-            img_favorite_playList = itemView.findViewById(R.id.img_favorite_playList);
-            img_favorite_love = itemView.findViewById(R.id.img_favorite_love);
+            imageView = itemView.findViewById(R.id.img_playlist_item);
+            img_playlist_share = itemView.findViewById(R.id.img_playlist_share);
+            img_playlist_add_remove = itemView.findViewById(R.id.img_playlist_add_remove);
+            img_playlist_love = itemView.findViewById(R.id.img_playlist_love);
         }
     }
 
