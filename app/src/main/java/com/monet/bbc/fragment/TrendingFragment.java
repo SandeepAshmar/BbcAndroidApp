@@ -23,6 +23,7 @@ public class TrendingFragment extends Fragment {
     private RecyclerView recyclerView;
     private TrendingAdapter trendingAdapter;
     private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
     private View view;
     private ImageView changeView;
     private boolean isGridView = false;
@@ -60,11 +61,11 @@ public class TrendingFragment extends Fragment {
     private void loadView(boolean isGridView) {
 
         if (isGridView) {
-            /*gridLayoutManager = new GridLayoutManager(getActivity(),2);
+            gridLayoutManager = new GridLayoutManager(getActivity(),2);
             recyclerView.setLayoutManager(gridLayoutManager);
-            playListAdapter = new PlayListAdapter(getActivity(), 50, isGridView);
-            recyclerView.setAdapter(playListAdapter);
-            changeView.setBackgroundResource(R.drawable.ic_listview);*/
+            trendingAdapter = new TrendingAdapter(getActivity(), 50, isGridView);
+            recyclerView.setAdapter(trendingAdapter);
+            changeView.setBackgroundResource(R.drawable.ic_listview);
 
         } else {
             linearLayoutManager = new LinearLayoutManager(getActivity());
