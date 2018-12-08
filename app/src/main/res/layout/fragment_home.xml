@@ -27,6 +27,22 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/half_black"/>
+
+                <TextView
+                    android:id="@+id/tv_homeGetIt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/get_it"
+                    android:textStyle="bold"
+                    android:layout_above="@id/indicator"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:textColor="@color/whiteColor"/>
+
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"

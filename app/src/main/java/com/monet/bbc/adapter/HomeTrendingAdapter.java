@@ -11,14 +11,16 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 
+import java.util.ArrayList;
+
 public class HomeTrendingAdapter extends RecyclerView.Adapter<HomeTrendingAdapter.ViewHolder> {
 
     Context context;
-    int size;
+    ArrayList<String> imageList;
 
-    public HomeTrendingAdapter(Context context, int size) {
+    public HomeTrendingAdapter(Context context, ArrayList<String> imageList) {
         this.context = context;
-        this.size = size;
+        this.imageList = imageList;
     }
 
     @NonNull
@@ -33,12 +35,12 @@ public class HomeTrendingAdapter extends RecyclerView.Adapter<HomeTrendingAdapte
 
     @Override
     public void onBindViewHolder(@NonNull HomeTrendingAdapter.ViewHolder holder, int position) {
-        Glide.with(context).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(holder.img_homeTrending_item);
+        Glide.with(context).load(imageList.get(position)).into(holder.img_homeTrending_item);
     }
 
     @Override
     public int getItemCount() {
-        return size;
+        return imageList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

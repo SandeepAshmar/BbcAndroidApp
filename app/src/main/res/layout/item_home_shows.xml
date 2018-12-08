@@ -16,6 +16,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_view" />
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:background="@drawable/half_black" />
+
         <TextView
             android:id="@+id/tv_homeShows_viewed"
             android:layout_width="wrap_content"
@@ -23,7 +28,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
-            android:text="27 K" />
+            android:text="27 K"
+            android:textColor="@color/whiteColor"/>
 
         <ImageView
             android:layout_width="20dp"
@@ -31,7 +37,7 @@
             android:layout_alignBottom="@+id/tv_homeShows_viewed"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="40dp"
-            android:src="@drawable/ic_eye" />
+            android:src="@drawable/ic_white_eye" />
 
 
         <TextView
