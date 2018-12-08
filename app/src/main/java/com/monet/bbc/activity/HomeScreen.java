@@ -28,6 +28,7 @@ import com.monet.bbc.fragment.HomeFragment;
 import com.monet.bbc.fragment.LiveFragment;
 import com.monet.bbc.fragment.PlaylistFragment;
 import com.monet.bbc.fragment.TrendingFragment;
+import com.monet.bbc.utils.AppUtils;
 
 import java.lang.reflect.Field;
 
@@ -64,6 +65,7 @@ public class HomeScreen extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+//        AppUtils.shortToast(this, "Hello World");
 
         ll_navLogout.setOnClickListener(new View.OnClickListener() {
             @Override

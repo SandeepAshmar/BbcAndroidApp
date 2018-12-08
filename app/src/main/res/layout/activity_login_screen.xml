@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".activity.LoginScreen">
 
     <include
@@ -43,14 +43,15 @@
                     android:layout_height="wrap_content"
                     android:theme="@style/myEditTextStyle"
                     android:layout_marginTop="30dp">
+
                     <EditText
                         android:id="@+id/edt_login_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:textSize="14sp"
                         android:drawableRight="@drawable/ic_mail"
-                        android:hint="@string/login_email_hint" />
+                        android:hint="@string/login_email_hint"
+                        android:inputType="textEmailAddress"
+                        android:textSize="14sp" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -64,10 +65,10 @@
                         android:id="@+id/edt_login_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:textSize="14sp"
                         android:drawableRight="@drawable/ic_lock"
-                        android:hint="@string/login_password_hint" />
+                        android:hint="@string/login_password_hint"
+                        android:inputType="textPassword"
+                        android:textSize="14sp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -79,27 +80,27 @@
                     android:background="@drawable/color_combination"
                     android:text="@string/login"
                     android:textAllCaps="false"
-                    android:textColor="@color/whiteColor"/>
+                    android:textColor="@color/whiteColor" />
 
                 <TextView
                     android:id="@+id/tv_login_forgot"
+                    style="@style/SecondryText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/forgot_password"
-                    style="@style/SecondryText"
-                    android:layout_margin="10dp" />
+                    android:layout_margin="10dp"
+                    android:text="@string/forgot_password" />
 
                 <Button
                     android:id="@+id/btn_fb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/fb_btn"
-                    android:textAllCaps="false"
                     android:drawableLeft="@drawable/ic_facebook"
-                    android:text="@string/facebook_button_text"
                     android:paddingLeft="20dp"
+                    android:text="@string/facebook_button_text"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView
