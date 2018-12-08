@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.HomePlayListAdapter;
@@ -35,7 +37,7 @@ public class HomeFragment extends Fragment {
     private String three = "https://lh6.googleusercontent.com/proxy/x2cf-GR30wkgwbG0Z_Cqq7ew7jvuzuSLQ5q4Xbk7r2vAlSAFgYTD_-XNQETsHIwgzBOGnSFGP3XhNGNq1veyNRMugXEwRNzVN35yMLWMVPCUbFvAzA--u_6GFOTXy4iVpIfkSSfG10wqhoQlzzo4=s0-d";
     private String four = "https://2dhnizrxqvv1awj231eodql1-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/landscape-photography-weather.jpg";
     private String five = "http://www.michaelleadbetter.com.au/portfolio/Landscape-Photography-Brisbane.jpg";
-    private String six = "http://blog.landscapeprofessionals.org/wp-content/uploads/2018/04/agriculture-clouds-countryside-440731.jpg";
+    private String six = "https://png.pngtree.com/thumb_back/fh260/back_pic/03/72/94/8457b9a65caa197.jpg";
     private ArrayList<String> imageList = new ArrayList<>();
     private HomeShowsAdapter mShowsAdapter;
     private LinearLayoutManager showsLayoutManager;
@@ -44,7 +46,7 @@ public class HomeFragment extends Fragment {
     private LinearLayoutManager trendLayoutManager;
     private HomePlayListAdapter mPlayListAdapter;
     private LinearLayoutManager playListLayoutManager;
-
+    public static TextView tv_homeGetIt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +57,7 @@ public class HomeFragment extends Fragment {
         rv_showsHome = view.findViewById(R.id.rv_showsHome);
         rv_trendingHome = view.findViewById(R.id.rv_trendingHome);
         rv_playListHome = view.findViewById(R.id.rv_playListHome);
+        tv_homeGetIt = view.findViewById(R.id.tv_homeGetIt);
 
         imageList.clear();
         imageList.add(one);
@@ -63,7 +66,8 @@ public class HomeFragment extends Fragment {
         imageList.add(four);
         imageList.add(five);
         imageList.add(six);
-        imageSlider(view);
+
+        imageSliderAdapter(view);
         setShowsAdapter();
         setTrendingAdapter();
         setPlayListAdapter();
@@ -73,25 +77,25 @@ public class HomeFragment extends Fragment {
     private void setPlayListAdapter() {
         playListLayoutManager = new LinearLayoutManager(getActivity());
         rv_playListHome.setLayoutManager(playListLayoutManager);
-        mPlayListAdapter = new HomePlayListAdapter(getActivity(), 15);
+        mPlayListAdapter = new HomePlayListAdapter(getActivity(), imageList);
         rv_playListHome.setAdapter(mPlayListAdapter);
     }
 
     private void setTrendingAdapter() {
         trendLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rv_trendingHome.setLayoutManager(trendLayoutManager);
-        mTrendAdapter = new HomeTrendingAdapter(getActivity(), 15);
+        mTrendAdapter = new HomeTrendingAdapter(getActivity(), imageList);
         rv_trendingHome.setAdapter(mTrendAdapter);
     }
 
     private void setShowsAdapter() {
         showsLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rv_showsHome.setLayoutManager(showsLayoutManager);
-        mShowsAdapter = new HomeShowsAdapter(getActivity(), 15);
+        mShowsAdapter = new HomeShowsAdapter(getActivity(), imageList);
         rv_showsHome.setAdapter(mShowsAdapter);
     }
 
-    private void imageSlider(View view) {
+    private void imageSliderAdapter(View view) {
 
         mPager = (ViewPager) view.findViewById(R.id.pager);
         mPager.setAdapter(new ImageSliderHome(getActivity(),imageList));
