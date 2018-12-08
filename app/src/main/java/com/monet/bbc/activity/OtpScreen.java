@@ -50,7 +50,6 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         prog_otp.setMax(progreTime);
         prog_otp.setText("");
 
-//        findViewById(R.id.btn_otp_next).setOnClickListener(this);
         rl_otp_try.setOnClickListener(this);
         rl_otp_try.setClickable(false);
 
@@ -76,7 +75,6 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -161,6 +159,11 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             startActivity(new Intent(this, ResetPasswordScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
         } else {
+            otpOne.getText().clear();
+            otpTwo.getText().clear();
+            otpThree.getText().clear();
+            otpFour.getText().clear();
+            otpOne.requestFocus();
             Toast.makeText(this, "please enter 1234 in otp", Toast.LENGTH_SHORT).show();
         }
     }
