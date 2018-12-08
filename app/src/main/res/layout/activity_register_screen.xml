@@ -42,7 +42,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/til_register_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:theme="@style/myEditTextStyle">
                     <EditText
                         android:id="@+id/edt_register_email"
                         android:layout_width="match_parent"
@@ -58,7 +59,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/til_register_email"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="15dp"
+                    android:theme="@style/myEditTextStyle">
 
                     <EditText
                         android:id="@+id/edt_register_password"
@@ -76,7 +78,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/til_register_password"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="15dp"
+                    android:theme="@style/myEditTextStyle">
 
                     <EditText
                         android:id="@+id/edt_register_confirm_password"

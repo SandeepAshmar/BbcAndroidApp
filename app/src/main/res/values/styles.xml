@@ -52,4 +52,14 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <style name="myEditTextStyle">
+        <item name="colorPrimary">@color/secondryColor</item>
+        <item name="colorPrimaryDark">@color/secondryColor</item>
+        <item name="colorAccent">@color/secondryColor</item>
+        <item name="android:textColorHint">@color/secondryColor</item>
+        <item name="android:buttonStyleToggle">@color/secondryColor</item>
+        <item name="android:colorControlNormal" tools:ignore="NewApi">@color/secondryColor</item>
+        <item name="android:longClickable">false</item>
+    </style>
+
 </resources>
