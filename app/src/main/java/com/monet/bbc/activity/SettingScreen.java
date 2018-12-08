@@ -48,7 +48,7 @@ public class SettingScreen extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onSupportNavigateUp() {
-        Toast.makeText(this, "btn clicked", Toast.LENGTH_SHORT).show();
+        onBackPressed();
         return super.onSupportNavigateUp();
     }
 

@@ -46,7 +46,7 @@ public class ImageSliderHome extends PagerAdapter {
         Glide.with(context).load(images.get(position)).into(myImage);
         view.addView(myImageLayout, 0);
 
-        visiBleView(position);
+        visibleView(position);
         return myImageLayout;
     }
 
@@ -55,7 +55,7 @@ public class ImageSliderHome extends PagerAdapter {
         return view.equals(object);
     }
 
-    public void visiBleView(final int position){
+    public void visibleView(final int position){
         tv_homeGetIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
