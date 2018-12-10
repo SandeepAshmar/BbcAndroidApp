@@ -12,4 +12,6 @@
     
     <color name="donutProgUnfinished">#D7DBDB</color>
     <color name="leaderBoradUserBackgroundColor">#3206a9dc</color>
+
+    <color name="onlineColor">#08A561</color>
 </resources>
