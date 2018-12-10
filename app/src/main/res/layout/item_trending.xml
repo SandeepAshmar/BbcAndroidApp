@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img_trending_item"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="&#8942;"

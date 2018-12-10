@@ -91,7 +91,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             case R.id.fbLogin:
                 fbLogin();
                 break;
-
         }
     }
 
