@@ -24,6 +24,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.monet.bbc.R;
+import com.monet.bbc.utils.AppPreference;
 import com.monet.bbc.utils.AppUtils;
 
 import org.json.JSONException;
@@ -43,7 +44,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     private static final String EMAIL = "email";
     private CallbackManager callbackManager;
     private AccessToken mAccessToken;
-    private String socialId, socialEmail, socialName;
+    private String socialId, socialEmail, socialName, socialImage;
     private static int RC_SIGN_IN = 1;
 
     @Override
@@ -122,6 +123,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         socialId = "";
         socialEmail = "";
         socialName = "";
+        socialImage = "";
         GraphRequest request = GraphRequest.newMeRequest(
                 currentAccessToken,
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -130,12 +132,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         try {
                             socialId = object.getString("id");
                             socialName = object.getString("name");
+                            socialImage = "https://graph.facebook.com/" + socialId+ "/picture?type=large";
                             socialEmail = object.getString("email");
+                            AppPreference.setImageURL(LoginScreen.this, socialImage);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
                         }
                         LoginManager.getInstance().logOut();
+                        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+                        finish();
                         // socialLogin();
                     }
                 });

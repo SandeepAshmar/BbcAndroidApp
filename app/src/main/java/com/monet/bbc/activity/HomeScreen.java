@@ -28,6 +28,7 @@ import com.monet.bbc.fragment.HomeFragment;
 import com.monet.bbc.fragment.LiveFragment;
 import com.monet.bbc.fragment.PlaylistFragment;
 import com.monet.bbc.fragment.TrendingFragment;
+import com.monet.bbc.utils.AppPreference;
 import com.monet.bbc.utils.AppUtils;
 
 import java.lang.reflect.Field;
@@ -70,6 +71,7 @@ public class HomeScreen extends AppCompatActivity
         ll_navLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AppPreference.clearAllPreferences(HomeScreen.this);
                 startActivity(new Intent(HomeScreen.this, LoginScreen.class),
                         ActivityOptions.makeSceneTransitionAnimation(HomeScreen.this).toBundle());
                 finish();
@@ -102,7 +104,7 @@ public class HomeScreen extends AppCompatActivity
         tv_navPlace.setText("Sonepat, Haryana");
         dp_navProfile.setText("");
 
-        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
+        Glide.with(this).load(AppPreference.getImageURL(this)).into(img_navProfile);
 
         navigationView.setNavigationItemSelectedListener(this);
 
