@@ -7,7 +7,9 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.monet.bbc.activity.HomeScreen;
 import com.monet.bbc.activity.LoginScreen;
+import com.monet.bbc.utils.AppPreference;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -21,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
-    class SplashScreenFinish extends CountDownTimer{
+    class SplashScreenFinish extends CountDownTimer {
 
         public SplashScreenFinish(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
@@ -35,9 +37,13 @@ public class SplashScreen extends AppCompatActivity {
         @SuppressLint("NewApi")
         @Override
         public void onFinish() {
-            startActivity(new Intent(SplashScreen.this, LoginScreen.class),
-                    ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this).toBundle());
-            finish();
+            if (AppPreference.isUserLoggedOut(SplashScreen.this)) {
+                startActivity(new Intent(SplashScreen.this, LoginScreen.class));
+                finish();
+            }else{
+                startActivity(new Intent(SplashScreen.this, HomeScreen.class));
+                finish();
+            }
         }
     }
 }

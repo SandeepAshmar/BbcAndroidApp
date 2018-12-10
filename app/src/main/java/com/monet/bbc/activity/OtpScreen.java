@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,7 +25,7 @@ import com.monet.bbc.R;
 
 public class OtpScreen extends AppCompatActivity implements View.OnClickListener {
     private EditText otpOne, otpTwo, otpThree, otpFour;
-    private String otp;
+    private String otp = "";
     private DonutProgress prog_otp;
     private TextView tv_otp_time, tv_otp_try_again;
     private int progreTime = 60;
@@ -31,6 +33,10 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
     private RunTimer runTimer;
     private RelativeLayout rl_otp_try;
     private ImageView img_opt_rty;
+    private int edtLengthTwo = 0, edtLengthThree = 0, edtLengthFour = 0;
+    private boolean secoundHit = false;
+    private boolean thirdHit = false;
+    private boolean fourthHit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,7 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
     }
 
     private void otpValidation() {
+
         otpOne.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,6 +77,10 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count == 1) {
                     otpTwo.requestFocus();
+                    otp = otpOne.getText().toString() + "" + otpTwo.getText().toString() + "" + otpThree.getText().toString() + "" + otpFour.getText().toString();
+                }
+                if (otp.length() == 4) {
+                    validate();
                 }
             }
 
@@ -78,23 +89,61 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             }
         });
 
+        otpTwo.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (edtLengthTwo == 0) {
+                    secoundHit = true;
+                    edtLengthTwo = 1;
+                } else if (secoundHit) {
+                    otpOne.requestFocus();
+                    secoundHit = false;
+                    thirdHit = false;
+                    fourthHit = false;
+                }
+                return false;
+            }
+        });
+
         otpTwo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count == 1) {
+                    otp = otpOne.getText().toString() + "" + otpTwo.getText().toString() + "" + otpThree.getText().toString() + "" + otpFour.getText().toString();
                     otpThree.requestFocus();
+                    edtLengthTwo = 1;
+                    secoundHit = false;
+                } else {
+                    edtLengthTwo = 0;
+                }
+                if (otp.length() == 4) {
+                    validate();
                 }
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
 
+        otpThree.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (edtLengthThree == 0) {
+                    thirdHit = true;
+                    edtLengthThree = 1;
+                } else if (thirdHit) {
+                    otpTwo.requestFocus();
+                    secoundHit = false;
+                    thirdHit = false;
+                    fourthHit = false;
+                }
+                return false;
             }
         });
 
@@ -107,7 +156,15 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count == 1) {
+                    otp = otpOne.getText().toString() + "" + otpTwo.getText().toString() + "" + otpThree.getText().toString() + "" + otpFour.getText().toString();
                     otpFour.requestFocus();
+                    edtLengthThree = 1;
+                    thirdHit = false;
+                } else {
+                    edtLengthThree = 0;
+                }
+                if (otp.length() == 4) {
+                    validate();
                 }
             }
 
@@ -116,6 +173,23 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
             }
         });
+
+        otpFour.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (edtLengthFour == 0) {
+                    fourthHit = true;
+                    edtLengthFour = 1;
+                } else if (fourthHit) {
+                    otpThree.requestFocus();
+                    secoundHit = false;
+                    thirdHit = false;
+                    fourthHit = false;
+                }
+                return false;
+            }
+        });
+
 
         otpFour.addTextChangedListener(new TextWatcher() {
             @Override
@@ -127,12 +201,15 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             public void onTextChanged(CharSequence charSequence, int i, int i1, int count) {
                 if (count == 1) {
                     otp = otpOne.getText().toString() + "" + otpTwo.getText().toString() + "" + otpThree.getText().toString() + "" + otpFour.getText().toString();
-
+                    edtLengthFour = 1;
+                    fourthHit = false;
                     if (otp.length() == 4) {
                         validate();
                     } else {
                         Toast.makeText(OtpScreen.this, "Please enter full otp", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    edtLengthFour = 0;
                 }
             }
 
@@ -164,8 +241,15 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             otpThree.getText().clear();
             otpFour.getText().clear();
             otpOne.requestFocus();
-            Toast.makeText(this, "please enter 1234 in otp", Toast.LENGTH_SHORT).show();
+            otp = "";
+            Toast.makeText(this, "please enter valid in otp", Toast.LENGTH_SHORT).show();
         }
+        edtLengthTwo = 1;
+        edtLengthThree = 1;
+        edtLengthFour = 1;
+        secoundHit = false;
+        thirdHit = false;
+        fourthHit = false;
     }
 
     class RunTimer extends CountDownTimer {

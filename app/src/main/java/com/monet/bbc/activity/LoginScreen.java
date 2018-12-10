@@ -20,6 +20,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -63,6 +64,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         getKeyHash();
         fbLogin.setOnClickListener(this);
         fbLogin.setReadPermissions(Arrays.asList(EMAIL));
+        fbLogin.setLoginBehavior(LoginBehavior.WEB_ONLY);
         callbackManager = CallbackManager.Factory.create();
     }
 
@@ -71,11 +73,11 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_forgot:
-                startActivity(new Intent(this, ForgotPasswordScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(new Intent(this, ForgotPasswordScreen.class));
                 break;
 
             case R.id.tv_Login_SignUp_Link:
-                startActivity(new Intent(this, RegisterScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(new Intent(this, RegisterScreen.class));
                 break;
 
             case R.id.btn_login:
@@ -140,9 +142,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                             AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
                         }
                         LoginManager.getInstance().logOut();
+                        AppPreference.setUserLoggedOut(LoginScreen.this, false);
                         startActivity(new Intent(LoginScreen.this, HomeScreen.class));
                         finish();
-                        // socialLogin();
                     }
                 });
         Bundle parameters = new Bundle();
