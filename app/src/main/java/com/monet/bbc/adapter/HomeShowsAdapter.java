@@ -38,6 +38,12 @@ public class HomeShowsAdapter extends RecyclerView.Adapter<HomeShowsAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(imageList.get(position)).into(holder.img_homeShows_item);
+
+        holder.onlineView.setVisibility(View.GONE);
+
+        if(position == 1){
+            holder.onlineView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -48,11 +54,13 @@ public class HomeShowsAdapter extends RecyclerView.Adapter<HomeShowsAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img_homeShows_item;
+        View onlineView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             img_homeShows_item = itemView.findViewById(R.id.img_homeShows_item);
+            onlineView = itemView.findViewById(R.id.onlineView);
         }
     }
 }
