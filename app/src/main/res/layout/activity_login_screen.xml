@@ -114,6 +114,12 @@
 
         </ScrollView>
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/fbLogin"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"/>
+
     </RelativeLayout>
 
 

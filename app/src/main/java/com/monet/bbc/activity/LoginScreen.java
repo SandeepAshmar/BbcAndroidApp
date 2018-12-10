@@ -1,15 +1,37 @@
 package com.monet.bbc.activity;
 
 import android.annotation.SuppressLint;
+import android.content.pm.Signature;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.monet.bbc.R;
+import com.monet.bbc.utils.AppUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
 
@@ -17,6 +39,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     private EditText edt_login_email, edt_login_password;
     private String email, password;
+    private LoginButton fbLogin;
+    private static final String EMAIL = "email";
+    private CallbackManager callbackManager;
+    private AccessToken mAccessToken;
+    private String socialId, socialEmail, socialName;
+    private static int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +53,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         edt_login_email = findViewById(R.id.edt_login_email);
         edt_login_password = findViewById(R.id.edt_login_password);
+        fbLogin = findViewById(R.id.fbLogin);
 
         findViewById(R.id.tv_login_forgot).setOnClickListener(this);
         findViewById(R.id.tv_Login_SignUp_Link).setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_fb).setOnClickListener(this);
-
+        getKeyHash();
+        fbLogin.setOnClickListener(this);
+        fbLogin.setReadPermissions(Arrays.asList(EMAIL));
+        callbackManager = CallbackManager.Factory.create();
     }
 
     @SuppressLint("NewApi")
@@ -42,7 +74,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.tv_Login_SignUp_Link:
-                startActivity(new Intent(this, RegisterScreen.class) , ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(new Intent(this, RegisterScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
 
             case R.id.btn_login:
@@ -50,8 +82,83 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.btn_fb:
-                Toast.makeText(this, "btn clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "btn clicked", Toast.LENGTH_SHORT).show();
+                fbLogin.performClick();
                 break;
+            case R.id.fbLogin:
+                fbLogin();
+                break;
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void fbLogin() {
+        fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                mAccessToken = loginResult.getAccessToken();
+                getUserProfile(mAccessToken);
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginScreen.this, "Login Canceled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(LoginScreen.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getUserProfile(AccessToken currentAccessToken) {
+        socialId = "";
+        socialEmail = "";
+        socialName = "";
+        GraphRequest request = GraphRequest.newMeRequest(
+                currentAccessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            socialId = object.getString("id");
+                            socialName = object.getString("name");
+                            socialEmail = object.getString("email");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
+                        }
+                        LoginManager.getInstance().logOut();
+                        // socialLogin();
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+    private void getKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.monet_android",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", "KeyHash: " + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
         }
     }
 
@@ -60,9 +167,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         email = edt_login_email.getText().toString();
         password = edt_login_password.getText().toString();
 
-        if (email.isEmpty() && password.isEmpty() ) {
+        if (email.isEmpty() && password.isEmpty()) {
             Toast.makeText(this, "Please enter email or password", Toast.LENGTH_SHORT).show();
-        } else if (email.isEmpty() ) {
+        } else if (email.isEmpty()) {
             Toast.makeText(this, "Please enter email id", Toast.LENGTH_SHORT).show();
         } else if (password.isEmpty()) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
@@ -79,7 +186,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         startActivity(new Intent(LoginScreen.this, HomeScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
         Toast.makeText(this, "api will call here", Toast.LENGTH_SHORT).show();
-
     }
 }
 
