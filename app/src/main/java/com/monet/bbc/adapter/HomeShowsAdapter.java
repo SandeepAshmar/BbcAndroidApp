@@ -1,6 +1,7 @@
 package com.monet.bbc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
+import com.monet.bbc.activity.SimpleVideoPlay;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,13 @@ public class HomeShowsAdapter extends RecyclerView.Adapter<HomeShowsAdapter.View
         if(position == 1){
             holder.onlineView.setVisibility(View.VISIBLE);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, SimpleVideoPlay.class));
+            }
+        });
     }
 
     @Override
