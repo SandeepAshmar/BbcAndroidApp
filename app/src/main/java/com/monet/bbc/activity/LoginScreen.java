@@ -190,7 +190,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     @SuppressLint("NewApi")
     private void loginUser() {
-        startActivity(new Intent(LoginScreen.this, HomeScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
         finish();
         Toast.makeText(this, "api will call here", Toast.LENGTH_SHORT).show();
     }

@@ -15,8 +15,8 @@ import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
 
 public class RegisterScreen extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText edt_register_email, edt_register_password, edt_register_confirm_password;
-    private String email, pass, conPass;
+    private EditText edt_register_email, edt_register_password, edt_register_name;
+    private String email, pass, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
         edt_register_email = findViewById(R.id.edt_register_email);
         edt_register_password = findViewById(R.id.edt_register_password);
-        edt_register_confirm_password = findViewById(R.id.edt_register_confirm_password);
+        edt_register_name = findViewById(R.id.edt_register_name);
 
         findViewById(R.id.btn_register).setOnClickListener(this);
         findViewById(R.id.tv_registerSignIn).setOnClickListener(this);
@@ -39,7 +39,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
                 validate();
                 break;
             case R.id.tv_registerSignIn:
-                startActivity(new Intent(this, LoginScreen.class) , ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(new Intent(this, LoginScreen.class));
                 finish();
                 break;
         }
@@ -48,16 +48,14 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
     private void validate() {
         email = edt_register_email.getText().toString();
         pass = edt_register_password.getText().toString();
-        conPass = edt_register_confirm_password.getText().toString();
+        name = edt_register_name.getText().toString();
 
         if (email.isEmpty()) {
             Toast.makeText(this, "Please enter email id", Toast.LENGTH_SHORT).show();
         } else if (pass.isEmpty()) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-        } else if (conPass.isEmpty()) {
-            Toast.makeText(this, "Please confirm your password", Toast.LENGTH_SHORT).show();
-        } else if (!pass.equals(conPass)) {
-            Toast.makeText(this, "Password and Confirm password should be same", Toast.LENGTH_SHORT).show();
+        } else if (name.isEmpty()) {
+            Toast.makeText(this, "Please enter username", Toast.LENGTH_SHORT).show();
         } else if (email.matches(EMAIL_PATTERN)) {
             registerUser();
         } else {
@@ -69,7 +67,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
     @SuppressLint("NewApi")
     private void registerUser() {
         Toast.makeText(this, "user register, api call", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, LoginScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        startActivity(new Intent(this, LoginScreen.class));
         finish();
     }
 }

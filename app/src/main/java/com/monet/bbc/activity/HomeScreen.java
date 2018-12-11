@@ -72,8 +72,7 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AppPreference.clearAllPreferences(HomeScreen.this);
-                startActivity(new Intent(HomeScreen.this, LoginScreen.class),
-                        ActivityOptions.makeSceneTransitionAnimation(HomeScreen.this).toBundle());
+                startActivity(new Intent(HomeScreen.this, LoginScreen.class));
                 finish();
             }
         });
@@ -192,15 +191,15 @@ public class HomeScreen extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(this, RewardsScreen.class);
-            startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(intent);
             navItemClicked = 1;
         } else if (id == R.id.nav_leaderboard) {
             Intent intent = new Intent(this, LeaderboardScreen.class);
-            startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(intent);
             navItemClicked = 2;
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(this, SettingScreen.class);
-            startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(intent);
             navItemClicked = 3;
         }  else if (id == R.id.nav_home) {
             setFragment(homeFragment);

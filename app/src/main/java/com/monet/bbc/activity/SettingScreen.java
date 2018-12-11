@@ -60,7 +60,7 @@ public class SettingScreen extends AppCompatActivity implements View.OnClickList
                 toast("Account");
                 break;
             case R.id.tv_password_reset:
-                startActivity(new Intent(this,ResetPasswordScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(new Intent(this,ResetPasswordScreen.class));
                 break;
             case R.id.switch_notification:
                 saveNotificationStatus();

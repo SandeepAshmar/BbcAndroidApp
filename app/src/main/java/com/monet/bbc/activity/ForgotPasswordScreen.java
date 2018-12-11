@@ -11,12 +11,15 @@ import android.widget.Toast;
 
 import com.monet.bbc.R;
 
+import java.util.Random;
+
 import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
 
 public class ForgotPasswordScreen extends AppCompatActivity implements View.OnClickListener{
 
     private EditText edt_forgot_email;
     private String email;
+    private String otp = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class ForgotPasswordScreen extends AppCompatActivity implements View.OnCl
         edt_forgot_email = findViewById(R.id.edt_forgot_email);
 
         findViewById(R.id.btn_forgot).setOnClickListener(this);
+
+        generateOtp();
     }
 
     @Override
@@ -51,9 +56,14 @@ public class ForgotPasswordScreen extends AppCompatActivity implements View.OnCl
 
     }
 
+    private void generateOtp() {
+        Random rnd = new Random();
+        otp = String.valueOf(100000 + rnd.nextInt(999999));
+    }
+
     @SuppressLint("NewApi")
     private void sendOtp() {
-        Toast.makeText(this, "api call", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, OtpScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        Toast.makeText(this, "Please enter this otp", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, OtpScreen.class));
     }
 }

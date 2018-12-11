@@ -233,7 +233,7 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
     private void validate() {
         if (otp.equals("1234")) {
             runTimer.cancel();
-            startActivity(new Intent(this, ResetPasswordScreen.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(new Intent(this, ResetPasswordScreen.class));
             finish();
         } else {
             otpOne.getText().clear();
