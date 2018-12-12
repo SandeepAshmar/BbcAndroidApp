@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -44,7 +45,7 @@ public class HomeShowsAdapter extends RecyclerView.Adapter<HomeShowsAdapter.View
 
     @SuppressLint("NewApi")
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Glide.with(context).load(imageList.get(position)).into(holder.img_homeShows_item);
 
         holder.onlineView.setVisibility(View.GONE);
@@ -56,11 +57,15 @@ public class HomeShowsAdapter extends RecyclerView.Adapter<HomeShowsAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle b = new Bundle();
                 Intent intent = new Intent(context, SimpleVideoPlay.class);
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(holder.img_homeShows_item, "imageVideo");
                 pairs[1] = new Pair<View, String>(holder.tv_homeShows_item_title, "videoName");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, pairs);
+                b.putString("image", imageList.get(position));
+                b.putString("name", holder.tv_homeShows_item_title.getText().toString());
+                intent.putExtras(b);
                 context.startActivity(intent, options.toBundle());
             }
         });

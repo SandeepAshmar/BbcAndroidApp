@@ -46,7 +46,6 @@ public class HomeFragment extends Fragment {
     private LinearLayoutManager trendLayoutManager;
     private HomePlayListAdapter mPlayListAdapter;
     private LinearLayoutManager playListLayoutManager;
-    public static TextView tv_homeGetIt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +56,6 @@ public class HomeFragment extends Fragment {
         rv_showsHome = view.findViewById(R.id.rv_showsHome);
         rv_trendingHome = view.findViewById(R.id.rv_trendingHome);
         rv_playListHome = view.findViewById(R.id.rv_playListHome);
-        tv_homeGetIt = view.findViewById(R.id.tv_homeGetIt);
 
         imageList.clear();
         imageList.add(one);

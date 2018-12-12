@@ -1,5 +1,6 @@
 package com.monet.bbc.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -40,11 +41,16 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         video_SVP = findViewById(R.id.video_SVP);
         rl_pauseLayout = findViewById(R.id.rl_pauseLayout);
         img_svp_videoThumb = findViewById(R.id.img_svp_videoThumb);
+        tv_SVP_videoName = findViewById(R.id.tv_SVP_videoName);
         video_SVP.setOnClickListener(this);
         rl_pauseLayout.setVisibility(View.GONE);
 
-        Glide.with(this).load("https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg").into(img_svp_videoThumb);
+        Bundle bundle = getIntent().getExtras();
+        String image = bundle.getString("image");
+        String name = bundle.getString("name");
 
+        Glide.with(this).load(image).into(img_svp_videoThumb);
+        tv_SVP_videoName.setText(name);
     }
 
     @Override

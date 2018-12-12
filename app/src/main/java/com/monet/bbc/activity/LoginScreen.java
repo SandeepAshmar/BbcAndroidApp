@@ -190,6 +190,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     @SuppressLint("NewApi")
     private void loginUser() {
+        AppPreference.setUserLoggedOut(LoginScreen.this, false);
         startActivity(new Intent(LoginScreen.this, HomeScreen.class));
         finish();
         Toast.makeText(this, "api will call here", Toast.LENGTH_SHORT).show();
