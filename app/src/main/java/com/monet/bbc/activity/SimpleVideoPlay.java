@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -19,6 +20,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
 
     private VideoView video_SVP;
     private RelativeLayout rl_pauseLayout;
+    private ImageView img_svp_videoThumb;
     private TextView tv_videoCurrentTime, tv_videoLength, tv_SVP_videoName, tv_bySomeone_SVP, tv_SVP_posted;
     private SeekBar sb_SVP;
     private CircleImageView img_SVP_user;
@@ -37,8 +39,11 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.img_dots).setOnClickListener(this);
         video_SVP = findViewById(R.id.video_SVP);
         rl_pauseLayout = findViewById(R.id.rl_pauseLayout);
+        img_svp_videoThumb = findViewById(R.id.img_svp_videoThumb);
         video_SVP.setOnClickListener(this);
         rl_pauseLayout.setVisibility(View.GONE);
+
+        Glide.with(this).load("https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg").into(img_svp_videoThumb);
 
     }
 

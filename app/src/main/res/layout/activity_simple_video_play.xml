@@ -30,7 +30,9 @@
                 <ImageView
                     android:id="@+id/img_svp_videoThumb"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:transitionName="imageVideo"/>
 
                 <RelativeLayout
                     android:id="@+id/rl_pauseLayout"
@@ -142,8 +144,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/img_SVP_user"
                     android:maxLines="2"
-                    android:hint="Inception | from the director of DARK NIGHT"
+                    android:hint="Watch BBC to get Rewards and this somethings"
                     android:textSize="16dp"
+                    android:transitionName="videoName"
                     android:textColor="@color/secondryColor"
                     android:textColorHint="@color/secondryColor"
                     android:layout_toLeftOf="@+id/img_dots"
