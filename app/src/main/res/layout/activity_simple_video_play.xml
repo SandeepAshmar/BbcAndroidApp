@@ -20,13 +20,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="@color/blackColor">
 
                 <VideoView
                     android:id="@+id/video_SVP"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:foregroundGravity="center" />
+                    android:layout_centerInParent="true" />
 
                 <ImageView
                     android:id="@+id/img_svp_videoThumb"
