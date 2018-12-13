@@ -3,26 +3,26 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@mipmap/live"
-        android:title="Live" />
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
 
     <item
         android:id="@+id/nav_live"
-        android:icon="@mipmap/live"
-        android:title="Featured" />
+        android:icon="@drawable/ic_live"
+        android:title="Live" />
 
     <item
         android:id="@+id/nav_trending"
-        android:icon="@mipmap/live"
-        android:title="Popular" />
+        android:icon="@drawable/ic_trending"
+        android:title="Trending" />
 
     <item
         android:id="@+id/nav_playlist"
-        android:icon="@mipmap/live"
-        android:title="Favourites" />
+        android:icon="@drawable/ic_playlist"
+        android:title="Playlist" />
 
     <item
         android:id="@+id/nav_favourite"
-        android:icon="@mipmap/live"
-        android:title="Favourites" />
+        android:icon="@drawable/ic_favourite"
+        android:title="Favourite" />
 </menu>

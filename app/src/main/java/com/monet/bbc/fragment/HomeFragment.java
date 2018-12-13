@@ -1,28 +1,28 @@
 package com.monet.bbc.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.monet.bbc.R;
 import com.monet.bbc.activity.HomeScreen;
+import com.monet.bbc.activity.SeeAllActivity;
 import com.monet.bbc.adapter.HomePlayListAdapter;
 import com.monet.bbc.adapter.HomeShowsAdapter;
 import com.monet.bbc.adapter.HomeTrendingAdapter;
 import com.monet.bbc.adapter.ImageSliderHome;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private String four = "https://2dhnizrxqvv1awj231eodql1-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/landscape-photography-weather.jpg";
     private String five = "http://www.michaelleadbetter.com.au/portfolio/Landscape-Photography-Brisbane.jpg";
     private String six = "https://png.pngtree.com/thumb_back/fh260/back_pic/03/72/94/8457b9a65caa197.jpg";
-    private ArrayList<String> imageList = new ArrayList<>();
+    public static ArrayList<String> imageList = new ArrayList<>();
     private HomeShowsAdapter mShowsAdapter;
     private LinearLayoutManager showsLayoutManager;
     private RecyclerView rv_showsHome, rv_trendingHome, rv_playListHome;
@@ -47,19 +47,20 @@ public class HomeFragment extends Fragment {
     private LinearLayoutManager trendLayoutManager;
     private HomePlayListAdapter mPlayListAdapter;
     private LinearLayoutManager playListLayoutManager;
-    private TextView tv_trendingSeeAll;
-    TrendingFragment trendingFragment;
-    HomeScreen homeScreen;
+    private TextView tv_trendingSeeAll, tv_shwosSeeAll;
+    private Bundle bundle;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         rv_showsHome = view.findViewById(R.id.rv_showsHome);
         rv_trendingHome = view.findViewById(R.id.rv_trendingHome);
         rv_playListHome = view.findViewById(R.id.rv_playListHome);
         tv_trendingSeeAll = view.findViewById(R.id.tv_trendingSeeAll);
+        tv_shwosSeeAll = view.findViewById(R.id.tv_shwosSeeAll);
 
         imageList.clear();
         imageList.add(one);
@@ -73,11 +74,27 @@ public class HomeFragment extends Fragment {
         setShowsAdapter();
         setTrendingAdapter();
         setPlayListAdapter();
+        bundle = new Bundle();
 
         tv_trendingSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                bundle.putString("trending", "trending");
+                intent.putExtras(bundle);
+                getActivity().startActivity(intent);
+                bundle.clear();
+            }
+        });
+
+        tv_shwosSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                bundle.putString("shows", "shows");
+                intent.putExtras(bundle);
+                getActivity().startActivity(intent);
+                bundle.clear();
             }
         });
 
