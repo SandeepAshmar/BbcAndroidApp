@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,14 +58,16 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
 
-            holder.rl_scratch.setVisibility(View.VISIBLE);
+        holder.rl_scratch.setVisibility(View.VISIBLE);
+        holder.ll_couponLayout.setVisibility(View.GONE);
 
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down);
         animation.setDuration(500);
         holder.itemView.startAnimation(animation);
 
-        if(pos == position){
+        if (pos == position) {
             holder.rl_scratch.setVisibility(View.GONE);
+            holder.ll_couponLayout.setVisibility(View.VISIBLE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -84,12 +87,13 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
 
         private RelativeLayout rl_scratch;
         private TextView tv_rewardItemPoint, tv_rewardItemDiscountOn, tv_rewardItemDate;
-
+        private LinearLayout ll_couponLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             rl_scratch = itemView.findViewById(R.id.rl_scratch);
+            ll_couponLayout = itemView.findViewById(R.id.ll_couponLayout);
         }
     }
 
@@ -107,7 +111,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
 
             @Override
             public void onRevealPercentChangedListener(ScratchImageView scratchImageView, float v) {
-                if(v > 0.10 && v <0.11){
+                if (v > 0.05 && v < 0.06) {
                     Log.d("done", "done");
                     pos = position;
                     notifyItemChanged(position);

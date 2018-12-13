@@ -11,13 +11,15 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 
+import java.util.ArrayList;
+
 public class LiveFragmentAdapter extends RecyclerView.Adapter<LiveFragmentAdapter.ViewHolder> {
     Context mContext;
-    int size;
+   ArrayList<String> imageList;
 
-    public LiveFragmentAdapter(Context mContext, int size) {
+    public LiveFragmentAdapter(Context mContext, ArrayList<String> imageList) {
         this.mContext = mContext;
-        this.size = size;
+        this.imageList = imageList;
     }
 
     @NonNull
@@ -32,12 +34,12 @@ public class LiveFragmentAdapter extends RecyclerView.Adapter<LiveFragmentAdapte
 
     @Override
     public void onBindViewHolder(@NonNull LiveFragmentAdapter.ViewHolder holder, int position) {
-        Glide.with(mContext).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(holder.imageLiveFragment);
+        Glide.with(mContext).load(imageList.get(position)).into(holder.imageLiveFragment);
     }
 
     @Override
     public int getItemCount() {
-        return size;
+        return imageList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

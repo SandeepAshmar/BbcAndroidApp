@@ -36,7 +36,7 @@ public class LiveFragment extends Fragment implements View.OnClickListener {
 
         liveItemImage = view.findViewById(R.id.img_live_item);
         optionsMenu = view.findViewById(R.id.textViewOptions);
-        seeAllRecent = view.findViewById(R.id.tv_see_all);
+        seeAllRecent = view.findViewById(R.id.tv_liveSeeAll);
         recentLiveRecyclerView = view.findViewById(R.id.rv_liveScreen);
 
         Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(liveItemImage);
@@ -51,7 +51,7 @@ public class LiveFragment extends Fragment implements View.OnClickListener {
     private void setRecentLivesAdapter() {
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         recentLiveRecyclerView.setLayoutManager(linearLayoutManager);
-        liveFragmentAdapter = new LiveFragmentAdapter(getActivity(),10);
+        liveFragmentAdapter = new LiveFragmentAdapter(getActivity(),HomeFragment.imageList);
         recentLiveRecyclerView.setAdapter(liveFragmentAdapter);
 
     }
@@ -63,7 +63,7 @@ public class LiveFragment extends Fragment implements View.OnClickListener {
             case R.id.textViewOptions:
                 AppUtils.shortToast(getContext(), "Menu Button Clicked...");
                 break;
-            case R.id.tv_see_all:
+            case R.id.tv_liveSeeAll:
                 AppUtils.shortToast(getContext(), "see all clicked...");
                 break;
             default:

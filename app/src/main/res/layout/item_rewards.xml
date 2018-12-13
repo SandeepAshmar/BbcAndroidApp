@@ -14,7 +14,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/whiteColor"/>
+                android:background="@drawable/ic_congo"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -26,17 +26,20 @@
                 android:layout_height="wrap_content"
                 android:text="Scratch Card"
                 android:textSize="20dp"
+                android:textColor="@color/blackColor"
                 android:layout_centerInParent="true"/>
 
 
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_couponLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="50dp"
