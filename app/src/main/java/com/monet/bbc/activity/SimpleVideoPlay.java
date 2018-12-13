@@ -1,5 +1,6 @@
 package com.monet.bbc.activity;
 
+import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,7 +20,11 @@ import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.SimpleVideoAdapter;
 
+import java.util.concurrent.TimeUnit;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.monet.bbc.utils.AppUtils.convertVideoTime;
 
 public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,6 +52,9 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         String videoURL = "http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
         //String videoURL = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
 
+
+        tv_videoLength = findViewById(R.id.tv_videoLength);
+        tv_videoCurrentTime = findViewById(R.id.tv_videoCurrentTime);
         video_SVP = findViewById(R.id.video_SVP);
         rl_pauseLayout = findViewById(R.id.rl_pauseLayout);
         img_svp_videoThumb = findViewById(R.id.img_svp_videoThumb);
@@ -71,75 +78,76 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     private void setVideo(String videoURLtoPlay) {
         rl_pauseLayout.setVisibility(View.VISIBLE);
         try {
-                uri = Uri.parse(videoURLtoPlay);
-                video_SVP.setVideoURI(uri);
-            } catch(Exception e){
-                Toast.makeText(SimpleVideoPlay.this, "Something went wrong to play video", Toast.LENGTH_SHORT).show();
+            uri = Uri.parse(videoURLtoPlay);
+            video_SVP.setVideoURI(uri);
+        } catch (Exception e) {
+            Toast.makeText(SimpleVideoPlay.this, "Something went wrong to play video", Toast.LENGTH_SHORT).show();
+        }
+
+        video_SVP.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // video_SVP.start();  //change Video Url
             }
+        });
 
-            video_SVP.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                   // video_SVP.start();  //change Video Url
-                }
-            });
-
-            video_SVP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    rl_pauseLayout.setVisibility(View.GONE);
-                    img_svp_videoThumb.setVisibility(View.GONE);
-                    Log.d("SimpleVideo","Video Total Duration : "+video_SVP.getDuration()) ;
-                    video_SVP.start();
-                }
-            });
-        }
-
-        private void setAdapter () {
-            layoutManager = new LinearLayoutManager(this);
-            mAdapter = new SimpleVideoAdapter(this, 15, "");
-            rv_svp.setLayoutManager(layoutManager);
-            rv_svp.setAdapter(mAdapter);
-
-        }
-
-        @Override
-        public void onClick (View view){
-            switch (view.getId()) {
-                case R.id.img_playVideo:
-                    if(video_SVP.isPlaying()){
-                        video_SVP.pause();
-                        img_playVideo.setBackgroundResource(R.drawable.ic_play);
-                    }else{
-                        video_SVP.start();
-                        img_playVideo.setBackgroundResource(R.drawable.ic_pause);
-                        rl_pauseLayout.setVisibility(View.GONE);
-                    }
-
-                    break;
-                case R.id.video_SVP:
-                    rl_pauseLayout.setVisibility(View.VISIBLE);
-                    if(video_SVP.isPlaying()){
-                        img_playVideo.setBackgroundResource(R.drawable.ic_pause);
-                    }else{
-                        img_playVideo.setBackgroundResource(R.drawable.ic_play);
-                    }
-                    break;
-                case R.id.img_SVP_back:
-                    finish();
-                    break;
-                case R.id.img_SVP_search:
-                    Toast.makeText(this, "search function", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.img_fullScreen:
-                    Toast.makeText(this, "full screen", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.img_dots:
-                    Toast.makeText(this, "dots clik", Toast.LENGTH_SHORT).show();
-                    break;
-
+        video_SVP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                rl_pauseLayout.setVisibility(View.GONE);
+                img_svp_videoThumb.setVisibility(View.GONE);
+                tv_videoLength.setText(convertVideoTime(video_SVP.getDuration()));
+                video_SVP.start();
             }
-        }
+        });
+    }
 
+    private void setAdapter() {
+        layoutManager = new LinearLayoutManager(this);
+        mAdapter = new SimpleVideoAdapter(this, 15, "");
+        rv_svp.setLayoutManager(layoutManager);
+        rv_svp.setAdapter(mAdapter);
 
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.img_playVideo:
+                if (video_SVP.isPlaying()) {
+                    video_SVP.pause();
+                    img_playVideo.setBackgroundResource(R.drawable.ic_play);
+                } else {
+                    video_SVP.start();
+                    img_playVideo.setBackgroundResource(R.drawable.ic_pause);
+                    rl_pauseLayout.setVisibility(View.GONE);
+                }
+
+                break;
+            case R.id.video_SVP:
+                rl_pauseLayout.setVisibility(View.VISIBLE);
+                if (video_SVP.isPlaying()) {
+                    img_playVideo.setBackgroundResource(R.drawable.ic_pause);
+                } else {
+                    img_playVideo.setBackgroundResource(R.drawable.ic_play);
+                }
+                break;
+            case R.id.img_SVP_back:
+                finish();
+                break;
+            case R.id.img_SVP_search:
+                Toast.makeText(this, "search function", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.img_fullScreen:
+                Toast.makeText(this, "full screen", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.img_dots:
+                Toast.makeText(this, "dots clik", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+    }
+
+
+}

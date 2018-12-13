@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:hint="01:01"
+                        android:hint="00:00"
                         android:textColorHint="@color/whiteColor"
                         android:textColor="@color/whiteColor"
                         android:textSize="12dp" />
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="45dp"
-                        android:hint="01:01"
+                        android:hint="00:00"
                         android:textColorHint="@color/whiteColor"
                         android:textColor="@color/whiteColor"
                         android:textSize="12dp" />
