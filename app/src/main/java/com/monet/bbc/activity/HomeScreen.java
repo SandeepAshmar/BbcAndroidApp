@@ -3,12 +3,15 @@ package com.monet.bbc.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.monet.bbc.R;
@@ -72,9 +76,27 @@ public class HomeScreen extends AppCompatActivity
         ll_navLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppPreference.clearAllPreferences(HomeScreen.this);
-                startActivity(new Intent(HomeScreen.this, LoginScreen.class));
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreen.this);
+                builder.setTitle("Logout");
+                builder.setMessage("Are you sure?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("LOGOUT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        AppPreference.clearAllPreferences(HomeScreen.this);
+                        startActivity(new Intent(HomeScreen.this, LoginScreen.class));
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+
             }
         });
 
@@ -128,7 +150,7 @@ public class HomeScreen extends AppCompatActivity
         setFragment(homeFragment);
         disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-  }
+    }
 
     @SuppressLint("RestrictedApi")
     public static void disableShiftMode(BottomNavigationView view) {
@@ -193,16 +215,19 @@ public class HomeScreen extends AppCompatActivity
         } else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(this, RewardsScreen.class);
             startActivity(intent);
+            startActivity(intent);
             navItemClicked = 1;
         } else if (id == R.id.nav_leaderboard) {
             Intent intent = new Intent(this, LeaderboardScreen.class);
+            startActivity(intent);
             startActivity(intent);
             navItemClicked = 2;
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(this, SettingScreen.class);
             startActivity(intent);
+            startActivity(intent);
             navItemClicked = 3;
-        }  else if (id == R.id.nav_home) {
+        } else if (id == R.id.nav_home) {
             setFragment(homeFragment);
         } else if (id == R.id.nav_live) {
             setFragment(liveFragment);

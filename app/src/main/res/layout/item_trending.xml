@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img_trending_item"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Inception | from the Director of DARK KNIGHT"
             android:textSize="16dp" />
 
