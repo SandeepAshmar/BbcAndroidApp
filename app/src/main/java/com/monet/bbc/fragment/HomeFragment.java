@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.monet.bbc.R;
+import com.monet.bbc.activity.HomeScreen;
 import com.monet.bbc.adapter.HomePlayListAdapter;
 import com.monet.bbc.adapter.HomeShowsAdapter;
 import com.monet.bbc.adapter.HomeTrendingAdapter;
@@ -46,16 +47,19 @@ public class HomeFragment extends Fragment {
     private LinearLayoutManager trendLayoutManager;
     private HomePlayListAdapter mPlayListAdapter;
     private LinearLayoutManager playListLayoutManager;
+    private TextView tv_trendingSeeAll;
+    TrendingFragment trendingFragment;
+    HomeScreen homeScreen;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         rv_showsHome = view.findViewById(R.id.rv_showsHome);
         rv_trendingHome = view.findViewById(R.id.rv_trendingHome);
         rv_playListHome = view.findViewById(R.id.rv_playListHome);
+        tv_trendingSeeAll = view.findViewById(R.id.tv_trendingSeeAll);
 
         imageList.clear();
         imageList.add(one);
@@ -69,6 +73,14 @@ public class HomeFragment extends Fragment {
         setShowsAdapter();
         setTrendingAdapter();
         setPlayListAdapter();
+
+        tv_trendingSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
         return view;
     }
 

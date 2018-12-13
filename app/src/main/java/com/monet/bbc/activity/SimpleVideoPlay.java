@@ -1,8 +1,8 @@
 package com.monet.bbc.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +14,7 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
+import com.monet.bbc.adapter.SimpleVideoAdapter;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,12 +27,13 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     private SeekBar sb_SVP;
     private CircleImageView img_SVP_user;
     private RecyclerView rv_svp;
+    private SimpleVideoAdapter mAdapter;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_video_play);
-
 
         findViewById(R.id.img_playVideo).setOnClickListener(this);
         findViewById(R.id.img_SVP_back).setOnClickListener(this);
@@ -42,6 +44,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         rl_pauseLayout = findViewById(R.id.rl_pauseLayout);
         img_svp_videoThumb = findViewById(R.id.img_svp_videoThumb);
         tv_SVP_videoName = findViewById(R.id.tv_SVP_videoName);
+        rv_svp = findViewById(R.id.rv_svp);
         video_SVP.setOnClickListener(this);
         rl_pauseLayout.setVisibility(View.GONE);
 
@@ -51,6 +54,16 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
 
         Glide.with(this).load(image).into(img_svp_videoThumb);
         tv_SVP_videoName.setText(name);
+
+        setAdapter();
+    }
+
+    private void setAdapter() {
+        layoutManager = new LinearLayoutManager(this);
+        mAdapter = new SimpleVideoAdapter(this, 15, "");
+        rv_svp.setLayoutManager(layoutManager);
+        rv_svp.setAdapter(mAdapter);
+
     }
 
     @Override
@@ -77,4 +90,6 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+
+
 }
