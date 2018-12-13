@@ -3,6 +3,7 @@ package com.monet.bbc.activity;
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +39,8 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     private SimpleVideoAdapter mAdapter;
     private LinearLayoutManager layoutManager;
     private Uri uri;
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,8 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.img_SVP_search).setOnClickListener(this);
         findViewById(R.id.img_fullScreen).setOnClickListener(this);
         findViewById(R.id.img_dots).setOnClickListener(this);
-        String videoURL = "http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
-        //String videoURL = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
-
+//        String videoURL = "http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
+        String videoURL = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
 
         tv_videoLength = findViewById(R.id.tv_videoLength);
         tv_videoCurrentTime = findViewById(R.id.tv_videoCurrentTime);
@@ -61,12 +63,15 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         tv_SVP_videoName = findViewById(R.id.tv_SVP_videoName);
         img_playVideo = findViewById(R.id.img_playVideo);
         rv_svp = findViewById(R.id.rv_svp);
+        sb_SVP = findViewById(R.id.sb_SVP);
         video_SVP.setOnClickListener(this);
         rl_pauseLayout.setVisibility(View.GONE);
 
         Bundle bundle = getIntent().getExtras();
         String image = bundle.getString("image");
         String name = bundle.getString("name");
+
+        handler = new Handler();
 
         Glide.with(this).load(image).into(img_svp_videoThumb);
         tv_SVP_videoName.setText(name);
@@ -84,13 +89,6 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(SimpleVideoPlay.this, "Something went wrong to play video", Toast.LENGTH_SHORT).show();
         }
 
-        video_SVP.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                // video_SVP.start();  //change Video Url
-            }
-        });
-
         video_SVP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -99,8 +97,30 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 img_svp_videoThumb.setVisibility(View.GONE);
                 tv_videoLength.setText(convertVideoTime(video_SVP.getDuration()));
                 video_SVP.start();
+                sb_SVP.setMax(video_SVP.getDuration());
+                setSeekBar();
             }
         });
+
+        sb_SVP.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(b){
+                    video_SVP.seekTo(i);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 
     private void setAdapter() {
@@ -149,5 +169,17 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-
+    private void setSeekBar(){
+        sb_SVP.setProgress(video_SVP.getCurrentPosition());
+        if(video_SVP.isPlaying()){
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    tv_videoCurrentTime.setText(convertVideoTime(video_SVP.getCurrentPosition()));
+                    setSeekBar();
+                }
+            };
+            handler.postDelayed(runnable, 1000);
+        }
+    }
 }
