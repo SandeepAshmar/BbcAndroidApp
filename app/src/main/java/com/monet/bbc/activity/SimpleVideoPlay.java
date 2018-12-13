@@ -20,6 +20,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.SimpleVideoAdapter;
+import com.monet.bbc.fragment.HomeFragment;
 
 import java.util.concurrent.TimeUnit;
 
@@ -151,7 +152,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
 
     private void setAdapter() {
         layoutManager = new LinearLayoutManager(this);
-        mAdapter = new SimpleVideoAdapter(this, 15, "");
+        mAdapter = new SimpleVideoAdapter(this, HomeFragment.imageList);
         rv_svp.setLayoutManager(layoutManager);
         rv_svp.setAdapter(mAdapter);
 
