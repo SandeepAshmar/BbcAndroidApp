@@ -41,12 +41,17 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     private Uri uri;
     private Handler handler;
     private Runnable runnable;
+    private int hidePauseLayout = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_video_play);
 
+        initView();
+    }
+
+    private void initView() {
         findViewById(R.id.img_playVideo).setOnClickListener(this);
         findViewById(R.id.img_SVP_back).setOnClickListener(this);
         findViewById(R.id.img_SVP_search).setOnClickListener(this);
@@ -62,6 +67,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         img_svp_videoThumb = findViewById(R.id.img_svp_videoThumb);
         tv_SVP_videoName = findViewById(R.id.tv_SVP_videoName);
         img_playVideo = findViewById(R.id.img_playVideo);
+        img_SVP_user = findViewById(R.id.img_SVP_user);
         rv_svp = findViewById(R.id.rv_svp);
         sb_SVP = findViewById(R.id.sb_SVP);
         video_SVP.setOnClickListener(this);
@@ -70,6 +76,8 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         Bundle bundle = getIntent().getExtras();
         String image = bundle.getString("image");
         String name = bundle.getString("name");
+
+        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_SVP_user);
 
         handler = new Handler();
 
@@ -98,6 +106,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 tv_videoLength.setText(convertVideoTime(video_SVP.getDuration()));
                 video_SVP.start();
                 sb_SVP.setMax(video_SVP.getDuration());
+                video_SVP.setClickable(true);
                 setSeekBar();
             }
         });
@@ -105,8 +114,12 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         sb_SVP.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(b){
+                if (b) {
                     video_SVP.seekTo(i);
+                    if (!video_SVP.isPlaying()) {
+                        video_SVP.start();
+                        setSeekBar();
+                    }
                 }
             }
 
@@ -118,6 +131,19 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        video_SVP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rl_pauseLayout.setVisibility(View.VISIBLE);
+                hidePauseLayout = 0;
+                if (video_SVP.isPlaying()) {
+                    img_playVideo.setBackgroundResource(R.drawable.ic_pause);
+                } else {
+                    img_playVideo.setBackgroundResource(R.drawable.ic_play);
+                }
             }
         });
 
@@ -137,20 +163,13 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             case R.id.img_playVideo:
                 if (video_SVP.isPlaying()) {
                     video_SVP.pause();
+                    handler.removeCallbacks(runnable);
                     img_playVideo.setBackgroundResource(R.drawable.ic_play);
                 } else {
                     video_SVP.start();
+                    setSeekBar();
                     img_playVideo.setBackgroundResource(R.drawable.ic_pause);
                     rl_pauseLayout.setVisibility(View.GONE);
-                }
-
-                break;
-            case R.id.video_SVP:
-                rl_pauseLayout.setVisibility(View.VISIBLE);
-                if (video_SVP.isPlaying()) {
-                    img_playVideo.setBackgroundResource(R.drawable.ic_pause);
-                } else {
-                    img_playVideo.setBackgroundResource(R.drawable.ic_play);
                 }
                 break;
             case R.id.img_SVP_back:
@@ -169,13 +188,17 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void setSeekBar(){
+    private void setSeekBar() {
         sb_SVP.setProgress(video_SVP.getCurrentPosition());
-        if(video_SVP.isPlaying()){
+        if (video_SVP.isPlaying()) {
             runnable = new Runnable() {
                 @Override
                 public void run() {
                     tv_videoCurrentTime.setText(convertVideoTime(video_SVP.getCurrentPosition()));
+                    hidePauseLayout = hidePauseLayout + 1;
+                    if (hidePauseLayout == 3) {
+                        rl_pauseLayout.setVisibility(View.GONE);
+                    }
                     setSeekBar();
                 }
             };

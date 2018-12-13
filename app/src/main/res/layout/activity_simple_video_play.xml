@@ -27,7 +27,8 @@
                     android:id="@+id/video_SVP"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:clickable="false"/>
 
                 <ImageView
                     android:id="@+id/img_svp_videoThumb"
@@ -89,6 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:hint="00:00"
+                        android:layout_centerVertical="true"
                         android:textColorHint="@color/whiteColor"
                         android:textColor="@color/whiteColor"
                         android:textSize="12dp" />
@@ -98,21 +100,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
                         android:layout_marginRight="45dp"
                         android:hint="00:00"
                         android:textColorHint="@color/whiteColor"
                         android:textColor="@color/whiteColor"
                         android:textSize="12dp" />
-
-                    <SeekBar
-                        android:id="@+id/sb_SVP"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_videoLength"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginRight="30dp"
-                        android:thumbTint="@color/colorPrimaryDark"
-                        android:progressTint="@color/colorPrimaryDark" />
 
                     <ImageView
                         android:id="@+id/img_fullScreen"
@@ -121,7 +114,16 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
+                        android:layout_marginBottom="5dp"
                         android:src="@drawable/ic_baseline_fullscreen_enter" />
+
+                    <SeekBar
+                        android:id="@+id/sb_SVP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_fullScreen"
+                        android:thumbTint="@color/colorPrimaryDark"
+                        android:progressTint="@color/colorPrimaryDark" />
                 </RelativeLayout>
 
             </RelativeLayout>
