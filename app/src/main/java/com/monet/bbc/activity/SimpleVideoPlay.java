@@ -185,7 +185,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.img_SVP_back:
-                finish();
+                onBackPress();
                 break;
             case R.id.img_SVP_search:
                 Toast.makeText(this, "search function", Toast.LENGTH_SHORT).show();
@@ -199,6 +199,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                     rl_autoPlayLayout.setVisibility(View.GONE);
                     rv_svp.setVisibility(View.GONE);
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 } else {
                     img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
                     isFullScreen = false;
@@ -206,7 +207,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                     rl_autoPlayLayout.setVisibility(View.VISIBLE);
                     rv_svp.setVisibility(View.VISIBLE);
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
 
                 break;
@@ -237,7 +238,21 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        video_SVP.setVisibility(View.GONE);
+        onBackPress();
+    }
+
+    private void onBackPress(){
+        if (isFullScreen) {
+            img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
+            isFullScreen = false;
+            rl_videoInfo.setVisibility(View.VISIBLE);
+            rl_autoPlayLayout.setVisibility(View.VISIBLE);
+            rv_svp.setVisibility(View.VISIBLE);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            video_SVP.setVisibility(View.GONE);
+            finish();
+        }
     }
 }
