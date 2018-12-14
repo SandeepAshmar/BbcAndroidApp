@@ -1,6 +1,7 @@
 package com.monet.bbc.activity;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
@@ -33,8 +34,8 @@ import static com.monet.bbc.utils.AppUtils.convertVideoTime;
 public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickListener {
 
     private VideoView video_SVP;
-    private RelativeLayout rl_pauseLayout;
-    private ImageView img_svp_videoThumb, img_playVideo;
+    private RelativeLayout rl_pauseLayout, rl_videoInfo, rl_autoPlayLayout;
+    private ImageView img_svp_videoThumb, img_playVideo, img_fullScreen;
     private TextView tv_videoCurrentTime, tv_videoLength, tv_SVP_videoName, tv_bySomeone_SVP, tv_SVP_posted;
     private SeekBar sb_SVP;
     private CircleImageView img_SVP_user;
@@ -45,6 +46,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     private Handler handler;
     private Runnable runnable;
     private int hidePauseLayout = 0;
+    private boolean isFullScreen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +76,13 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         img_SVP_user = findViewById(R.id.img_SVP_user);
         rv_svp = findViewById(R.id.rv_svp);
         sb_SVP = findViewById(R.id.sb_SVP);
+        img_fullScreen = findViewById(R.id.img_fullScreen);
+        rl_videoInfo = findViewById(R.id.rl_videoInfo);
+        rl_autoPlayLayout = findViewById(R.id.rl_autoPlayLayout);
         video_SVP.setOnClickListener(this);
         rl_pauseLayout.setVisibility(View.GONE);
+
+        img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
 
         Bundle bundle = getIntent().getExtras();
         String image = bundle.getString("image");
@@ -184,7 +191,24 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(this, "search function", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.img_fullScreen:
-                Toast.makeText(this, "full screen", Toast.LENGTH_SHORT).show();
+
+                if (!isFullScreen) {
+                    img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_exit);
+                    isFullScreen = true;
+                    rl_videoInfo.setVisibility(View.GONE);
+                    rl_autoPlayLayout.setVisibility(View.GONE);
+                    rv_svp.setVisibility(View.GONE);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                } else {
+                    img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
+                    isFullScreen = false;
+                    rl_videoInfo.setVisibility(View.VISIBLE);
+                    rl_autoPlayLayout.setVisibility(View.VISIBLE);
+                    rv_svp.setVisibility(View.VISIBLE);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+                }
+
                 break;
             case R.id.img_dots:
                 Toast.makeText(this, "dots clik", Toast.LENGTH_SHORT).show();

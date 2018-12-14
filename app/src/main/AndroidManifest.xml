@@ -75,7 +75,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SimpleVideoPlay"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".activity.SeeAllActivity"
             android:screenOrientation="portrait" />
