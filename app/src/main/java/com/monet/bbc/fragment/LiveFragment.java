@@ -1,6 +1,7 @@
 package com.monet.bbc.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
+import com.monet.bbc.activity.LiveVideoPlay;
 import com.monet.bbc.adapter.LiveFragmentAdapter;
 import com.monet.bbc.utils.AppUtils;
 
@@ -44,6 +46,13 @@ public class LiveFragment extends Fragment implements View.OnClickListener {
 
         optionsMenu.setOnClickListener(this);
         seeAllRecent.setOnClickListener(this);
+
+        liveItemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), LiveVideoPlay.class));
+            }
+        });
 
         return view;
     }

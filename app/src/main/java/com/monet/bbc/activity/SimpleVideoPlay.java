@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -48,6 +50,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_video_play);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         initView();
     }
@@ -89,6 +92,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setVideo(String videoURLtoPlay) {
         rl_pauseLayout.setVisibility(View.VISIBLE);
         try {
@@ -107,7 +111,6 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 tv_videoLength.setText(convertVideoTime(video_SVP.getDuration()));
                 video_SVP.start();
                 sb_SVP.setMax(video_SVP.getDuration());
-                video_SVP.setClickable(true);
                 setSeekBar();
             }
         });
@@ -135,9 +138,9 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-        video_SVP.setOnClickListener(new View.OnClickListener() {
+        video_SVP.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 rl_pauseLayout.setVisibility(View.VISIBLE);
                 hidePauseLayout = 0;
                 if (video_SVP.isPlaying()) {
@@ -145,6 +148,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 } else {
                     img_playVideo.setBackgroundResource(R.drawable.ic_play);
                 }
+                return true;
             }
         });
 

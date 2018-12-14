@@ -128,53 +128,53 @@
                 style="@style/SecondryText"
                 android:text="@string/otp_has_been_sent_to_you_email_account"/>
 
-            <RelativeLayout
-                android:id="@+id/rl_otp_try"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <com.github.lzyzsd.circleprogress.DonutProgress
-                    android:id="@+id/prog_otp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:rotation="270"
-                    android:layout_centerInParent="true"
-                    app:donut_finished_color="@color/colorPrimaryDark"
-                    app:donut_finished_stroke_width="5dp"
-                    app:donut_unfinished_color="@color/donutProgUnfinished"
-                    app:donut_unfinished_stroke_width="5dp"/>
-
-                <TextView
-                    android:id="@+id/tv_otp_time"
+                <RelativeLayout
+                    android:id="@+id/rl_otp_try"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="24dp"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:hint="time"/>
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/img_opt_rty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_try_again"
-                    android:layout_marginTop="20dp"
-                    android:visibility="invisible"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"/>
+                    <com.github.lzyzsd.circleprogress.DonutProgress
+                        android:id="@+id/prog_otp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:rotation="270"
+                        android:layout_centerInParent="true"
+                        app:donut_finished_color="@color/colorPrimaryDark"
+                        app:donut_finished_stroke_width="5dp"
+                        app:donut_unfinished_color="@color/donutProgUnfinished"
+                        app:donut_unfinished_stroke_width="5dp"/>
 
-                <TextView
-                    android:id="@+id/tv_otp_try_again"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_otp_time"
-                    android:layout_centerHorizontal="true"
-                    android:text="Sec"
-                    android:textColor="@color/colorPrimaryDark" />
+                    <TextView
+                        android:id="@+id/tv_otp_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textSize="24dp"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:hint="time"/>
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/img_opt_rty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_try_again"
+                        android:layout_marginTop="20dp"
+                        android:visibility="invisible"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/tv_otp_try_again"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_otp_time"
+                        android:layout_centerHorizontal="true"
+                        android:text="Sec"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                </RelativeLayout>
 
 
 

@@ -31,7 +31,7 @@ public class SimpleVideoAdapter extends RecyclerView.Adapter<SimpleVideoAdapter.
 
     @NonNull
     @Override
-    public SimpleVideoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_simple_video_play, parent, false);
 
@@ -40,7 +40,6 @@ public class SimpleVideoAdapter extends RecyclerView.Adapter<SimpleVideoAdapter.
         return viewHolder;
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
