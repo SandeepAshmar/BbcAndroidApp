@@ -210,4 +210,10 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             handler.postDelayed(runnable, 1000);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        video_SVP.setVisibility(View.GONE);
+    }
 }

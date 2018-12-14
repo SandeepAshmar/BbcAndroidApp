@@ -111,7 +111,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
 
             @Override
             public void onRevealPercentChangedListener(ScratchImageView scratchImageView, float v) {
-                if (v > 0.05 && v < 0.06) {
+                if (v > 0.03 && v < 0.04) {
                     Log.d("done", "done");
                     pos = position;
                     notifyItemChanged(position);

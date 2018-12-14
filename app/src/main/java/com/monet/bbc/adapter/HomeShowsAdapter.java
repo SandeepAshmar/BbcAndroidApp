@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
+import com.monet.bbc.activity.LiveVideoPlay;
 import com.monet.bbc.activity.SimpleVideoPlay;
 
 import java.util.ArrayList;
@@ -54,19 +55,39 @@ public class HomeShowsAdapter extends RecyclerView.Adapter<HomeShowsAdapter.View
             holder.onlineView.setVisibility(View.VISIBLE);
         }
 
+        if (position == 3) {
+            holder.onlineView.setVisibility(View.VISIBLE);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle b = new Bundle();
-                Intent intent = new Intent(context, SimpleVideoPlay.class);
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View, String>(holder.img_homeShows_item, "imageVideo");
-                pairs[1] = new Pair<View, String>(holder.tv_homeShows_item_title, "videoName");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, pairs);
-                b.putString("image", imageList.get(position));
-                b.putString("name", holder.tv_homeShows_item_title.getText().toString());
-                intent.putExtras(b);
-                context.startActivity(intent, options.toBundle());
+
+                if(holder.onlineView.getVisibility() == View.VISIBLE){
+                    Bundle b = new Bundle();
+                    Intent intent = new Intent(context, LiveVideoPlay.class);
+                    Pair[] pairs = new Pair[2];
+                    pairs[0] = new Pair<View, String>(holder.img_homeShows_item, "imageLiveVideo");
+                    pairs[1] = new Pair<View, String>(holder.tv_homeShows_item_title, "nameLiveVideo");
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, pairs);
+                    b.putString("image", imageList.get(position));
+                    b.putString("name", holder.tv_homeShows_item_title.getText().toString());
+                    intent.putExtras(b);
+                    context.startActivity(intent, options.toBundle());
+                }else{
+                    Bundle b = new Bundle();
+                    Intent intent = new Intent(context, SimpleVideoPlay.class);
+                    Pair[] pairs = new Pair[2];
+                    pairs[0] = new Pair<View, String>(holder.img_homeShows_item, "imageVideo");
+                    pairs[1] = new Pair<View, String>(holder.tv_homeShows_item_title, "videoName");
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, pairs);
+                    b.putString("image", imageList.get(position));
+                    b.putString("name", holder.tv_homeShows_item_title.getText().toString());
+                    intent.putExtras(b);
+                    context.startActivity(intent, options.toBundle());
+                }
+
+
             }
         });
     }

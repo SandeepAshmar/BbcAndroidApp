@@ -28,15 +28,17 @@
                 android:src="@drawable/ic_backspace_white_24dp" />
 
             <TextView
+                android:id="@+id/tv_videoNameLive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img_liveVideo_back"
-                android:layout_toLeftOf="@id/img_liveVideo_more"
                 android:layout_centerVertical="true"
-                android:maxLines="2"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/whiteColor"/>
+                android:layout_toLeftOf="@id/img_liveVideo_more"
+                android:layout_toRightOf="@id/img_liveVideo_back"
+                android:maxLines="2"
+                android:textColor="@color/whiteColor"
+                android:transitionName="nameLiveVideo" />
 
             <ImageView
                 android:id="@+id/img_liveVideo_more"
@@ -54,33 +56,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/half_black"
-            android:elevation="1dp"/>
+            android:elevation="1dp" />
+
+        <ImageView
+            android:id="@+id/img_liveTumb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="1dp"
+            android:scaleType="fitXY"
+            android:transitionName="imageLiveVideo" />
 
         <VideoView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
         <TextView
             android:id="@+id/tv_liveCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_white_eye"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
+            android:drawableLeft="@drawable/ic_white_eye"
             android:elevation="1dp"
-            android:hint="  27K"
             android:gravity="center"
-            android:textColorHint="@color/whiteColor"/>
+            android:hint="  27K"
+            android:textColorHint="@color/whiteColor" />
 
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
         android:layout_margin="10dp"
+        android:layout_weight="2"
         android:background="@drawable/color_combination">
 
         <RelativeLayout
@@ -102,14 +112,14 @@
                     <View
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/ic_white_border_circle"/>
+                        android:background="@drawable/ic_white_border_circle" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_liveQuestionUser"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:src="@drawable/ic_person_grye_24dp"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_person_grye_24dp" />
 
                 </RelativeLayout>
 
@@ -121,21 +131,21 @@
                     <View
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
                         android:background="@drawable/ic_coin"
-                        android:elevation="1dp"
-                        android:layout_alignParentEnd="true"/>
+                        android:elevation="1dp" />
 
                     <TextView
                         android:id="@+id/tv_userLivePoints"
                         android:layout_width="70dp"
                         android:layout_height="25dp"
-                        android:hint="1452"
-                        android:textColor="#FE9923"
-                        android:textColorHint="#FE9923"
-                        android:gravity="center"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/capsule_nav" />
+                        android:background="@drawable/capsule_nav"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:textColor="#FE9923"
+                        android:textColorHint="#FE9923" />
 
                 </RelativeLayout>
 
@@ -155,7 +165,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_coin"/>
+                        android:src="@drawable/ic_coin" />
 
                     <TextView
                         android:id="@+id/tv_questionPoints"
@@ -163,8 +173,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:hint="10"
-                        android:textColorHint="@color/whiteColor"
-                        android:textColor="@color/whiteColor"/>
+                        android:textColor="@color/whiteColor"
+                        android:textColorHint="@color/whiteColor" />
 
                 </RelativeLayout>
 
@@ -174,7 +184,7 @@
                     android:layout_alignParentBottom="true"
                     android:hint="get 10 coins"
                     android:textColor="#FE9923"
-                    android:textColorHint="#FE9923"/>
+                    android:textColorHint="#FE9923" />
 
             </RelativeLayout>
 
@@ -189,20 +199,19 @@
                     android:id="@+id/prog_LiveTimer"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:rotation="270"
-                    app:donut_progress="40"
                     android:layout_centerInParent="true"
+                    android:rotation="270"
                     app:donut_finished_color="#0a1051"
                     app:donut_finished_stroke_width="7dp"
                     app:donut_unfinished_color="@color/donutProgUnfinished"
-                    app:donut_unfinished_stroke_width="8dp"/>
+                    app:donut_unfinished_stroke_width="8dp" />
 
                 <RelativeLayout
                     android:layout_width="77dp"
                     android:layout_height="77dp"
                     android:layout_centerInParent="true"
-                    android:elevation="5dp"
-                    android:background="@drawable/ic_white_color_fill_circle">
+                    android:background="@drawable/ic_white_color_fill_circle"
+                    android:elevation="5dp">
 
                     <TextView
                         android:id="@+id/tv_liveTimeSeconds"
@@ -210,32 +219,46 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
-                        android:textSize="24dp"
                         android:gravity="center"
+                        android:hint="40"
                         android:textColor="#0a1051"
                         android:textColorHint="#0a1051"
-                        android:hint="40"/>
+                        android:textSize="24dp" />
 
                     <TextView
                         android:id="@+id/tv_live_seconds"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_liveTimeSeconds"
-                        android:text="Sec"
-                        android:textSize="12dp"
                         android:layout_centerHorizontal="true"
-                        android:textColor="#0a1051" />
+                        android:text="Sec"
+                        android:textColor="#0a1051"
+                        android:textSize="12dp" />
 
                 </RelativeLayout>
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/tv_wait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_liveTimer"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="Waiting for question!"
+                android:textColor="@color/whiteColor"
+                android:textSize="18sp" />
+
             <RelativeLayout
+                android:id="@+id/questionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rl_liveTimer"
                 android:layout_margin="20dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_liveQuestion"
@@ -243,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Who is the director of Jumanji"
-                    android:textColor="@color/whiteColor"/>
+                    android:textColor="@color/whiteColor" />
 
                 <LinearLayout
                     android:id="@+id/ll_ab"
@@ -254,26 +277,28 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/optionOne"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:background="@drawable/ans_capsule"
                         android:gravity="center"
                         android:text="Someone"
                         android:textAllCaps="false"
-                        android:textColor="@color/whiteColor"
-                        android:background="@drawable/ans_capsule"
-                        android:layout_marginRight="10dp"/>
+                        android:textColor="@color/whiteColor" />
 
                     <Button
+                        android:id="@+id/optionTwo"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
+                        android:background="@drawable/ans_capsule"
                         android:gravity="center"
                         android:text="Someone"
                         android:textAllCaps="false"
-                        android:textColor="@color/whiteColor"
-                        android:background="@drawable/ans_capsule"
-                        android:layout_marginLeft="10dp"/>
+                        android:textColor="@color/whiteColor" />
 
                 </LinearLayout>
 
@@ -285,26 +310,28 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/optionThree"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:background="@drawable/ans_capsule"
                         android:gravity="center"
                         android:text="Someone"
                         android:textAllCaps="false"
-                        android:textColor="@color/whiteColor"
-                        android:background="@drawable/ans_capsule"
-                        android:layout_marginRight="10dp"/>
+                        android:textColor="@color/whiteColor" />
 
                     <Button
+                        android:id="@+id/optionFour"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
+                        android:background="@drawable/ans_capsule"
                         android:gravity="center"
                         android:text="Someone"
                         android:textAllCaps="false"
-                        android:textColor="@color/whiteColor"
-                        android:background="@drawable/ans_capsule"
-                        android:layout_marginLeft="10dp"/>
+                        android:textColor="@color/whiteColor" />
 
                 </LinearLayout>
 

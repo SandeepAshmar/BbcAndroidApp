@@ -38,4 +38,16 @@ public class AppPreference  {
         mPrefsEditor.clear();
         mPrefsEditor.commit();
     }
+
+    public static int getUserPoints(Context ctx) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        return mPrefs.getInt("userPoint", 0);
+    }
+
+    public static void setUserPoints(Context ctx, int value) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        mPrefsEditor = mPrefs.edit();
+        mPrefsEditor.putInt("userPoint", value);
+        mPrefsEditor.apply();
+    }
 }
