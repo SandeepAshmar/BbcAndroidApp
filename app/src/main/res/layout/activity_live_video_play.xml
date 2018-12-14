@@ -99,19 +99,20 @@
             android:elevation="1dp">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_marginTop="10dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_userImageLiveQuestion"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true">
+                    android:layout_marginLeft="5dp">
 
                     <View
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:layout_centerInParent="true"
                         android:background="@drawable/ic_white_border_circle" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -123,31 +124,28 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_userImageLiveQuestion">
-
                     <View
+                        android:id="@+id/view_coin"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_alignParentEnd="true"
                         android:background="@drawable/ic_coin"
-                        android:elevation="1dp" />
+                        android:elevation="5dp"
+                        android:layout_below="@id/rl_userImageLiveQuestion"
+                        android:layout_marginLeft="70dp"/>
 
                     <TextView
                         android:id="@+id/tv_userLivePoints"
                         android:layout_width="70dp"
                         android:layout_height="25dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
                         android:background="@drawable/capsule_nav"
                         android:gravity="center"
                         android:hint="0"
+                        android:layout_below="@id/rl_userImageLiveQuestion"
+                        android:layout_marginTop="5dp"
                         android:textColor="#FE9923"
                         android:textColorHint="#FE9923" />
 
-                </RelativeLayout>
 
             </RelativeLayout>
 

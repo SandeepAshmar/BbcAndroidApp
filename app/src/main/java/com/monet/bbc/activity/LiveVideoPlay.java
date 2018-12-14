@@ -4,6 +4,10 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,7 +20,7 @@ import com.monet.bbc.utils.AppPreference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class LiveVideoPlay extends AppCompatActivity {
+public class LiveVideoPlay extends AppCompatActivity implements Animation.AnimationListener {
 
     private CircleImageView userImage;
     private ImageView img_liveTumb, img_liveVideo_back;
@@ -36,6 +40,9 @@ public class LiveVideoPlay extends AppCompatActivity {
     private int userPoints = 0;
     private Button optionOne, optionTwo, optionThree, optionFour;
     private RelativeLayout questionLayout;
+    private View view_coin;
+    private Animation animZoomIn;
+    private Animation animZoomOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +69,17 @@ public class LiveVideoPlay extends AppCompatActivity {
         tv_wait = findViewById(R.id.tv_wait);
         img_liveVideo_back = findViewById(R.id.img_liveVideo_back);
         tv_userLivePoints = findViewById(R.id.tv_userLivePoints);
+        view_coin = findViewById(R.id.view_coin);
 
         userPoints = AppPreference.getUserPoints(this);
 
         tv_userLivePoints.setText(""+userPoints);
+        animZoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.zoom_in);
+        animZoomIn.setAnimationListener(this);
+        animZoomOut = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.zoom_out);
+        animZoomOut.setAnimationListener(this);
 
         Bundle bundle = getIntent().getExtras();
         String image = bundle.getString("image");
@@ -196,6 +210,7 @@ public class LiveVideoPlay extends AppCompatActivity {
             userPoints = userPoints+10;
             AppPreference.setUserPoints(this, userPoints);
             tv_userLivePoints.setText(""+userPoints);
+            view_coin.startAnimation(animZoomIn);
         }
 
         showTimer.cancel();
@@ -215,6 +230,27 @@ public class LiveVideoPlay extends AppCompatActivity {
         } else if (s.equals("4")) {
             optionFour.setBackgroundResource(R.drawable.option_selected);
         }
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        view_coin.startAnimation(animZoomOut);
+        view_coin.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view_coin.setAnimation(null);
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
     }
 
     private class ShowTimer extends CountDownTimer {
