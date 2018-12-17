@@ -2,8 +2,6 @@ package com.monet.bbc.activity;
 
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.monet.bbc.R;
@@ -34,10 +31,7 @@ import com.monet.bbc.fragment.LiveFragment;
 import com.monet.bbc.fragment.PlaylistFragment;
 import com.monet.bbc.fragment.TrendingFragment;
 import com.monet.bbc.utils.AppPreference;
-import com.monet.bbc.utils.AppUtils;
-
 import java.lang.reflect.Field;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 @SuppressLint("NewApi")
@@ -211,20 +205,18 @@ public class HomeScreen extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             navItemClicked = 0;
-            // Handle the camera action
+            Intent intent = new Intent(this, ProfileScreen.class);
+            startActivity(intent);
         } else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(this, RewardsScreen.class);
-            startActivity(intent);
             startActivity(intent);
             navItemClicked = 1;
         } else if (id == R.id.nav_leaderboard) {
             Intent intent = new Intent(this, LeaderboardScreen.class);
             startActivity(intent);
-            startActivity(intent);
             navItemClicked = 2;
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(this, SettingScreen.class);
-            startActivity(intent);
             startActivity(intent);
             navItemClicked = 3;
         } else if (id == R.id.nav_home) {

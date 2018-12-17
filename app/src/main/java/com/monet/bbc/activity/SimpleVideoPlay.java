@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     private Runnable runnable;
     private int hidePauseLayout = 0;
     private boolean isFullScreen = false;
+    private ProgressBar progress_svp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         img_fullScreen = findViewById(R.id.img_fullScreen);
         rl_videoInfo = findViewById(R.id.rl_videoInfo);
         rl_autoPlayLayout = findViewById(R.id.rl_autoPlayLayout);
+        progress_svp = findViewById(R.id.progress_svp);
         video_SVP.setOnClickListener(this);
         rl_pauseLayout.setVisibility(View.GONE);
 
@@ -126,6 +129,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (b) {
+                    progress_svp.setVisibility(View.VISIBLE);
                     video_SVP.seekTo(i);
                     if (!video_SVP.isPlaying()) {
                         video_SVP.start();
@@ -159,6 +163,14 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        video_SVP.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                rl_pauseLayout.setVisibility(View.VISIBLE);
+                img_playVideo.setBackgroundResource(R.drawable.ic_play);
+                progress_svp.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setAdapter() {
@@ -198,7 +210,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                     rl_videoInfo.setVisibility(View.GONE);
                     rl_autoPlayLayout.setVisibility(View.GONE);
                     rv_svp.setVisibility(View.GONE);
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 } else {
                     img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
@@ -230,10 +242,20 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                         rl_pauseLayout.setVisibility(View.GONE);
                     }
                     setSeekBar();
+                    handleProgressBar();
                 }
             };
             handler.postDelayed(runnable, 1000);
         }
+    }
+
+    private void handleProgressBar() {
+        if(!video_SVP.isPlaying()){
+            progress_svp.setVisibility(View.GONE);
+        }else{
+            progress_svp.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -241,7 +263,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         onBackPress();
     }
 
-    private void onBackPress(){
+    private void onBackPress() {
         if (isFullScreen) {
             img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
             isFullScreen = false;

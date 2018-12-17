@@ -23,6 +23,13 @@
                 android:layout_weight="1"
                 android:background="@color/blackColor">
 
+                <ProgressBar
+                    android:id="@+id/progress_svp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    android:layout_centerInParent="true"/>
+
                 <VideoView
                     android:id="@+id/video_SVP"
                     android:layout_width="match_parent"
