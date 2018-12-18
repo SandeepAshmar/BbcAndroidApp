@@ -6,15 +6,11 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.util.Pair;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
@@ -24,30 +20,27 @@ import de.hdodenhof.circleimageview.CircleImageView;
 @SuppressLint("NewApi")
 public class ProfileScreen extends AppCompatActivity {
 
-    private String bannerImage = "https://png.pngtree.com/thumb_back/fw800/back_pic/00/02/73/21561a5ee52c746.jpg";
-    private ImageView img_profileBanner, img_profileEdit, blur;
-    private CircleImageView img_userImageProfile;
-    private TextView tv_profileUserName, tv_profileLocation;
-    private ScrollView profileScroll;
+    private CircleImageView img_userProfile;
+    private ImageView img_profileEdit;
+    private TextView tv_userNameProfile, tv_userLocationProfile;
+    private Toolbar toolbar;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_screen);
 
-        img_profileBanner = findViewById(R.id.img_profileBanner);
+        img_userProfile = findViewById(R.id.img_userProfile);
         img_profileEdit = findViewById(R.id.img_profileEdit);
-        img_userImageProfile = findViewById(R.id.img_userImageProfile);
-        tv_profileUserName = findViewById(R.id.tv_profileUserName);
-        tv_profileLocation = findViewById(R.id.tv_profileLocation);
-        profileScroll = findViewById(R.id.profileScroll);
-        blur = findViewById(R.id.blur);
+        tv_userNameProfile = findViewById(R.id.tv_userNameProfile);
+        tv_userLocationProfile = findViewById(R.id.tv_userLocationProfile);
+        toolbar = findViewById(R.id.profile_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        blur.setVisibility(View.GONE);
-
-        Glide.with(this).load(bannerImage).into(img_profileBanner);
-        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_userImageProfile);
+        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_userProfile);
 
         img_profileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,27 +49,19 @@ public class ProfileScreen extends AppCompatActivity {
             }
         });
 
-        profileScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                int scrollX = profileScroll.getScrollY();
-                Log.d("scroll", "scrollY: " + scrollX);
-
-                if(scrollX == 0){
-                    blur.setVisibility(View.GONE);
-                }else{
-                    blur.setVisibility(View.VISIBLE);
-                }
-            }
-        });
     }
+
     private void chnageActivity() {
         Intent intent = new Intent(this, EditProfileScreen.class);
-        Pair[] pairs = new Pair[3];
-        pairs[0] = new Pair<View, String>(img_userImageProfile, "editProfileUserImage");
-        pairs[1] = new Pair<View, String>(tv_profileUserName, "editProfileUserName");
-        pairs[2] = new Pair<View, String>(tv_profileLocation, "editProfileUserLocation");
+        Pair[] pairs = new Pair[1];
+        pairs[0] = new Pair<View, String>(img_userProfile, "editProfileUserImage");
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) this, pairs);
         startActivity(intent, options.toBundle());
+    }
+
+    @Override
+    public boolean onNavigateUp() {
+        onBackPressed();
+        return super.onNavigateUp();
     }
 }

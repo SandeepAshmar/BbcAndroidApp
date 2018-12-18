@@ -10,10 +10,10 @@
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/half_black"
-        android:elevation="2dp">
+        android:background="@drawable/color_combination">
 
         <TextView
+            android:id="@+id/toolbar_title"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,324 +25,319 @@
 
     <ImageView
         android:id="@+id/img_profileEdit"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:elevation="2dp"
+        android:layout_marginTop="5dp"
+        android:padding="12dp"
         android:src="@drawable/ic_edit_white_pencil_24dp" />
 
-    <ImageView
-        android:id="@+id/img_profileBanner"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scaleType="fitXY" />
-
-    <ImageView
-        android:id="@+id/blur"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="#80FFFFFF" />
-
-    <ScrollView
-        android:id="@+id/profileScroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_userProfile"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="135dp"
-                android:elevation="5dp">
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_userNameProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toRightOf="@id/img_userProfile"
+                android:text="Jasica Jocie"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_userLocationProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_userNameProfile"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/img_userProfile"
+                android:drawableLeft="@drawable/ic_place_theme_color_24dp"
+                android:gravity="center"
+                android:text="Silchar, Assam"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:id="@+id/rankingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="24dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_userCoinProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="Coins"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_userLevelProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="Level"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="24dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_userRankProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="Ranking"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/ic_white_border_circle" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_userImageProfile"
-                    android:layout_width="78dp"
-                    android:layout_height="78dp"
-                    android:layout_centerInParent="true" />
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/secondryColor" />
 
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/mobileLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="180dp"
-                android:orientation="vertical">
+                android:layout_height="50dp"
+                android:layout_below="@id/rankingLayout"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp">
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/img_phone"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_theme_mobile" />
+
+                <TextView
+                    android:id="@+id/tv_mobileProfile"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:elevation="3dp">
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/img_phone"
+                    android:text="+91 1234567890" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_profileUserName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="60dp"
-                            android:gravity="center"
-                            android:text="Jesica Jocie"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:id="@+id/tv_profileLocation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:drawableLeft="@drawable/ic_place_theme_color_24dp"
-                            android:gravity="center"
-                            android:text=" Silchir, Assam"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="15dp">
-
-                            <TextView
-                                android:id="@+id/tv_profileCoin"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:drawableLeft="@drawable/ic_coin"
-                                android:gravity="center"
-                                android:text="  1234"
-                                android:textColor="@color/colorPrimaryDark" />
-
-                            <TextView
-                                android:id="@+id/tv_rankProfile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:drawableLeft="@drawable/ic_awardlevelnormal"
-                                android:gravity="center"
-                                android:text="  1234"
-                                android:textColor="@color/colorPrimaryDark" />
-
-                            <TextView
-                                android:id="@+id/tv_levelProfile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:drawableLeft="@drawable/ic_level"
-                                android:gravity="center"
-                                android:text="1324"
-                                android:textColor="@color/colorPrimaryDark" />
-
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_toRightOf="@+id/img_phone"
+                    android:text="Mobile Number" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp">
-
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_theme_mobile" />
-
-                            <TextView
-                                android:id="@+id/tv_profileMobile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="50dp"
-                                android:text="+91 1324567890" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_profileMobile"
-                                android:layout_marginLeft="50dp"
-                                android:text="Primary" />
-
-                            <TextView
-                                android:id="@+id/tv_profileMobileVerify"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="Verified"
-                                android:textColor="@color/colorPrimaryDark" />
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp">
-
-                            <TextView
-                                android:id="@+id/tv_profileOtherMobile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="50dp"
-                                android:text="+91 1324567890" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_profileOtherMobile"
-                                android:layout_marginLeft="50dp"
-                                android:text="Others" />
-
-                            <TextView
-                                android:id="@+id/tv_profileOtherMobileVerify"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="Verify" />
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp">
-
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_theme_email" />
-
-                            <TextView
-                                android:id="@+id/tv_profileEmail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="50dp"
-                                android:text="test@gmail.com" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_profileEmail"
-                                android:layout_marginLeft="50dp"
-                                android:text="Primary" />
-
-                            <TextView
-                                android:id="@+id/tv_profileEmailVerify"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="Verified"
-                                android:textColor="@color/colorPrimaryDark" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
+                <View
                     android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/img_phone"
+                    android:background="@color/secondryColor" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/emailLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/mobileLayout"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/img_email"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_theme_email" />
+
+                <TextView
+                    android:id="@+id/tv_emailProfile"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/img_email"
+                    android:text="test@gmail.com" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_toRightOf="@+id/img_email"
+                    android:text="Email-id" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/img_email"
+                    android:background="@color/secondryColor" />
 
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_theme_calender" />
+            </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/tv_profileDob"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="50dp"
-                                android:text="15-09-1992" />
+            <RelativeLayout
+                android:id="@+id/dobLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/emailLayout"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="10dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_profileDob"
-                                android:layout_marginLeft="50dp"
-                                android:text="Date of Birth" />
+                <ImageView
+                    android:id="@+id/img_dob"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_theme_calender" />
 
-                        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_dobProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/img_dob"
+                    android:text="12-10-1990" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/img_dob"
+                    android:text="Date of Birth" />
 
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_theme_person" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/img_dob"
+                    android:background="@color/secondryColor" />
 
-                            <TextView
-                                android:id="@+id/tv_profileGender"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="50dp"
-                                android:text="Male" />
+            </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_profileGender"
-                                android:layout_marginLeft="50dp"
-                                android:text="Gender" />
+            <RelativeLayout
+                android:id="@+id/genderLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/dobLayout"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="10dp">
 
-                        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/img_gender"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_theme_person" />
 
-                    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_genderProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/img_gender"
+                    android:text="12-10-1990" />
 
-                </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_toRightOf="@+id/img_gender"
+                    android:text="Gender" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

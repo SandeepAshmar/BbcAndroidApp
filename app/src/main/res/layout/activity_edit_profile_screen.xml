@@ -19,7 +19,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Profile"
+            android:text="Edit Profile"
+            android:textColor="@color/whiteColor" />
+
+        <TextView
+            android:id="@+id/tv_done"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            android:text="Done"
             android:textColor="@color/whiteColor" />
 
     </android.support.v7.widget.Toolbar>
@@ -27,108 +37,216 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_editProfile"
-        android:layout_margin="10dp">
+        android:layout_below="@id/toolbar_editProfile">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_editProfile"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:transitionName="editProfileUserImage" />
+
+            <RelativeLayout
+                android:id="@+id/rl_editImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="13dp"
+                android:layout_marginEnd="106dp"
+                android:layout_marginTop="150dp"
+                android:background="@drawable/ic_edit_camera_backround">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:elevation="1dp"
+                    android:src="@drawable/ic_camera_alt_white_24dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_editProfile"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp">
+                    android:layout_height="wrap_content">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/img_editProfileUserImage"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:transitionName="editProfileUserImage" />
+                    <ImageView
+                        android:id="@+id/img_editPerson"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_theme_person" />
 
                     <EditText
-                        android:id="@+id/tv_editProfileUserName"
+                        android:id="@+id/edt_editProfileUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_toRightOf="@id/img_editProfileUserImage"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/img_editPerson"
+                        android:background="@android:color/transparent"
                         android:hint="username"
-                        android:background="@android:color/transparent"
-                        android:text="Jesica Jocie"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16dp"
-                        android:transitionName="editProfileUserName" />
+                        android:inputType="text" />
 
-
-                    <EditText
-                        android:id="@+id/tv_editProfileLocation"
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_editProfileUserName"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="15dp"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@id/edt_editProfileUsername"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@id/img_editProfileUserImage"
-                        android:drawableLeft="@drawable/ic_place_theme_color_24dp"
-                        android:textSize="14dp"
-                        android:text=" Silchir, Assam"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:background="@android:color/transparent"
-                        android:transitionName="editProfileUserLocation" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="35dp">
-
-                        <TextView
-                            android:id="@+id/tv_editProfileCoin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:drawableLeft="@drawable/ic_coin"
-                            android:gravity="center"
-                            android:text="  1234"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:id="@+id/tv_editProfileRank"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:drawableLeft="@drawable/ic_awardlevelnormal"
-                            android:gravity="center"
-                            android:text="  1234"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:id="@+id/tv_editProfileLevel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:drawableLeft="@drawable/ic_level"
-                            android:gravity="center"
-                            android:text="1324"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                    </RelativeLayout>
+                        android:layout_toRightOf="@id/img_editPerson"
+                        android:background="@color/secondryColor" />
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
 
-        </LinearLayout>
+                    <ImageView
+                        android:id="@+id/img_editLocation"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_place_theme_color_24dp" />
+
+                    <EditText
+                        android:id="@+id/edt_editProfileLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/img_editLocation"
+                        android:background="@android:color/transparent"
+                        android:hint="location"
+                        android:inputType="text" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@id/edt_editProfileLocation"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@id/img_editLocation"
+                        android:background="@color/secondryColor" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
+
+                    <ImageView
+                        android:id="@+id/img_editMobile"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_theme_mobile" />
+
+                    <EditText
+                        android:id="@+id/edt_editProfileMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/img_editMobile"
+                        android:background="@android:color/transparent"
+                        android:hint="Mobile number"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@id/edt_editProfileMobile"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@id/img_editMobile"
+                        android:background="@color/secondryColor" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
+
+                    <ImageView
+                        android:id="@+id/img_editDob"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_theme_person" />
+
+                    <EditText
+                        android:id="@+id/edt_editProfileDob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/img_editDob"
+                        android:background="@android:color/transparent"
+                        android:hint="Date of Birth"
+                        android:inputType="text" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@id/edt_editProfileDob"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@id/img_editDob"
+                        android:background="@color/secondryColor" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp">
+
+                    <ImageView
+                        android:id="@+id/img_editGender"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_group_24dp" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/img_editGender"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Female"
+                            android:buttonTint="@color/colorPrimaryDark"/>
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:text="Male"
+                            android:buttonTint="@color/colorPrimaryDark"/>
+
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
 
     </ScrollView>
+
 
 </RelativeLayout>
