@@ -69,7 +69,8 @@ public class EditProfileScreen extends AppCompatActivity {
         tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(EditProfileScreen.this, "Done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProfileScreen.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                onBackPressed();
             }
         });
 
