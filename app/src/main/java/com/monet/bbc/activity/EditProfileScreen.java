@@ -21,12 +21,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
+import com.monet.bbc.utils.AppPreference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -43,9 +46,11 @@ public class EditProfileScreen extends AppCompatActivity {
     public static final int PICK_FROM_CAMERA = 1001, LOAD_FROM_GALLERY = 1002;
     private String mCurrentPhotoPath;
     private Uri mImageCaptureUri;
-    private String finalPath = "", image = "";
+    private String finalPath = "";
     private CircleImageView userImage;
     private TextView tv_done;
+    private RelativeLayout rl_editImage;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,12 @@ public class EditProfileScreen extends AppCompatActivity {
 
         userImage = findViewById(R.id.img_editProfile);
         tv_done = findViewById(R.id.tv_done);
-        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(userImage);
+        rl_editImage = findViewById(R.id.rl_editImage);
+        toolbar = findViewById(R.id.toolbar_editProfile);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +73,18 @@ public class EditProfileScreen extends AppCompatActivity {
             }
         });
 
-//        if (checkExternalStoragePermission()) {
-//            openIntent();
-//        } else {
-//            requestExternalStoragePermission();
-//        }
+        rl_editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkExternalStoragePermission()) {
+                    openIntent();
+                } else {
+                    requestExternalStoragePermission();
+                }
+            }
+        });
+
+
     }
 
     private void openIntent() {
@@ -238,7 +255,7 @@ public class EditProfileScreen extends AppCompatActivity {
     @SuppressLint("NewApi")
     private void setImage(String picturePath) {
         finalPath = picturePath;
-        image = picturePath;
+        AppPreference.setImageURL(this, picturePath);
         try {
             ExifInterface exif = new ExifInterface(picturePath);
             String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
@@ -271,7 +288,7 @@ public class EditProfileScreen extends AppCompatActivity {
             fOut.flush();
             fOut.close();
 
-//            Glide.with(this).load(picturePath).into(img_profile);
+            Glide.with(this).load(picturePath).into(userImage);
             if (picturePath != null) {
 
             }
@@ -281,5 +298,21 @@ public class EditProfileScreen extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onNavigateUp() {
+        onBackPressed();
+        return super.onNavigateUp();
+    }
+
+    @Override
+    protected void onResume() {
+        if (AppPreference.getImageURL(this).isEmpty()) {
+            Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(userImage);
+        } else {
+            Glide.with(this).load(AppPreference.getImageURL(this)).into(userImage);
+        }
+        super.onResume();
     }
 }

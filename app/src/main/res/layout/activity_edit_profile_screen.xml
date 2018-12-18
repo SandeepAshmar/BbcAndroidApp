@@ -43,37 +43,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_editProfile"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:transitionName="editProfileUserImage" />
-
             <RelativeLayout
-                android:id="@+id/rl_editImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="13dp"
-                android:layout_marginEnd="106dp"
-                android:layout_marginTop="150dp"
-                android:background="@drawable/ic_edit_camera_backround">
+                android:id="@+id/img_Editlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerInParent="true"
-                    android:elevation="1dp"
-                    android:src="@drawable/ic_camera_alt_white_24dp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_editProfile"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
+                    android:transitionName="editProfileUserImage" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_editImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginLeft="160dp"
+                    android:background="@drawable/ic_edit_camera_backround">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:elevation="1dp"
+                        android:src="@drawable/ic_camera_alt_white_24dp" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/img_editProfile"
+                android:layout_below="@id/img_Editlayout"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="50dp"
                 android:orientation="vertical">

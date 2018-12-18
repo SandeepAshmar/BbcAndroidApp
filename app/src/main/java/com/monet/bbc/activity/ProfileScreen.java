@@ -13,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.StringSignature;
 import com.monet.bbc.R;
+import com.monet.bbc.utils.AppPreference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,8 +43,6 @@ public class ProfileScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_userProfile);
-
         img_profileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +58,20 @@ public class ProfileScreen extends AppCompatActivity {
         pairs[0] = new Pair<View, String>(img_userProfile, "editProfileUserImage");
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) this, pairs);
         startActivity(intent, options.toBundle());
+    }
+
+    @Override
+    protected void onResume() {
+        if (AppPreference.getImageURL(this).isEmpty()) {
+            Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg")
+                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+                    .into(img_userProfile);
+        } else {
+            Glide.with(this).load(AppPreference.getImageURL(this))
+                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+                    .into(img_userProfile);
+        }
+        super.onResume();
     }
 
     @Override

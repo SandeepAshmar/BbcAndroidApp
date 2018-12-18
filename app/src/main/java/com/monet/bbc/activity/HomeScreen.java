@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.monet.bbc.R;
@@ -31,7 +32,9 @@ import com.monet.bbc.fragment.LiveFragment;
 import com.monet.bbc.fragment.PlaylistFragment;
 import com.monet.bbc.fragment.TrendingFragment;
 import com.monet.bbc.utils.AppPreference;
+
 import java.lang.reflect.Field;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 @SuppressLint("NewApi")
@@ -119,8 +122,6 @@ public class HomeScreen extends AppCompatActivity
         tv_navName.setText("Sandeep Malik");
         tv_navPlace.setText("Sonepat, Haryana");
         dp_navProfile.setText("");
-
-        Glide.with(this).load(AppPreference.getImageURL(this)).into(img_navProfile);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -241,6 +242,12 @@ public class HomeScreen extends AppCompatActivity
             navItemClicked = -1;
             navigationView.setSelected(true);
         }
+        if (AppPreference.getImageURL(this).isEmpty()) {
+            Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
+        } else {
+            Glide.with(this).load(AppPreference.getImageURL(this)).into(img_navProfile);
+        }
+
         super.onResume();
     }
 }
