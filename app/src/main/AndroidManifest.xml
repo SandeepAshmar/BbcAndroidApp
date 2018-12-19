@@ -82,9 +82,15 @@
         <activity
             android:name=".activity.SeeAllActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.LiveVideoPlay" />
-        <activity android:name=".activity.ProfileScreen" />
-        <activity android:name=".activity.EditProfileScreen"></activity>
+        <activity
+            android:name=".activity.LiveVideoPlay"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProfileScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditProfileScreen"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

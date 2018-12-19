@@ -84,8 +84,6 @@ public class EditProfileScreen extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void openIntent() {
@@ -137,7 +135,10 @@ public class EditProfileScreen extends AppCompatActivity {
     }
 
     private boolean checkExternalStoragePermission() {
-        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
+                .checkSelfPermission(this,
+                        Manifest.permission.CAMERA);
         if (result == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
@@ -169,31 +170,24 @@ public class EditProfileScreen extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        switch (requestCode) {
-            case LOAD_FROM_GALLERY:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(galleryIntent, LOAD_FROM_GALLERY);
-                } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme);
-                    alertDialog.setMessage("You Have To Give Permission From Your Device Setting To go in Setting Please Click on Settings Button");
-                    alertDialog.setCancelable(false);
-                    alertDialog.setPositiveButton("Go To Settings", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            Uri uri = Uri.fromParts("package", getPackageName(), null);
-                            intent.setData(uri);
-                            startActivity(intent);
-                        }
-                    });
-                    alertDialog.show();
+        if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme);
+            alertDialog.setMessage("You Have To Give Permission From Your Device Setting To go in Setting Please Click on Settings Button");
+            alertDialog.setCancelable(false);
+            alertDialog.setPositiveButton("Go To Settings", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
                 }
-                break;
+            });
+            alertDialog.show();
+        }else{
+            openIntent();
         }
-
     }
 
     @Override
@@ -234,7 +228,7 @@ public class EditProfileScreen extends AppCompatActivity {
 
     private Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        inImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
@@ -273,10 +267,10 @@ public class EditProfileScreen extends AppCompatActivity {
             int srcWidth = bounds.outWidth;
 
             BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inSampleSize = calculateInSampleSize(bounds, 150, 150);
+            opts.inSampleSize = calculateInSampleSize(bounds, 100, 150);
             opts.inScaled = true;
             opts.inDensity = srcWidth;
-            opts.inTargetDensity = 100 * bounds.inSampleSize;
+            opts.inTargetDensity = 90 * bounds.inSampleSize;
             Bitmap bm = BitmapFactory.decodeFile(picturePath, opts);
             Matrix matrix = new Matrix();
             matrix.setRotate(rotationAngle);
@@ -285,7 +279,7 @@ public class EditProfileScreen extends AppCompatActivity {
             File file = new File(picturePath);
             OutputStream fOut = null;
             fOut = new FileOutputStream(file);
-            bm.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            bm.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
             fOut.flush();
             fOut.close();
 
