@@ -23,9 +23,11 @@ import android.widget.Toast;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.monet.bbc.R;
 
+import java.util.Random;
+
 public class OtpScreen extends AppCompatActivity implements View.OnClickListener {
     private EditText otpOne, otpTwo, otpThree, otpFour;
-    private String otp = "";
+    private String otp = "", generatedOtp = "", emailId = "";
     private DonutProgress prog_otp;
     private TextView tv_otp_time, tv_otp_try_again;
     private int progreTime = 60;
@@ -55,6 +57,9 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
         prog_otp.setMax(progreTime);
         prog_otp.setText("");
+
+        generatedOtp = getIntent().getStringExtra("otp");
+        emailId = getIntent().getStringExtra("email");
 
         rl_otp_try.setOnClickListener(this);
         rl_otp_try.setClickable(false);
@@ -231,7 +236,7 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
     @SuppressLint("NewApi")
     private void validate() {
-        if (otp.equals("1234")) {
+        if (otp.equals(generatedOtp)) {
             runTimer.cancel();
             Intent intent = new Intent(this,ResetPasswordScreen.class);
             intent.putExtra("Screen","otp");
@@ -244,7 +249,7 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
             otpFour.getText().clear();
             otpOne.requestFocus();
             otp = "";
-            Toast.makeText(this, "please enter valid in otp", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "please enter valid in otp "+generatedOtp, Toast.LENGTH_SHORT).show();
         }
         edtLengthTwo = 1;
         edtLengthThree = 1;
@@ -279,6 +284,12 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    private void generateOtp() {
+        Random rnd = new Random();
+        generatedOtp = String.valueOf(1000 + rnd.nextInt(9999));
+        Toast.makeText(this, "Now enter this otp "+generatedOtp, Toast.LENGTH_SHORT).show();
+    }
+
     private void startTimerAgain() {
         progreTime = 60;
         progTime = 0;
@@ -291,5 +302,6 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         runTimer.cancel();
         runTimer = new RunTimer(60000, 1000);
         runTimer.start();
+        generateOtp();
     }
 }

@@ -58,12 +58,18 @@ public class ForgotPasswordScreen extends AppCompatActivity implements View.OnCl
 
     private void generateOtp() {
         Random rnd = new Random();
-        otp = String.valueOf(100000 + rnd.nextInt(999999));
+        otp = String.valueOf(1000 + rnd.nextInt(9999));
     }
 
     @SuppressLint("NewApi")
     private void sendOtp() {
-        Toast.makeText(this, "Please enter this otp", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, OtpScreen.class));
+        Toast.makeText(this, "Please enter "+otp+" in otp fields", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, OtpScreen.class);
+        intent.putExtra("otp", otp);
+        intent.putExtra("email", email);
+        startActivity(intent);
+        finish();
+
     }
 }
