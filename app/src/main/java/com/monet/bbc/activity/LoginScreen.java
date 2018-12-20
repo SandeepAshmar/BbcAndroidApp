@@ -6,6 +6,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -47,6 +48,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     private AccessToken mAccessToken;
     private String socialId, socialEmail, socialName, socialImage;
     private static int RC_SIGN_IN = 1;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +196,25 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         startActivity(new Intent(LoginScreen.this, HomeScreen.class));
         finish();
         Toast.makeText(this, "api will call here", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
 
