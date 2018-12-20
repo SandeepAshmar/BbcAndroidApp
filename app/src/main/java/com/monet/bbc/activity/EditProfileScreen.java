@@ -86,6 +86,13 @@ public class EditProfileScreen extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+
     private void openIntent() {
         final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(this,
                 R.style.CustomAlertDialogStyle);

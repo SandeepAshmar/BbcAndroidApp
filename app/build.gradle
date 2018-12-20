@@ -37,4 +37,5 @@ dependencies {
     implementation 'com.github.cooltechworks:ScratchView:v1.1'
     implementation 'me.relex:circleindicator:1.2.2@aar'
     implementation 'com.facebook.android:facebook-android-sdk:4.37.0'
+
 }

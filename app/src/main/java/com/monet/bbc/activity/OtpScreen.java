@@ -233,7 +233,9 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
     private void validate() {
         if (otp.equals("1234")) {
             runTimer.cancel();
-            startActivity(new Intent(this, ResetPasswordScreen.class));
+            Intent intent = new Intent(this,ResetPasswordScreen.class);
+            intent.putExtra("Screen","otp");
+            startActivity(intent);
             finish();
         } else {
             otpOne.getText().clear();

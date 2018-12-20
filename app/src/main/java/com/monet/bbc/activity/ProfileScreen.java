@@ -52,6 +52,12 @@ public class ProfileScreen extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
     private void chnageActivity() {
         Intent intent = new Intent(this, EditProfileScreen.class);
         Pair[] pairs = new Pair[1];
