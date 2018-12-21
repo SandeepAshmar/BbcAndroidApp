@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activity.ProfileScreen">
 
+    <View
+        android:id="@+id/balckLayerProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/half_black"
+        android:elevation="5dp"
+        android:visibility="gone"/>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
@@ -36,7 +44,9 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_toolbar">
+        android:layout_below="@id/profile_toolbar"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -46,16 +56,14 @@
                 android:id="@+id/img_userProfile"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="15dp"
-                android:elevation="5dp"/>
+                android:elevation="6dp"/>
 
             <TextView
                 android:id="@+id/tv_userNameProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/img_userProfile"
                 android:text="Jasica Jocie"
                 android:textColor="@color/colorPrimaryDark"
@@ -182,7 +190,6 @@
                 android:layout_height="50dp"
                 android:layout_below="@id/rankingLayout"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginTop="20dp">
 
                 <ImageView
@@ -224,7 +231,6 @@
                 android:layout_height="50dp"
                 android:layout_below="@id/mobileLayout"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginTop="10dp">
 
                 <ImageView
@@ -266,7 +272,6 @@
                 android:layout_height="50dp"
                 android:layout_below="@id/emailLayout"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginTop="10dp">
 
                 <ImageView
@@ -308,7 +313,6 @@
                 android:layout_height="50dp"
                 android:layout_below="@id/dobLayout"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginTop="10dp">
 
                 <ImageView
@@ -325,7 +329,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/img_gender"
-                    android:text="12-10-1990" />
+                    android:text="Male" />
 
                 <TextView
                     android:layout_width="wrap_content"

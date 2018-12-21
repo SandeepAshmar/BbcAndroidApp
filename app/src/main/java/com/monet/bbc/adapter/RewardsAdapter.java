@@ -73,7 +73,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(position);
+                openDialog(holder, position);
             }
         });
     }
@@ -97,12 +97,18 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.ViewHold
         }
     }
 
-    private void openDialog(final int position) {
+    private void openDialog(ViewHolder holder, final int position) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.reward_dialog);
 
         simg_scratch = dialog.findViewById(R.id.simg_scratch);
+
+        if(holder.rl_scratch.getVisibility() == View.VISIBLE){
+            simg_scratch.setVisibility(View.VISIBLE);
+        }else{
+            simg_scratch.setVisibility(View.GONE);
+        }
 
         simg_scratch.setRevealListener(new ScratchImageView.IRevealListener() {
             @Override

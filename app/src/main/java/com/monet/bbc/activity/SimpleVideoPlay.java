@@ -2,6 +2,7 @@ package com.monet.bbc.activity;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
@@ -47,7 +48,7 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     private Handler handler;
     private Runnable runnable;
     private int hidePauseLayout = 0;
-    private boolean isFullScreen = false;
+    private boolean isFullScreen = false, isButtonPresed = false;
     private ProgressBar progress_svp;
 
     @Override
@@ -99,8 +100,29 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         tv_SVP_videoName.setText(name);
         setAdapter();
         setVideo(videoURL);
-
     }
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_exit);
+//            isFullScreen = true;
+//            rl_videoInfo.setVisibility(View.GONE);
+//            rl_autoPlayLayout.setVisibility(View.GONE);
+//            rv_svp.setVisibility(View.GONE);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        } else {
+//            img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
+//            isFullScreen = false;
+//            rl_videoInfo.setVisibility(View.VISIBLE);
+//            rl_autoPlayLayout.setVisibility(View.VISIBLE);
+//            rv_svp.setVisibility(View.VISIBLE);
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        }
+//    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setVideo(String videoURLtoPlay) {
@@ -203,30 +225,33 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(this, "search function", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.img_fullScreen:
-
-                if (!isFullScreen) {
-                    img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_exit);
-                    isFullScreen = true;
-                    rl_videoInfo.setVisibility(View.GONE);
-                    rl_autoPlayLayout.setVisibility(View.GONE);
-                    rv_svp.setVisibility(View.GONE);
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                } else {
-                    img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
-                    isFullScreen = false;
-                    rl_videoInfo.setVisibility(View.VISIBLE);
-                    rl_autoPlayLayout.setVisibility(View.VISIBLE);
-                    rv_svp.setVisibility(View.VISIBLE);
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                }
-
+                screenOrietation();
+                isButtonPresed = true;
                 break;
             case R.id.img_dots:
-                Toast.makeText(this, "dots clik", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "dots click", Toast.LENGTH_SHORT).show();
                 break;
 
+        }
+    }
+
+    private void screenOrietation() {
+        if (!isFullScreen) {
+            img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_exit);
+            isFullScreen = true;
+            rl_videoInfo.setVisibility(View.GONE);
+            rl_autoPlayLayout.setVisibility(View.GONE);
+            rv_svp.setVisibility(View.GONE);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
+            isFullScreen = false;
+            rl_videoInfo.setVisibility(View.VISIBLE);
+            rl_autoPlayLayout.setVisibility(View.VISIBLE);
+            rv_svp.setVisibility(View.VISIBLE);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 
@@ -250,9 +275,9 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
     }
 
     private void handleProgressBar() {
-        if(!video_SVP.isPlaying()){
+        if (!video_SVP.isPlaying()) {
             progress_svp.setVisibility(View.GONE);
-        }else{
+        } else {
             progress_svp.setVisibility(View.GONE);
         }
 

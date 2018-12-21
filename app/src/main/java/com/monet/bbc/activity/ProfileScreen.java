@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.StringSignature;
 import com.monet.bbc.R;
 import com.monet.bbc.utils.AppPreference;
@@ -21,12 +22,18 @@ import com.monet.bbc.utils.AppPreference;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 @SuppressLint("NewApi")
-public class ProfileScreen extends AppCompatActivity {
+public class ProfileScreen extends AppCompatActivity implements Animation.AnimationListener {
 
     private CircleImageView img_userProfile;
     private ImageView img_profileEdit;
     private TextView tv_userNameProfile, tv_userLocationProfile;
     private Toolbar toolbar;
+    private Animation animZoomIn;
+    private Animation animZoomOut;
+    private boolean isProfileZoom = false;
+    private float profileX;
+    private float profileY;
+    private View balckLayerProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +44,23 @@ public class ProfileScreen extends AppCompatActivity {
         img_profileEdit = findViewById(R.id.img_profileEdit);
         tv_userNameProfile = findViewById(R.id.tv_userNameProfile);
         tv_userLocationProfile = findViewById(R.id.tv_userLocationProfile);
+        balckLayerProfile = findViewById(R.id.balckLayerProfile);
         toolbar = findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        profileX = img_userProfile.getX();
+        profileY = img_userProfile.getY();
+
+        animZoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.profile_zoom_in);
+        animZoomIn.setAnimationListener(this);
+
+        animZoomOut = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.profile_zoom_out);
+        animZoomOut.setAnimationListener(this);
 
         img_profileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +69,50 @@ public class ProfileScreen extends AppCompatActivity {
             }
         });
 
+        img_userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setProfileImageLocation();
+            }
+        });
+
+        balckLayerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setProfileImageLocation();
+            }
+        });
+
+    }
+
+    private void setProfileImageLocation(){
+        if (isProfileZoom) {
+            zoomOut(img_userProfile);
+            img_userProfile.startAnimation(animZoomOut);
+            isProfileZoom = false;
+            balckLayerProfile.setVisibility(View.GONE);
+        } else {
+            zoomIn(img_userProfile);
+            img_userProfile.startAnimation(animZoomIn);
+            isProfileZoom = true;
+            balckLayerProfile.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void zoomIn(CircleImageView target) {
+        target.animate()
+                .x(60)
+                .y(60)
+                .setDuration(500)
+                .start();
+    }
+
+    private void zoomOut(CircleImageView viewToMove) {
+        viewToMove.animate()
+                .x(profileX)
+                .y(profileY)
+                .setDuration(500)
+                .start();
     }
 
     @Override
@@ -81,8 +144,29 @@ public class ProfileScreen extends AppCompatActivity {
     }
 
     @Override
-    public boolean onNavigateUp() {
-        onBackPressed();
-        return super.onNavigateUp();
+    public void onBackPressed() {
+        if (isProfileZoom) {
+            zoomOut(img_userProfile);
+            img_userProfile.startAnimation(animZoomOut);
+            isProfileZoom = false;
+            balckLayerProfile.setVisibility(View.GONE);
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
     }
 }

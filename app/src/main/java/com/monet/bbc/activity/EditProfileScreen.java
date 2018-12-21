@@ -210,7 +210,8 @@ public class EditProfileScreen extends AppCompatActivity {
                         // CALL THIS METHOD TO GET THE ACTUAL PATH
                         File finalFile = new File(getRealPathFromURI(tempUri));
                         mCurrentPhotoPath = String.valueOf(finalFile);
-                        setImage(mCurrentPhotoPath);
+                        Glide.with(this).load(mCurrentPhotoPath).into(userImage);
+                        AppPreference.setImageURL(this, mCurrentPhotoPath);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -226,7 +227,9 @@ public class EditProfileScreen extends AppCompatActivity {
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                         String picturePath = cursor.getString(columnIndex);
                         cursor.close();
-                        setImage(picturePath);
+                        Glide.with(this).load(picturePath).into(userImage);
+                        AppPreference.setImageURL(this, picturePath);
+//                        setImage(picturePath);
                     }
                     break;
             }
