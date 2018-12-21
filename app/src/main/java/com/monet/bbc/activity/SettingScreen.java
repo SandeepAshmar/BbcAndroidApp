@@ -57,7 +57,7 @@ public class SettingScreen extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_account:
-                toast("Account");
+                startActivity(new Intent(SettingScreen.this,ProfileScreen.class));
                 break;
             case R.id.tv_password_reset:
                 Intent intent = new Intent(this,ResetPasswordScreen.class);
