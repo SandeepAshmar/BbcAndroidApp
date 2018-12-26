@@ -71,8 +71,6 @@ public class HomeScreen extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-//        AppUtils.shortToast(this, "Hello World");
-
         ll_navLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,8 +217,36 @@ public class HomeScreen extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        final int id = item.getItemId();
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
 
+        if (id == R.id.nav_home) {
+            setFragment(homeFragment);
+        } else if (id == R.id.nav_live) {
+            setFragment(liveFragment);
+        } else if (id == R.id.nav_trending) {
+            setFragment(trendingFragment);
+        } else if (id == R.id.nav_playlist) {
+            setFragment(playlistFragment);
+        } else if (id == R.id.nav_favourite) {
+            setFragment(favouriteFragment);
+        }
+
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                changeActivity(id);
+            }
+        };
+        handler.postDelayed(runnable, 350);
+
+        return true;
+    }
+
+    private void changeActivity(int id) {
         if (id == R.id.nav_profile) {
             navItemClicked = 0;
             Intent intent = new Intent(this, ProfileScreen.class);
@@ -237,32 +263,21 @@ public class HomeScreen extends AppCompatActivity
             Intent intent = new Intent(this, SettingScreen.class);
             startActivity(intent);
             navItemClicked = 3;
-        } else if (id == R.id.nav_home) {
-            setFragment(homeFragment);
-        } else if (id == R.id.nav_live) {
-            setFragment(liveFragment);
-        } else if (id == R.id.nav_trending) {
-            setFragment(trendingFragment);
-        } else if (id == R.id.nav_playlist) {
-            setFragment(playlistFragment);
-        } else if (id == R.id.nav_favourite) {
-            setFragment(favouriteFragment);
         }
-        return true;
     }
 
     @Override
     protected void onResume() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-            navigationView.getMenu().getItem(navItemClicked).setChecked(false);
-            navItemClicked = -1;
-            navigationView.setSelected(true);
-        }
         if (AppPreference.getImageURL(this).isEmpty()) {
             Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
         } else {
             Glide.with(this).load(AppPreference.getImageURL(this)).into(img_navProfile);
+        }
+
+        if (navItemClicked != -1) {
+            navigationView.getMenu().getItem(navItemClicked).setChecked(false);
+            navItemClicked = -1;
+            navigationView.setSelected(true);
         }
 
         super.onResume();
