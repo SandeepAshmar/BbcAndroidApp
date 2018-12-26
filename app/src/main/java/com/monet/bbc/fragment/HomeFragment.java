@@ -23,6 +23,8 @@ import com.monet.bbc.adapter.HomeTrendingAdapter;
 import com.monet.bbc.adapter.ImageSliderHome;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -130,15 +132,12 @@ public class HomeFragment extends Fragment {
         indicator.setViewPager(mPager);
 
         // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == imageList.size()) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage++, true);
-            }
-        };
+//        final Handler handler = new Handler();
+//        final Runnable Update = new Runnable() {
+//            public void run() {
+//
+//            }
+//        };
 //        Timer swipeTimer = new Timer();
 //        swipeTimer.schedule(new TimerTask() {
 //            @Override
