@@ -12,8 +12,6 @@ import android.view.Gravity;
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.RewardsAdapter;
 
-import static com.monet.bbc.utils.AppUtils.runRightSideAnimation;
-
 public class RewardsScreen extends AppCompatActivity {
 
     private Toolbar toolbar;

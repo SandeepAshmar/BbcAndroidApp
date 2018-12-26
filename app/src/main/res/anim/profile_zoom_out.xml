@@ -4,10 +4,10 @@
 
     <scale
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="500"
-        android:fromXScale="2.5"
-        android:fromYScale="2.5"
-        android:pivotX="10%"
+        android:duration="300"
+        android:fromXScale="3"
+        android:fromYScale="3"
+        android:pivotX="30%"
         android:pivotY="10%"
         android:toXScale="1"
         android:toYScale="1" >

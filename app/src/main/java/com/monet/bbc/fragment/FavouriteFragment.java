@@ -18,9 +18,6 @@ import android.widget.Toast;
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.FavoriteAdapter;
 
-import static com.monet.bbc.utils.AppUtils.runFallDownAnimation;
-import static com.monet.bbc.utils.AppUtils.runRightSideAnimation;
-
 public class FavouriteFragment extends Fragment {
 
     private RecyclerView recyclerView;

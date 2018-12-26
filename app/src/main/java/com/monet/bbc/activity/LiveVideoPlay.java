@@ -72,9 +72,11 @@ public class LiveVideoPlay extends AppCompatActivity implements Animation.Animat
         userPoints = AppPreference.getUserPoints(this);
 
         tv_userLivePoints.setText(""+userPoints);
+
         animZoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.zoom_in);
         animZoomIn.setAnimationListener(this);
+
         animZoomOut = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.zoom_out);
         animZoomOut.setAnimationListener(this);

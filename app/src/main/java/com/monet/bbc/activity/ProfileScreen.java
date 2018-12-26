@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,8 +32,7 @@ public class ProfileScreen extends AppCompatActivity implements Animation.Animat
     private Animation animZoomIn;
     private Animation animZoomOut;
     private boolean isProfileZoom = false;
-    private float profileX;
-    private float profileY;
+    private float profileX , profileY, screenX, screenY;
     private View balckLayerProfile;
 
     @Override
@@ -53,6 +53,9 @@ public class ProfileScreen extends AppCompatActivity implements Animation.Animat
 
         profileX = img_userProfile.getX();
         profileY = img_userProfile.getY();
+
+        screenX= this.getResources().getDisplayMetrics().xdpi / 4;
+        screenY= this.getResources().getDisplayMetrics().ydpi / 4;
 
         animZoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.profile_zoom_in);
@@ -85,7 +88,7 @@ public class ProfileScreen extends AppCompatActivity implements Animation.Animat
 
     }
 
-    private void setProfileImageLocation(){
+    private void setProfileImageLocation() {
         if (isProfileZoom) {
             zoomOut(img_userProfile);
             img_userProfile.startAnimation(animZoomOut);
@@ -101,9 +104,9 @@ public class ProfileScreen extends AppCompatActivity implements Animation.Animat
 
     private void zoomIn(CircleImageView target) {
         target.animate()
-                .x(60)
-                .y(60)
-                .setDuration(500)
+                .x(screenX)
+                .y(screenY)
+                .setDuration(300)
                 .start();
     }
 
@@ -111,7 +114,7 @@ public class ProfileScreen extends AppCompatActivity implements Animation.Animat
         viewToMove.animate()
                 .x(profileX)
                 .y(profileY)
-                .setDuration(500)
+                .setDuration(300)
                 .start();
     }
 
