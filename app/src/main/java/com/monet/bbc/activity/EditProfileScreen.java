@@ -1,19 +1,14 @@
 package com.monet.bbc.activity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -32,25 +27,20 @@ import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 import com.monet.bbc.utils.AppPreference;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.monet.bbc.utils.AppUtils.calculateInSampleSize;
+import static com.monet.bbc.utils.AppPreference.getImageBase64;
+import static com.monet.bbc.utils.AppPreference.setImageBase64;
+import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
+import static com.monet.bbc.utils.AppUtils.convertCameraImageToBase64;
+import static com.monet.bbc.utils.AppUtils.convertGalleryImageToBase64;
 import static com.monet.bbc.utils.AppUtils.openUtilityDialog;
 
 public class EditProfileScreen extends AppCompatActivity {
 
     public static final int PICK_FROM_CAMERA = 1001, LOAD_FROM_GALLERY = 1002;
-    private String mCurrentPhotoPath;
+    private String photoBase64 = "";
     private Uri mImageCaptureUri;
-    private String finalPath = "";
     private CircleImageView userImage;
     private TextView tv_done;
     private RelativeLayout rl_editImage;
@@ -73,6 +63,9 @@ public class EditProfileScreen extends AppCompatActivity {
         tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(photoBase64 != ""){
+                    setImageBase64(EditProfileScreen.this, photoBase64);
+                }
                 Toast.makeText(EditProfileScreen.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
                 onBackPressed();
             }
@@ -196,7 +189,7 @@ public class EditProfileScreen extends AppCompatActivity {
                 }
             });
             alertDialog.show();
-        }else{
+        } else {
             openIntent();
         }
     }
@@ -204,23 +197,19 @@ public class EditProfileScreen extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        userImage.setImageBitmap(null);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case PICK_FROM_CAMERA:
                     try {
                         Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-                        Uri tempUri = getImageUri(getApplicationContext(), photo);
-                        // CALL THIS METHOD TO GET THE ACTUAL PATH
-                        File finalFile = new File(getRealPathFromURI(tempUri));
-                        mCurrentPhotoPath = String.valueOf(finalFile);
-                        Glide.with(this).load(mCurrentPhotoPath).into(userImage);
-                        AppPreference.setImageURL(this, mCurrentPhotoPath);
+                        photoBase64 = convertCameraImageToBase64(photo);
+                        setImageBase64(this, photoBase64);
+                        userImage.setImageBitmap(convertBase64ToBitmap(getImageBase64(this)));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
-
                 case LOAD_FROM_GALLERY:
                     if (data != null) {
                         mImageCaptureUri = data.getData();
@@ -231,97 +220,12 @@ public class EditProfileScreen extends AppCompatActivity {
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                         String picturePath = cursor.getString(columnIndex);
                         cursor.close();
-                        Glide.with(this).load(picturePath).into(userImage);
-                        AppPreference.setImageURL(this, picturePath);
-//                        setImage(picturePath);
+                        photoBase64 = convertGalleryImageToBase64(picturePath);
+                        setImageBase64(this, photoBase64);
+                        userImage.setImageBitmap(convertBase64ToBitmap(getImageBase64(this)));
                     }
                     break;
             }
-        }
-    }
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-    private Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        String path = "";
-        if (getContentResolver() != null) {
-            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                path = cursor.getString(idx);
-                cursor.close();
-            }
-        }
-        return path;
-    }
-
-    @SuppressLint("NewApi")
-    private void setImage(String picturePath) {
-        finalPath = picturePath;
-        AppPreference.setImageURL(this, picturePath);
-        try {
-            ExifInterface exif = new ExifInterface(picturePath);
-            String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-            int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
-
-            int rotationAngle = 0;
-            if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-            if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-            if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
-
-            BitmapFactory.Options bounds = new BitmapFactory.Options();
-            bounds.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(picturePath, bounds);
-            int srcWidth = bounds.outWidth;
-
-            BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inSampleSize = calculateInSampleSize(bounds, 100, 150);
-            opts.inScaled = true;
-            opts.inDensity = srcWidth;
-            opts.inTargetDensity = 90 * bounds.inSampleSize;
-            Bitmap bm = BitmapFactory.decodeFile(picturePath, opts);
-            Matrix matrix = new Matrix();
-            matrix.setRotate(rotationAngle);
-            bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
-
-            File file = new File(picturePath);
-            OutputStream fOut = null;
-            fOut = new FileOutputStream(file);
-            bm.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
-            fOut.flush();
-            fOut.close();
-
-            Glide.with(this).load(picturePath).into(userImage);
-            if (picturePath != null) {
-
-            }
-
-        } catch (OutOfMemoryError e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -333,10 +237,10 @@ public class EditProfileScreen extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if (AppPreference.getImageURL(this).isEmpty()) {
+        if (getImageBase64(this).isEmpty()) {
             Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(userImage);
         } else {
-            Glide.with(this).load(AppPreference.getImageURL(this)).into(userImage);
+            userImage.setImageBitmap(convertBase64ToBitmap(getImageBase64(this)));
         }
         super.onResume();
     }

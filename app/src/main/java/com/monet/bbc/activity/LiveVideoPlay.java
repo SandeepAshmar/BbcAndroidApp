@@ -18,6 +18,9 @@ import com.monet.bbc.utils.AppPreference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.monet.bbc.utils.AppPreference.getImageBase64;
+import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
+
 public class LiveVideoPlay extends AppCompatActivity implements Animation.AnimationListener {
 
     private CircleImageView userImage;
@@ -88,7 +91,7 @@ public class LiveVideoPlay extends AppCompatActivity implements Animation.Animat
         if(AppPreference.getImageURL(this).isEmpty()){
             Glide.with(this).load("http://icons.iconarchive.com/icons/graphicloads/flat-finance/256/person-icon.png").into(userImage);
         }else{
-            Glide.with(this).load(AppPreference.getImageURL(this)).into(userImage);
+            userImage.setImageBitmap(convertBase64ToBitmap(getImageBase64(this)));
         }
 
         if (image != null) {

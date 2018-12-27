@@ -4,22 +4,29 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.monet.bbc.R;
+import com.monet.bbc.activity.EditProfileScreen;
+
+import java.io.ByteArrayOutputStream;
+
+import static com.monet.bbc.utils.AppPreference.getImageBase64;
 
 public class AppUtils {
 
     public static AlertDialog d;
 
     @SuppressLint("WrongConstant")
-    public static void shortToast(Context context, String message){
+    public static void shortToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         /*TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setTextColor(Color.RED);
@@ -28,8 +35,38 @@ public class AppUtils {
         toast.show();
     }
 
-    public static void longToast(Context context, String message){
+    public static void longToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
+    public static String convertGalleryImageToBase64(String imagePath) {
+        if (imagePath == null || imagePath == "") {
+            return "";
+        }
+
+        Bitmap bm = BitmapFactory.decodeFile(imagePath);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+        byte[] byteArrayImage = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(byteArrayImage, Base64.NO_WRAP);
+
+        return encodedImage;
+
+    }
+
+    public static String convertCameraImageToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return encoded;
+    }
+
+    public static Bitmap convertBase64ToBitmap(String imageBase64){
+        byte[] decodedString = Base64.decode(imageBase64, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+        return decodedByte;
     }
 
     public static String convertVideoTime(long millis) {

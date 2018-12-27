@@ -22,6 +22,10 @@ import com.monet.bbc.utils.AppPreference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.monet.bbc.utils.AppPreference.getImageBase64;
+import static com.monet.bbc.utils.AppPreference.getImageURL;
+import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
+
 @SuppressLint("NewApi")
 public class ProfileScreen extends AppCompatActivity implements Animation.AnimationListener {
 
@@ -134,14 +138,12 @@ public class ProfileScreen extends AppCompatActivity implements Animation.Animat
 
     @Override
     protected void onResume() {
-        if (AppPreference.getImageURL(this).isEmpty()) {
+        if (getImageBase64(this).isEmpty()) {
             Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg")
                     .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
                     .into(img_userProfile);
         } else {
-            Glide.with(this).load(AppPreference.getImageURL(this))
-                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                    .into(img_userProfile);
+            img_userProfile.setImageBitmap(convertBase64ToBitmap(getImageBase64(this)));
         }
         super.onResume();
     }

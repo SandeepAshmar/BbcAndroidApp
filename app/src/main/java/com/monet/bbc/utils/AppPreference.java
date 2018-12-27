@@ -32,6 +32,18 @@ public class AppPreference  {
         mPrefsEditor.apply();
     }
 
+    public static String getImageBase64(Context ctx) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        return mPrefs.getString("img_base64", "");
+    }
+
+    public static void setImageBase64(Context ctx, String value) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        mPrefsEditor = mPrefs.edit();
+        mPrefsEditor.putString("img_base64", value);
+        mPrefsEditor.apply();
+    }
+
     public static void clearAllPreferences(Context ctx) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         mPrefsEditor = mPrefs.edit();

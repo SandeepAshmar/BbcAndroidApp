@@ -33,7 +33,7 @@ import me.relex.circleindicator.CircleIndicator;
  */
 public class HomeFragment extends Fragment {
 
-    private ViewPager mPager;
+    public static ViewPager mPager;
     private int currentPage = 0;
     private String one = "https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg";
     private String two = "https://cdn.fstoppers.com/styles/med-16-9/s3/lead/2017/08/iceland-unique-compositions-landscape-photography.jpg";
@@ -63,6 +63,7 @@ public class HomeFragment extends Fragment {
         rv_playListHome = view.findViewById(R.id.rv_playListHome);
         tv_trendingSeeAll = view.findViewById(R.id.tv_trendingSeeAll);
         tv_shwosSeeAll = view.findViewById(R.id.tv_shwosSeeAll);
+        rv_playListHome.setNestedScrollingEnabled(false);
 
         imageList.clear();
         imageList.add(one);
@@ -131,11 +132,14 @@ public class HomeFragment extends Fragment {
         CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
-        // Auto start of viewpager
+//        // Auto start of viewpager
 //        final Handler handler = new Handler();
 //        final Runnable Update = new Runnable() {
 //            public void run() {
-//
+//                if (currentPage == imageList.size()) {
+//                    currentPage = 0;
+//                }
+//                mPager.setCurrentItem(currentPage++, true);
 //            }
 //        };
 //        Timer swipeTimer = new Timer();

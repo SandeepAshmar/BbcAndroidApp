@@ -39,6 +39,9 @@ import java.lang.reflect.Field;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.monet.bbc.utils.AppPreference.getImageBase64;
+import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
+
 @SuppressLint("NewApi")
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -200,12 +203,7 @@ public class HomeScreen extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -271,7 +269,7 @@ public class HomeScreen extends AppCompatActivity
         if (AppPreference.getImageURL(this).isEmpty()) {
             Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
         } else {
-            Glide.with(this).load(AppPreference.getImageURL(this)).into(img_navProfile);
+            img_navProfile.setImageBitmap(convertBase64ToBitmap(getImageBase64(this)));
         }
 
         if (navItemClicked != -1) {
