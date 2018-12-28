@@ -143,7 +143,6 @@ public class LiveVideoPlay extends AppCompatActivity implements Animation.Animat
             }
         });
     }
-
     private void disableSelection(String s) {
         optionOne.setClickable(false);
         optionTwo.setClickable(false);
