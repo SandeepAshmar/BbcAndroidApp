@@ -21,11 +21,17 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.LoginStatusCallback;
+import com.facebook.login.Login;
 import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.monet.bbc.R;
+import com.monet.bbc.connection.ApiInterface;
+import com.monet.bbc.connection.BaseUrl;
+import com.monet.bbc.model.LoginPojo;
+import com.monet.bbc.model.LoginPost;
 import com.monet.bbc.utils.AppPreference;
 import com.monet.bbc.utils.AppUtils;
 
@@ -35,6 +41,11 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Body;
 
 import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
 
@@ -49,6 +60,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     private String socialId, socialEmail, socialName, socialImage;
     private static int RC_SIGN_IN = 1;
     boolean doubleBackToExitPressedOnce = false;
+    private ApiInterface apiInterface;
+    private static final String TAG = "LoginScreen";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +77,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_fb).setOnClickListener(this);
         getKeyHash();
+        apiInterface = BaseUrl.getRetrofit().create(ApiInterface.class);
         fbLogin.setOnClickListener(this);
         fbLogin.setReadPermissions(Arrays.asList(EMAIL));
         fbLogin.setLoginBehavior(LoginBehavior.WEB_ONLY);
@@ -135,9 +149,11 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         try {
                             socialId = object.getString("id");
                             socialName = object.getString("name");
-                            socialImage = "https://graph.facebook.com/" + socialId+ "/picture?type=large";
+                            socialImage = "https://graph.facebook.com/" + socialId + "/picture?type=large";
                             socialEmail = object.getString("email");
-                            AppPreference.setImageURL(LoginScreen.this, socialImage);
+                            socialLogin();
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
@@ -152,6 +168,10 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         parameters.putString("fields", "id,name,email");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    private void socialLogin() {
+
     }
 
     private void getKeyHash() {
@@ -192,10 +212,35 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     @SuppressLint("NewApi")
     private void loginUser() {
-        AppPreference.setUserLoggedOut(LoginScreen.this, false);
-        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
-        finish();
-        Toast.makeText(this, "api will call here", Toast.LENGTH_SHORT).show();
+
+        LoginPost loginPost = new LoginPost(email, password);
+        Call<LoginPojo> pojoCall = apiInterface.loginUser(loginPost);
+        pojoCall.enqueue(new Callback<LoginPojo>() {
+            @Override
+            public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
+                if (response.body().getCode().equals("200")) {
+                    AppPreference.setUserLoggedOut(LoginScreen.this, false);
+                    AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
+                    AppPreference.setEmail(LoginScreen.this,response.body().getResponse().get_id());
+                    AppPreference.setUserName(LoginScreen.this,response.body().getResponse().getFull_Name());
+                    AppPreference.setApiToken(LoginScreen.this,response.body().getResponse().getApi_token());
+                    AppPreference.setId(LoginScreen.this,response.body().getResponse().get_id());
+                    startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+                    finish();
+                }
+                else {
+                    Log.d(TAG, "Something went wrong : " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginPojo> call, Throwable t) {
+                Toast.makeText(LoginScreen.this, "Please enter valid Username or password", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
     @Override

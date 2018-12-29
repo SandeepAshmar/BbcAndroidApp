@@ -1,7 +1,10 @@
 package com.monet.bbc.utils;
 
-public class AppConstant {
+import java.security.PublicKey;
 
+public class AppConstant {
+    public static boolean IS_STAGING = true;
     public static final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+";
+    public static final String S_BASE_URL = "https://dev.monetrewards.com/weakest-Link/public/api/";
 
 }
