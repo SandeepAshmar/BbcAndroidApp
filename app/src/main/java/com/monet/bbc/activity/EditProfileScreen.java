@@ -60,6 +60,8 @@ public class EditProfileScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        setDataUi();
+
         tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +83,11 @@ public class EditProfileScreen extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setDataUi() {
+
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.monet.bbc.activity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.pm.Signature;
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -62,6 +63,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     boolean doubleBackToExitPressedOnce = false;
     private ApiInterface apiInterface;
     private static final String TAG = "LoginScreen";
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.tv_Login_SignUp_Link).setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_fb).setOnClickListener(this);
+        pd = new ProgressDialog(this);
+        pd.setMessage("Loding...");
+        pd.setCancelable(false);
         getKeyHash();
         apiInterface = BaseUrl.getRetrofit().create(ApiInterface.class);
         fbLogin.setOnClickListener(this);
@@ -137,11 +142,10 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     private void getUserProfile(AccessToken currentAccessToken) {
-        socialId = "";
-        socialEmail = "";
-        socialName = "";
-        socialImage = "";
+
+
         GraphRequest request = GraphRequest.newMeRequest(
+
                 currentAccessToken,
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
@@ -151,17 +155,14 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                             socialName = object.getString("name");
                             socialImage = "https://graph.facebook.com/" + socialId + "/picture?type=large";
                             socialEmail = object.getString("email");
-                            socialLogin();
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
+                           // AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
                         }
                         LoginManager.getInstance().logOut();
-                        AppPreference.setUserLoggedOut(LoginScreen.this, false);
-                        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
-                        finish();
+                        socialLogin(socialId, socialName, socialImage, socialEmail);
+
                     }
                 });
         Bundle parameters = new Bundle();
@@ -170,8 +171,35 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         request.executeAsync();
     }
 
-    private void socialLogin() {
+    private void socialLogin(String socialId, String socialName, String socialImage, final String socialEmail) {
+        pd.show();
+        LoginPost loginPost = new LoginPost(socialEmail, socialName, socialId);
+        Call<LoginPojo> pojoCall = apiInterface.loginUser(loginPost);
+        pojoCall.enqueue(new Callback<LoginPojo>() {
+            @Override
+            public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
+                pd.dismiss();
+                if (response.body().getCode().equals("200")) {
+                    AppPreference.setUserLoggedOut(LoginScreen.this, false);
+                    AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
+                    AppPreference.setEmail(LoginScreen.this, response.body().getResponse().getEmail());
+                    AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
+                    AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
+                    AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
+                    startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+                    finish();
 
+                }
+                else {
+                    AppUtils.shortToast(LoginScreen.this, ""+response.body().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginPojo> call, Throwable t) {
+                pd.dismiss();
+            }
+        });
     }
 
     private void getKeyHash() {
@@ -212,29 +240,30 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     @SuppressLint("NewApi")
     private void loginUser() {
-
+        pd.show();
         LoginPost loginPost = new LoginPost(email, password);
         Call<LoginPojo> pojoCall = apiInterface.loginUser(loginPost);
         pojoCall.enqueue(new Callback<LoginPojo>() {
             @Override
             public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
+                pd.dismiss();
                 if (response.body().getCode().equals("200")) {
                     AppPreference.setUserLoggedOut(LoginScreen.this, false);
                     AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
-                    AppPreference.setEmail(LoginScreen.this,response.body().getResponse().get_id());
-                    AppPreference.setUserName(LoginScreen.this,response.body().getResponse().getFull_Name());
-                    AppPreference.setApiToken(LoginScreen.this,response.body().getResponse().getApi_token());
-                    AppPreference.setId(LoginScreen.this,response.body().getResponse().get_id());
+                    AppPreference.setEmail(LoginScreen.this, response.body().getResponse().get_id());
+                    AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
+                    AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
+                    AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
                     startActivity(new Intent(LoginScreen.this, HomeScreen.class));
                     finish();
-                }
-                else {
+                } else {
                     Log.d(TAG, "Something went wrong : " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<LoginPojo> call, Throwable t) {
+                pd.dismiss();
                 Toast.makeText(LoginScreen.this, "Please enter valid Username or password", Toast.LENGTH_SHORT).show();
 
             }
