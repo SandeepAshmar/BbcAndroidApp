@@ -79,7 +79,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_fb).setOnClickListener(this);
         pd = new ProgressDialog(this);
-        pd.setMessage("Loding...");
+        pd.setMessage("Loading...");
         pd.setCancelable(false);
         getKeyHash();
         apiInterface = BaseUrl.getRetrofit().create(ApiInterface.class);
@@ -122,9 +122,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     private void fbLogin() {
+        pd.show();
         fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
+                pd.dismiss();
                 mAccessToken = loginResult.getAccessToken();
                 getUserProfile(mAccessToken);
             }
@@ -143,7 +146,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     private void getUserProfile(AccessToken currentAccessToken) {
 
-
         GraphRequest request = GraphRequest.newMeRequest(
 
                 currentAccessToken,
@@ -158,7 +160,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                           // AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
+                            // AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
                         }
                         LoginManager.getInstance().logOut();
                         socialLogin(socialId, socialName, socialImage, socialEmail);
@@ -176,22 +178,23 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         LoginPost loginPost = new LoginPost(socialEmail, socialName, socialId);
         Call<LoginPojo> pojoCall = apiInterface.loginUser(loginPost);
         pojoCall.enqueue(new Callback<LoginPojo>() {
+
             @Override
             public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
                 pd.dismiss();
-                if (response.body().getCode().equals("200")) {
-                    AppPreference.setUserLoggedOut(LoginScreen.this, false);
-                    AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
-                    AppPreference.setEmail(LoginScreen.this, response.body().getResponse().getEmail());
-                    AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
-                    AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
-                    AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
-                    startActivity(new Intent(LoginScreen.this, HomeScreen.class));
-                    finish();
-
-                }
-                else {
-                    AppUtils.shortToast(LoginScreen.this, ""+response.body().getMessage());
+                try {
+                    if (response.body().getCode().equals("200")) {
+                        AppPreference.setUserLoggedOut(LoginScreen.this, false);
+                        AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
+                        AppPreference.setEmail(LoginScreen.this, response.body().getResponse().getEmail());
+                        AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
+                        AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
+                        AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
+                        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+                        finish();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(LoginScreen.this, "Oops! Something went wrong.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -247,6 +250,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
                 pd.dismiss();
+                try{
                 if (response.body().getCode().equals("200")) {
                     AppPreference.setUserLoggedOut(LoginScreen.this, false);
                     AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
@@ -256,8 +260,10 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                     AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
                     startActivity(new Intent(LoginScreen.this, HomeScreen.class));
                     finish();
-                } else {
-                    Log.d(TAG, "Something went wrong : " + response.code());
+                }
+                }catch (Exception e)
+                {
+                    Toast.makeText(LoginScreen.this, "Oops! Something went wrong.", Toast.LENGTH_SHORT).show();
                 }
             }
 
