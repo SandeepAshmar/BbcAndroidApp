@@ -179,7 +179,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     private void socialLogin(String socialId, String socialName, String socialImage, final String socialEmail) {
         pd.show();
         LoginPost loginPost = new LoginPost(socialEmail, socialName, socialId);
-        Call<LoginPojo> pojoCall = apiInterface.loginUser(loginPost);
+        Call<LoginPojo> pojoCall = apiInterface.socialLoginUser(loginPost);
         pojoCall.enqueue(new Callback<LoginPojo>() {
 
             @Override
@@ -290,7 +290,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-        shortToast(LoginScreen.this,"Click");
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;

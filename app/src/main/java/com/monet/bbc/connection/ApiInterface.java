@@ -2,6 +2,7 @@ package com.monet.bbc.connection;
 
 import com.monet.bbc.model.LoginPojo;
 import com.monet.bbc.model.LoginPost;
+import com.monet.bbc.model.SignUpPost;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,5 +19,9 @@ public interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST("social")
     Call<LoginPojo> socialLoginUser(@Body LoginPost loginPost);
+
+    @Headers("Content-Type: application/json")
+    @POST("signup")
+    Call<LoginPojo> signUpUser(@Body SignUpPost signUpPost);
 
 }

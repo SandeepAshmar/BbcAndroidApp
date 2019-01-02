@@ -40,36 +40,17 @@
                 android:gravity="center">
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/til_register_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/myEditTextStyle">
-                    <EditText
-                        android:id="@+id/edt_register_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:textSize="14sp"
-                        android:hint="Name" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
                     android:id="@+id/til_register_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/til_register_name"
-                    android:layout_marginTop="15dp"
                     android:theme="@style/myEditTextStyle">
-
                     <EditText
                         android:id="@+id/edt_register_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
+                        android:inputType="textEmailAddress"
                         android:textSize="14sp"
-                        android:drawableRight="@drawable/ic_mail"
                         android:hint="Email" />
-
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -86,8 +67,27 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:textSize="14sp"
+                        android:drawableRight="@drawable/ic_mail"
+                        android:hint="Password" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/til_register_password"
+                    android:layout_marginTop="15dp"
+                    android:theme="@style/myEditTextStyle">
+
+                    <EditText
+                        android:id="@+id/edt_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textSize="14sp"
                         android:drawableRight="@drawable/ic_lock"
-                        android:hint="@string/password" />
+                        android:hint="Confirm Password" />
 
                 </android.support.design.widget.TextInputLayout>
 
