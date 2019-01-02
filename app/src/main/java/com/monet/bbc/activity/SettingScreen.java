@@ -16,6 +16,7 @@ import com.monet.bbc.R;
 
 import java.util.Locale;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
 
 
 public class SettingScreen extends AppCompatActivity implements View.OnClickListener {
@@ -91,5 +92,11 @@ public class SettingScreen extends AppCompatActivity implements View.OnClickList
 
     private void toast(String message) {
         Toast.makeText(this, "" + message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

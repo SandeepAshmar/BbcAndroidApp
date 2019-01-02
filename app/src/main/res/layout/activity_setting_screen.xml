@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/settings_toolbar"
+            android:text="Setting"
             android:textColor="@color/whiteColor" />
 
     </android.support.v7.widget.Toolbar>
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:drawableStart="@drawable/ic_contacts"
-                android:text="@string/setting_account" />
+                android:text="Account" />
 
             <View
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:drawableStart="@drawable/ic_key"
-                android:text="@string/setting_pswd_rst" />
+                android:text="Password Reset" />
 
             <View
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:drawableStart="@drawable/ic_notifications"
-                android:text="@string/setting_notifications"
+                android:text="Notifications"
                 android:theme="@style/NotificationSwitch" />
 
             <View
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:drawableStart="@drawable/ic_sharecolored"
-                android:text="@string/setting_shareEarn" />
+                android:text="Share and Earn" />
 
             <View
                 android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:drawableStart="@drawable/ic_file"
-                android:text="@string/setting_termConditions" />
+                android:text="Terms and conditions" />
 
             <View
                 android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:drawableStart="@drawable/ic_help"
-                android:text="@string/setting_help" />
+                android:text="Help" />
 
             <View
                 android:layout_width="match_parent"

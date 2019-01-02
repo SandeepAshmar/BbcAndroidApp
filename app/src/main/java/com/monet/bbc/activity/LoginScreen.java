@@ -49,6 +49,9 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 
 import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+import static com.monet.bbc.utils.AppUtils.isConnectionAvailable;
+import static com.monet.bbc.utils.AppUtils.shortToast;
 
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -80,7 +83,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.btn_fb).setOnClickListener(this);
         pd = new ProgressDialog(this);
         pd.setMessage("Loading...");
-        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
         getKeyHash();
         apiInterface = BaseUrl.getRetrofit().create(ApiInterface.class);
         fbLogin.setOnClickListener(this);
@@ -192,9 +195,11 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
                         startActivity(new Intent(LoginScreen.this, HomeScreen.class));
                         finish();
+                    } else {
+                        shortToast(LoginScreen.this, response.body().getMessage());
                     }
                 } catch (Exception e) {
-                    Toast.makeText(LoginScreen.this, "Oops! Something went wrong.", Toast.LENGTH_SHORT).show();
+                    shortToast(LoginScreen.this, "Oops! Something went wrong.");
                 }
             }
 
@@ -249,21 +254,26 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         pojoCall.enqueue(new Callback<LoginPojo>() {
             @Override
             public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
-                pd.dismiss();
-                try{
-                if (response.body().getCode().equals("200")) {
-                    AppPreference.setUserLoggedOut(LoginScreen.this, false);
-                    AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
-                    AppPreference.setEmail(LoginScreen.this, response.body().getResponse().get_id());
-                    AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
-                    AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
-                    AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
-                    startActivity(new Intent(LoginScreen.this, HomeScreen.class));
-                    finish();
-                }
-                }catch (Exception e)
-                {
-                    Toast.makeText(LoginScreen.this, "Oops! Something went wrong.", Toast.LENGTH_SHORT).show();
+                try {
+                    if(pd.isShowing()){
+                        if (response.body().getCode().equals("200")) {
+                            AppPreference.setUserLoggedOut(LoginScreen.this, false);
+                            AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
+                            AppPreference.setEmail(LoginScreen.this, response.body().getResponse().get_id());
+                            AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
+                            AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
+                            AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
+                            startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+                            finish();
+                        } else {
+                            shortToast(LoginScreen.this, response.body().getMessage());
+                        }
+                    }else{
+                        shortToast(LoginScreen.this, "pd not visible");
+                    }
+
+                } catch (Exception e) {
+                    shortToast(LoginScreen.this, "Oops! Something went wrong.");
                 }
             }
 
@@ -280,6 +290,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
+        shortToast(LoginScreen.this,"Click");
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
@@ -295,6 +306,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }
 

@@ -15,6 +15,8 @@ import com.monet.bbc.R;
 import com.monet.bbc.adapter.PlayListAdapter;
 import com.monet.bbc.adapter.TrendingAdapter;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -74,6 +76,12 @@ public class TrendingFragment extends Fragment {
             recyclerView.setAdapter(trendingAdapter);
             changeView.setBackgroundResource(R.drawable.ic_view);
         }
+    }
+
+    @Override
+    public void onResume() {
+        checkConnection(getContext());
+        super.onResume();
     }
 
 }

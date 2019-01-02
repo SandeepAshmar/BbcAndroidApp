@@ -25,6 +25,8 @@ import com.monet.bbc.R;
 
 import java.util.Random;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 public class OtpScreen extends AppCompatActivity implements View.OnClickListener {
     private EditText otpOne, otpTwo, otpThree, otpFour;
     private String otp = "", generatedOtp = "", emailId = "";
@@ -303,5 +305,11 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         runTimer = new RunTimer(60000, 1000);
         runTimer.start();
         generateOtp();
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
 import static com.monet.bbc.utils.AppUtils.convertVideoTime;
 
 public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickListener {
@@ -301,5 +302,11 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
             video_SVP.setVisibility(View.GONE);
             finish();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

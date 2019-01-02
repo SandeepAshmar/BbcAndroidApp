@@ -40,6 +40,7 @@ import java.lang.reflect.Field;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.monet.bbc.utils.AppPreference.getImageBase64;
+import static com.monet.bbc.utils.AppUtils.checkConnection;
 import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
 
 @SuppressLint("NewApi")
@@ -266,6 +267,7 @@ public class HomeScreen extends AppCompatActivity
 
     @Override
     protected void onResume() {
+        checkConnection(this);
         if (AppPreference.getImageURL(this).isEmpty()) {
             Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_navProfile);
         } else {
@@ -277,8 +279,6 @@ public class HomeScreen extends AppCompatActivity
             navItemClicked = -1;
             navigationView.setSelected(true);
         }
-
         super.onResume();
     }
-
 }

@@ -17,6 +17,8 @@ import com.monet.bbc.adapter.SeeAllAdapter;
 import com.monet.bbc.adapter.TrendingAdapter;
 import com.monet.bbc.fragment.HomeFragment;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 public class SeeAllActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -95,5 +97,11 @@ public class SeeAllActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

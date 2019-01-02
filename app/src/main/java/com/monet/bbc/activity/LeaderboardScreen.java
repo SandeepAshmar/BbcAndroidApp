@@ -13,6 +13,8 @@ import com.monet.bbc.adapter.LeaderboardAdapter;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 public class LeaderboardScreen extends AppCompatActivity {
 
     private CircleImageView img_leaderboardUser;
@@ -48,5 +50,11 @@ public class LeaderboardScreen extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

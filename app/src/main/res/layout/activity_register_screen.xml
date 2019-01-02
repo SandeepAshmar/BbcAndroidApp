@@ -28,7 +28,7 @@
                 style="@style/HighLightedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_up"
+                android:text="Sign Up"
                 android:layout_marginTop="30dp"
                 android:layout_alignParentTop="true"/>
 
@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
                         android:textSize="14sp"
-                        android:hint="@string/login_name_hint" />
+                        android:hint="Name" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -68,7 +68,7 @@
                         android:inputType="textPassword"
                         android:textSize="14sp"
                         android:drawableRight="@drawable/ic_mail"
-                        android:hint="@string/login_email_hint" />
+                        android:hint="Email" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -102,7 +102,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_above="@id/tv_registerSignIn"
                 android:background="@drawable/color_combination"
-                android:text="@string/sign_up"
+                android:text="Sign Up"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteColor" />
 
@@ -110,7 +110,7 @@
                 android:id="@+id/tv_registerSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/already_have_an_account_sign_in"
+                android:text="Already have an account? Sign in"
                 style="@style/SecondryText"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dp" />

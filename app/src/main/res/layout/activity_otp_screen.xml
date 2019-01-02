@@ -28,7 +28,7 @@
             style="@style/HighLightedText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/enter_otp"
+            android:text="Enter OTP"
             android:layout_marginTop="20dp"
             android:layout_alignParentTop="true"/>
 
@@ -126,7 +126,7 @@
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="10dp"
                 style="@style/SecondryText"
-                android:text="@string/otp_has_been_sent_to_you_email_account"/>
+                android:text="OTP has been sent to you email account"/>
 
                 <RelativeLayout
                     android:id="@+id/rl_otp_try"
@@ -195,7 +195,7 @@
             android:id="@+id/tv_dont_get_otp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/didn_t_get_otp"
+            android:text="Didn\'t get OTP"
             style="@style/SecondryText"
             android:layout_alignParentBottom="true"
             android:visibility="invisible"

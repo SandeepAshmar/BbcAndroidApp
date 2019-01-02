@@ -7,8 +7,11 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
@@ -156,4 +159,20 @@ public class AppUtils {
 
         return inSampleSize;
     }
+
+    public static boolean isConnectionAvailable(Context ctx) {
+        ConnectivityManager mManager = (ConnectivityManager) ctx
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mNetworkInfo = mManager.getActiveNetworkInfo();
+        return (mNetworkInfo != null) && (mNetworkInfo.isConnected());
+    }
+
+    public static void checkConnection(Context context){
+        if(isConnectionAvailable(context)){
+            Log.d("MainActivity", "Net Connected");
+        }else{
+            shortToast(context, "Please check your internet connection");
+        }
+    }
+
 }

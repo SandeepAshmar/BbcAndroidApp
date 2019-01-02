@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.monet.bbc.R;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 public class ResetPasswordScreen extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edt_reset_password, edt_reset_confirm_password, edt_reset_current_password;
@@ -80,5 +82,11 @@ public class ResetPasswordScreen extends AppCompatActivity implements View.OnCli
 
     private void resetPassword() {
         Toast.makeText(this, "api will call", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

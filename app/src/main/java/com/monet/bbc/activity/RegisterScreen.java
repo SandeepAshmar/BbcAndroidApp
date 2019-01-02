@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.monet.bbc.R;
 
 import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
+import static com.monet.bbc.utils.AppUtils.checkConnection;
 
 public class RegisterScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -69,5 +70,11 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
         Toast.makeText(this, "user register, api call", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginScreen.class));
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

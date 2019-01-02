@@ -12,6 +12,8 @@ import android.view.Gravity;
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.RewardsAdapter;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 public class RewardsScreen extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -44,5 +46,11 @@ public class RewardsScreen extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

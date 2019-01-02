@@ -19,6 +19,7 @@ import com.monet.bbc.utils.AppPreference;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.monet.bbc.utils.AppPreference.getImageBase64;
+import static com.monet.bbc.utils.AppUtils.checkConnection;
 import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
 
 public class LiveVideoPlay extends AppCompatActivity implements Animation.AnimationListener {
@@ -343,5 +344,11 @@ public class LiveVideoPlay extends AppCompatActivity implements Animation.Animat
             showTimer = new ShowTimer(10000, 1000);
             showTimer.start();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        checkConnection(this);
+        super.onResume();
     }
 }

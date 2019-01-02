@@ -18,6 +18,8 @@ import com.monet.bbc.activity.LiveVideoPlay;
 import com.monet.bbc.adapter.LiveFragmentAdapter;
 import com.monet.bbc.utils.AppUtils;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -79,5 +81,11 @@ public class LiveFragment extends Fragment implements View.OnClickListener {
                 AppUtils.shortToast(getContext(), "Default Toast");
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        checkConnection(getContext());
+        super.onResume();
     }
 }

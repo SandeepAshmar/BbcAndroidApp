@@ -15,6 +15,8 @@ import com.monet.bbc.R;
 import com.monet.bbc.adapter.FavoriteAdapter;
 import com.monet.bbc.adapter.PlayListAdapter;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -69,6 +71,12 @@ public class PlaylistFragment extends Fragment {
             recyclerView.setAdapter(playListAdapter);
             changeView.setBackgroundResource(R.drawable.ic_view);
         }
+    }
+
+    @Override
+    public void onResume() {
+        checkConnection(getContext());
+        super.onResume();
     }
 
 }

@@ -28,6 +28,8 @@ import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -149,6 +151,12 @@ public class HomeFragment extends Fragment {
 //                handler.post(Update);
 //            }
 //        }, 2500, 2500);
+    }
+
+    @Override
+    public void onResume() {
+        checkConnection(getContext());
+        super.onResume();
     }
 
 }

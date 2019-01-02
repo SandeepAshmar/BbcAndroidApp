@@ -31,6 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.monet.bbc.utils.AppPreference.getImageBase64;
 import static com.monet.bbc.utils.AppPreference.setImageBase64;
+import static com.monet.bbc.utils.AppUtils.checkConnection;
 import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
 import static com.monet.bbc.utils.AppUtils.convertCameraImageToBase64;
 import static com.monet.bbc.utils.AppUtils.convertGalleryImageToBase64;
@@ -244,6 +245,7 @@ public class EditProfileScreen extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        checkConnection(this);
         if (getImageBase64(this).isEmpty()) {
             Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(userImage);
         } else {
@@ -251,4 +253,6 @@ public class EditProfileScreen extends AppCompatActivity {
         }
         super.onResume();
     }
+
+
 }

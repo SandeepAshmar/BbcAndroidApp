@@ -15,8 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.monet.bbc.R;
 import com.monet.bbc.adapter.FavoriteAdapter;
+
+import static com.monet.bbc.utils.AppPreference.getImageBase64;
+import static com.monet.bbc.utils.AppUtils.checkConnection;
+import static com.monet.bbc.utils.AppUtils.convertBase64ToBitmap;
 
 public class FavouriteFragment extends Fragment {
 
@@ -71,5 +76,11 @@ public class FavouriteFragment extends Fragment {
             recyclerView.setAdapter(favoriteAdapter);
             changeView.setBackgroundResource(R.drawable.ic_view);
         }
+    }
+
+    @Override
+    public void onResume() {
+        checkConnection(getContext());
+        super.onResume();
     }
 }
