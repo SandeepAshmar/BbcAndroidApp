@@ -2,6 +2,9 @@ package com.monet.bbc.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.CountDownTimer;
@@ -22,10 +25,18 @@ import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.monet.bbc.R;
+import com.monet.bbc.connection.ApiInterface;
+import com.monet.bbc.connection.BaseUrl;
+import com.monet.bbc.model.forgotPassword.ForgotResponse;
 
 import java.util.Random;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.monet.bbc.utils.AppUtils.checkConnection;
+import static com.monet.bbc.utils.AppUtils.shortToast;
 
 public class OtpScreen extends AppCompatActivity implements View.OnClickListener {
     private EditText otpOne, otpTwo, otpThree, otpFour;
@@ -41,12 +52,17 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
     private boolean secoundHit = false;
     private boolean thirdHit = false;
     private boolean fourthHit = false;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_otp_screen);
+        initView();
+    }
+
+    private void initView() {
         otpOne = findViewById(R.id.et_otp_one);
         otpTwo = findViewById(R.id.et_otp_two);
         otpThree = findViewById(R.id.et_otp_three);
@@ -59,6 +75,10 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
         prog_otp.setMax(progreTime);
         prog_otp.setText("");
+
+        pd = new ProgressDialog(this);
+        pd.setMessage("Sending OTP....");
+        pd.setCancelable(false);
 
         generatedOtp = getIntent().getStringExtra("otp");
         emailId = getIntent().getStringExtra("email");
@@ -238,27 +258,32 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
     @SuppressLint("NewApi")
     private void validate() {
-        if (otp.equals(generatedOtp)) {
-            runTimer.cancel();
-            Intent intent = new Intent(this,ResetPasswordScreen.class);
-            intent.putExtra("Screen","otp");
-            startActivity(intent);
-            finish();
-        } else {
-            otpOne.getText().clear();
-            otpTwo.getText().clear();
-            otpThree.getText().clear();
-            otpFour.getText().clear();
-            otpOne.requestFocus();
-            otp = "";
-            Toast.makeText(this, "please enter valid in otp "+generatedOtp, Toast.LENGTH_SHORT).show();
+        if (!generatedOtp.equals("")) {
+            if (otp.equals(generatedOtp)) {
+                runTimer.cancel();
+                Intent intent = new Intent(this, ResetPasswordScreen.class);
+                intent.putExtra("Screen", "otp");
+                intent.putExtra("emailOtp", emailId);
+                startActivity(intent);
+                finish();
+            } else {
+                if (!otp.equals("")) {
+                    otpOne.getText().clear();
+                    otpTwo.getText().clear();
+                    otpThree.getText().clear();
+                    otpFour.getText().clear();
+                    otpOne.requestFocus();
+                    otp = "";
+                    Toast.makeText(this, "please enter valid in otp", Toast.LENGTH_SHORT).show();
+                }
+            }
+            edtLengthTwo = 1;
+            edtLengthThree = 1;
+            edtLengthFour = 1;
+            secoundHit = false;
+            thirdHit = false;
+            fourthHit = false;
         }
-        edtLengthTwo = 1;
-        edtLengthThree = 1;
-        edtLengthFour = 1;
-        secoundHit = false;
-        thirdHit = false;
-        fourthHit = false;
     }
 
     class RunTimer extends CountDownTimer {
@@ -277,6 +302,8 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
 
         @Override
         public void onFinish() {
+            otp = "";
+            generatedOtp = "";
             prog_otp.setDonut_progress("" + 60);
             img_opt_rty.setVisibility(View.VISIBLE);
             tv_otp_time.setVisibility(View.INVISIBLE);
@@ -286,10 +313,42 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    private void generateOtp() {
-        Random rnd = new Random();
-        generatedOtp = String.valueOf(1000 + rnd.nextInt(9999));
-        Toast.makeText(this, "Now enter this otp "+generatedOtp, Toast.LENGTH_SHORT).show();
+    private void retryOtp() {
+        pd.show();
+        ApiInterface apiInterface = BaseUrl.getRetrofit().create(ApiInterface.class);
+        Call<ForgotResponse> responseCall = apiInterface.forgotPassword(emailId);
+        responseCall.enqueue(new Callback<ForgotResponse>() {
+            @Override
+            public void onResponse(Call<ForgotResponse> call, final Response<ForgotResponse> response) {
+                pd.dismiss();
+                if(response.body() == null){
+                    shortToast(OtpScreen.this, response.raw().message());
+                }else{
+                    if(response.body().getCode().equals("200")){
+                        AlertDialog.Builder builder = new AlertDialog
+                                .Builder(OtpScreen.this, R.style.DialogTheme);
+                        builder.setMessage("OTP has been sent on your email id, Please check your email id.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                generatedOtp = response.body().getResponse();
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.show();
+                    }else{
+                        shortToast(OtpScreen.this, response.body().getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ForgotResponse> call, Throwable t) {
+                pd.dismiss();
+                shortToast(OtpScreen.this, "Oops! something went wrong");
+            }
+        });
     }
 
     private void startTimerAgain() {
@@ -304,7 +363,7 @@ public class OtpScreen extends AppCompatActivity implements View.OnClickListener
         runTimer.cancel();
         runTimer = new RunTimer(60000, 1000);
         runTimer.start();
-        generateOtp();
+        retryOtp();
     }
 
     @Override

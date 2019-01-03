@@ -9,13 +9,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.monet.bbc.R;
+import com.monet.bbc.utils.AppPreference;
 
+import static com.monet.bbc.utils.AppPreference.getEmail;
 import static com.monet.bbc.utils.AppUtils.checkConnection;
 
 public class ResetPasswordScreen extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edt_reset_password, edt_reset_confirm_password, edt_reset_current_password;
-    private String pass, conPass, value, currentPass;
+    private String pass, conPass, value, currentPass, emailId;
     private TextInputLayout til_reset_current_password;
 
 
@@ -33,12 +35,15 @@ public class ResetPasswordScreen extends AppCompatActivity implements View.OnCli
 
 
         value = getIntent().getStringExtra("Screen");
+
         if (value.equals("setting")) {
             edt_reset_current_password.setVisibility(View.VISIBLE);
             til_reset_current_password.setVisibility(View.VISIBLE);
+            emailId = getEmail(this);
         } else {
             edt_reset_current_password.setVisibility(View.GONE);
             til_reset_current_password.setVisibility(View.GONE);
+            emailId = getIntent().getStringExtra("emailOtp");
         }
     }
 
@@ -73,7 +78,7 @@ public class ResetPasswordScreen extends AppCompatActivity implements View.OnCli
             } else if (conPass.isEmpty()) {
                 Toast.makeText(this, "Please enter confirm password", Toast.LENGTH_SHORT).show();
             } else if (!pass.equals(conPass)) {
-                Toast.makeText(this, "Password and Confirm password should be same", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Password and confirm password should be same", Toast.LENGTH_SHORT).show();
             } else {
                 resetPassword();
             }

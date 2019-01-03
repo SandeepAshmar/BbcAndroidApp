@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    //LOGIN USER
+    /*login user*/
     @Headers("Content-Type: application/json")
     @POST("user")
     Call<LoginPojo> loginUser(@Body LoginPost loginPost);
@@ -34,6 +34,7 @@ public interface ApiInterface {
     @GET("user/create")
     Call<LoginPojo> checkEmail(@Query("email") String email);
 
+    /*send otp*/
     @Headers("Content-Type: application/json")
     @POST("forgotPassword")
     Call<ForgotResponse> forgotPassword(@Query("email") String email);
