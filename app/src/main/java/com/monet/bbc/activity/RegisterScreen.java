@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -49,6 +50,23 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
         findViewById(R.id.btn_register).setOnClickListener(this);
         findViewById(R.id.tv_registerSignIn).setOnClickListener(this);
+
+        edt_register_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Log.d("TAG", "Still Typing Now");
+                } else {
+                    email = edt_register_email.getText().toString();
+                    if(email.matches(EMAIL_PATTERN)){
+                        checkEmail();
+                    }else{
+                        shortToast(RegisterScreen.this, "Please enter valid email id");
+                    }
+                }
+            }
+        });
+
     }
 
     @SuppressLint("NewApi")
@@ -57,6 +75,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.btn_register:
                 validate();
+                findViewById(R.id.btn_register).setClickable(false);
                 break;
             case R.id.tv_registerSignIn:
                 startActivity(new Intent(this, LoginScreen.class));
@@ -84,6 +103,27 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    private void checkEmail(){
+        ApiInterface apiInterface = BaseUrl.getRetrofit().create(ApiInterface.class);
+        Call<LoginPojo> pojoCall = apiInterface.checkEmail(email);
+        pojoCall.enqueue(new Callback<LoginPojo>() {
+            @Override
+            public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
+                if(response.body().getCode().equals("200")){
+                    Log.d("TAG", "onResponse: "+response.body().getMessage());
+                }else{
+                    shortToast(RegisterScreen.this, response.body().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginPojo> call, Throwable t) {
+                Toast.makeText(RegisterScreen.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
     @SuppressLint("NewApi")
     private void registerUser() {
         pd.show();
@@ -93,27 +133,36 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
         pojoCall.enqueue(new Callback<LoginPojo>() {
             @Override
             public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
+                findViewById(R.id.btn_register).setClickable(true);
                 try {
-                    if (response.body().getCode().equals("200")) {
+                    if (pd.isShowing()) {
+                        pd.dismiss();
+                        if (response.body().getCode().equals("200")) {
+                            AppPreference.setUserLoggedOut(RegisterScreen.this, false);
+                            setApiToken(RegisterScreen.this, response.body().getResponse().getApi_token());
+                            setId(RegisterScreen.this, response.body().getResponse().get_id());
+                            setEmail(RegisterScreen.this, email);
+                            startActivity(new Intent(RegisterScreen.this, HomeScreen.class));
+                            finish();
+                        } else {
+                            shortToast(RegisterScreen.this, response.body().getMessage());
+                        }
+                    } else {
+                        Log.d("TAG", "response canceled by user");
+                    }
 
-                        setApiToken(RegisterScreen.this,response.body().getResponse().getApi_token());
-                        setId(RegisterScreen.this,response.body().getResponse().get_id());
-                        setEmail(RegisterScreen.this,email);
-                        startActivity(new Intent(RegisterScreen.this, HomeScreen.class));
-                        finish();
-                    }
-                    else{
-                        shortToast(RegisterScreen.this,response.body().getMessage());
-                    }
                 } catch (Exception e) {
-                    shortToast(RegisterScreen.this,e.getMessage());
+                    pd.dismiss();
+                    shortToast(RegisterScreen.this, e.getMessage());
                 }
 
             }
 
             @Override
             public void onFailure(Call<LoginPojo> call, Throwable t) {
-                shortToast(RegisterScreen.this,"Oops! Something went wrong.");
+                findViewById(R.id.btn_register).setClickable(true);
+                pd.dismiss();
+                shortToast(RegisterScreen.this, "Oops! Something went wrong.");
             }
         });
     }

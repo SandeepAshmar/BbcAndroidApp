@@ -84,7 +84,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         pd = new ProgressDialog(this);
         pd.setMessage("Loading...");
         pd.setCanceledOnTouchOutside(false);
-        getKeyHash();
+//        getKeyHash();
         apiInterface = BaseUrl.getRetrofit().create(ApiInterface.class);
         fbLogin.setOnClickListener(this);
         fbLogin.setReadPermissions(Arrays.asList(EMAIL));
@@ -160,13 +160,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                             socialName = object.getString("name");
                             socialImage = "https://graph.facebook.com/" + socialId + "/picture?type=large";
                             socialEmail = object.getString("email");
-
+                            socialLogin(socialId, socialName, socialImage, socialEmail);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            // AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
+                             AppUtils.shortToast(LoginScreen.this, "Your Email ID is not registered with Facebook");
                         }
                         LoginManager.getInstance().logOut();
-                        socialLogin(socialId, socialName, socialImage, socialEmail);
 
                     }
                 });
@@ -177,6 +176,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     private void socialLogin(String socialId, String socialName, String socialImage, final String socialEmail) {
+        findViewById(R.id.btn_login).setClickable(false);
         pd.show();
         LoginPost loginPost = new LoginPost(socialEmail, socialName, socialId);
         Call<LoginPojo> pojoCall = apiInterface.socialLoginUser(loginPost);
@@ -184,28 +184,33 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
-                pd.dismiss();
+                findViewById(R.id.btn_login).setClickable(true);
                 try {
-                    if (response.body().getCode().equals("200")) {
-                        AppPreference.setUserLoggedOut(LoginScreen.this, false);
-                        AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
-                        AppPreference.setEmail(LoginScreen.this, response.body().getResponse().getEmail());
-                        AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
-                        AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
-                        AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
-                        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
-                        finish();
-                    } else {
-                        shortToast(LoginScreen.this, response.body().getMessage());
+                    if (pd.isShowing()) {
+                        pd.dismiss();
+                        if (response.body().getCode().equals("200")) {
+                            AppPreference.setUserLoggedOut(LoginScreen.this, false);
+                            AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
+                            AppPreference.setEmail(LoginScreen.this, response.body().getResponse().getEmail());
+                            AppPreference.setUserName(LoginScreen.this, response.body().getResponse().getFull_Name());
+                            AppPreference.setApiToken(LoginScreen.this, response.body().getResponse().getApi_token());
+                            AppPreference.setId(LoginScreen.this, response.body().getResponse().get_id());
+                            startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+                            finish();
+                        } else {
+                            shortToast(LoginScreen.this, response.body().getMessage());
+                        }
                     }
                 } catch (Exception e) {
-                    shortToast(LoginScreen.this, "Oops! Something went wrong.");
+                    shortToast(LoginScreen.this, e.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<LoginPojo> call, Throwable t) {
+                findViewById(R.id.btn_login).setClickable(true);
                 pd.dismiss();
+                shortToast(LoginScreen.this, "Oops! Something went wrong.");
             }
         });
     }
@@ -248,14 +253,17 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     @SuppressLint("NewApi")
     private void loginUser() {
+        findViewById(R.id.btn_login).setClickable(false);
         pd.show();
         LoginPost loginPost = new LoginPost(email, password);
         Call<LoginPojo> pojoCall = apiInterface.loginUser(loginPost);
         pojoCall.enqueue(new Callback<LoginPojo>() {
             @Override
             public void onResponse(Call<LoginPojo> call, Response<LoginPojo> response) {
+                findViewById(R.id.btn_login).setClickable(true);
                 try {
-                    if(pd.isShowing()){
+                    if (pd.isShowing()) {
+                        pd.dismiss();
                         if (response.body().getCode().equals("200")) {
                             AppPreference.setUserLoggedOut(LoginScreen.this, false);
                             AppPreference.setImageURL(LoginScreen.this, response.body().getResponse().getImage());
@@ -268,19 +276,21 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         } else {
                             shortToast(LoginScreen.this, response.body().getMessage());
                         }
-                    }else{
+                    } else {
                         shortToast(LoginScreen.this, "pd not visible");
                     }
 
                 } catch (Exception e) {
+                    pd.dismiss();
                     shortToast(LoginScreen.this, "Oops! Something went wrong.");
                 }
             }
 
             @Override
             public void onFailure(Call<LoginPojo> call, Throwable t) {
+                findViewById(R.id.btn_login).setClickable(true);
                 pd.dismiss();
-                Toast.makeText(LoginScreen.this, "Please enter valid Username or password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginScreen.this, "Oops! Something went wrong.", Toast.LENGTH_SHORT).show();
 
             }
         });
