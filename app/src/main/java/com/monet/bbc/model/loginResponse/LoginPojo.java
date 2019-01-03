@@ -1,6 +1,4 @@
-package com.monet.bbc.model;
-
-import com.google.gson.annotations.SerializedName;
+package com.monet.bbc.model.loginResponse;
 
 public class LoginPojo {
     private String status;

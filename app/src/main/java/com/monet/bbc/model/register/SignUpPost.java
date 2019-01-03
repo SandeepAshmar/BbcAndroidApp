@@ -1,4 +1,4 @@
-package com.monet.bbc.model;
+package com.monet.bbc.model.register;
 
 import com.google.gson.annotations.SerializedName;
 

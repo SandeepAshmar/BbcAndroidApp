@@ -1,8 +1,9 @@
 package com.monet.bbc.connection;
 
-import com.monet.bbc.model.LoginPojo;
-import com.monet.bbc.model.LoginPost;
-import com.monet.bbc.model.SignUpPost;
+import com.monet.bbc.model.forgotPassword.ForgotResponse;
+import com.monet.bbc.model.loginResponse.LoginPojo;
+import com.monet.bbc.model.loginResponse.LoginPost;
+import com.monet.bbc.model.register.SignUpPost;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -32,5 +33,9 @@ public interface ApiInterface {
     @Headers("Content-Type: application/json")
     @GET("user/create")
     Call<LoginPojo> checkEmail(@Query("email") String email);
+
+    @Headers("Content-Type: application/json")
+    @POST("forgotPassword")
+    Call<ForgotResponse> forgotPassword(@Query("email") String email);
 
 }

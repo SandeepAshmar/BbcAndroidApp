@@ -3,7 +3,6 @@ package com.monet.bbc.activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.pm.Signature;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,8 +21,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.LoginStatusCallback;
-import com.facebook.login.Login;
 import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -31,8 +28,8 @@ import com.facebook.login.widget.LoginButton;
 import com.monet.bbc.R;
 import com.monet.bbc.connection.ApiInterface;
 import com.monet.bbc.connection.BaseUrl;
-import com.monet.bbc.model.LoginPojo;
-import com.monet.bbc.model.LoginPost;
+import com.monet.bbc.model.loginResponse.LoginPojo;
+import com.monet.bbc.model.loginResponse.LoginPost;
 import com.monet.bbc.utils.AppPreference;
 import com.monet.bbc.utils.AppUtils;
 
@@ -46,11 +43,9 @@ import java.util.Arrays;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 
 import static com.monet.bbc.utils.AppConstant.EMAIL_PATTERN;
 import static com.monet.bbc.utils.AppUtils.checkConnection;
-import static com.monet.bbc.utils.AppUtils.isConnectionAvailable;
 import static com.monet.bbc.utils.AppUtils.shortToast;
 
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener {

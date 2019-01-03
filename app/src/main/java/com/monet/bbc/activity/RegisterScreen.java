@@ -1,7 +1,6 @@
 package com.monet.bbc.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +14,9 @@ import android.widget.Toast;
 import com.monet.bbc.R;
 import com.monet.bbc.connection.ApiInterface;
 import com.monet.bbc.connection.BaseUrl;
-import com.monet.bbc.model.LoginPojo;
-import com.monet.bbc.model.SignUpPost;
+import com.monet.bbc.model.loginResponse.LoginPojo;
+import com.monet.bbc.model.register.SignUpPost;
 import com.monet.bbc.utils.AppPreference;
-import com.monet.bbc.utils.AppUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
