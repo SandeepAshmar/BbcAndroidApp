@@ -86,7 +86,7 @@ public class ResetPasswordScreen extends AppCompatActivity implements View.OnCli
     }
 
     private void resetPassword() {
-        Toast.makeText(this, "api will call", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
