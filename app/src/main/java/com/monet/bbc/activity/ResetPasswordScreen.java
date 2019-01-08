@@ -58,6 +58,7 @@ public class ResetPasswordScreen extends AppCompatActivity implements View.OnCli
     private void validate() {
         pass = edt_reset_password.getText().toString();
         conPass = edt_reset_confirm_password.getText().toString();
+        currentPass = edt_reset_current_password.getText().toString();
 
         if (value.equals("setting")) {
             if (currentPass.isEmpty()) {
@@ -69,7 +70,6 @@ public class ResetPasswordScreen extends AppCompatActivity implements View.OnCli
             } else if (!pass.equals(conPass)) {
                 Toast.makeText(this, "Password and Confirm password should be same", Toast.LENGTH_SHORT).show();
             } else {
-                currentPass = edt_reset_current_password.getText().toString();
                 resetPassword();
             }
         } else {
