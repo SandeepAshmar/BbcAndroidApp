@@ -67,8 +67,8 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.img_SVP_search).setOnClickListener(this);
         findViewById(R.id.img_fullScreen).setOnClickListener(this);
         findViewById(R.id.img_dots).setOnClickListener(this);
-//        String videoURL = "http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
-        String videoURL = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
+        String videoURL = "http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
+//        String videoURL = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
 
         tv_videoLength = findViewById(R.id.tv_videoLength);
         tv_videoCurrentTime = findViewById(R.id.tv_videoCurrentTime);
@@ -102,28 +102,6 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         setAdapter();
         setVideo(videoURL);
     }
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_exit);
-//            isFullScreen = true;
-//            rl_videoInfo.setVisibility(View.GONE);
-//            rl_autoPlayLayout.setVisibility(View.GONE);
-//            rv_svp.setVisibility(View.GONE);
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        } else {
-//            img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
-//            isFullScreen = false;
-//            rl_videoInfo.setVisibility(View.VISIBLE);
-//            rl_autoPlayLayout.setVisibility(View.VISIBLE);
-//            rv_svp.setVisibility(View.VISIBLE);
-//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        }
-//    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setVideo(String videoURLtoPlay) {

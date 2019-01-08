@@ -4,12 +4,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.monet.bbc.utils.AppConstant.IS_STAGING;
+import static com.monet.bbc.utils.AppConstant.P_BASE_URL;
 import static com.monet.bbc.utils.AppConstant.S_BASE_URL;
 
 public class BaseUrl {
 
-    public static final String BASE_URL = IS_STAGING ? S_BASE_URL:null;
-    public static Retrofit retrofit = null;
+    private static final String BASE_URL = IS_STAGING ? S_BASE_URL:P_BASE_URL;
+    private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit() {
         if (retrofit == null) {
