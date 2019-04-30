@@ -67,7 +67,8 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.img_SVP_search).setOnClickListener(this);
         findViewById(R.id.img_fullScreen).setOnClickListener(this);
         findViewById(R.id.img_dots).setOnClickListener(this);
-        String videoURL = "http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
+        String videoURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+//        String videoURL = "http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
 //        String videoURL = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
 
         tv_videoLength = findViewById(R.id.tv_videoLength);
@@ -89,16 +90,16 @@ public class SimpleVideoPlay extends AppCompatActivity implements View.OnClickLi
 
         img_fullScreen.setBackgroundResource(R.drawable.ic_baseline_fullscreen_enter);
 
-        Bundle bundle = getIntent().getExtras();
-        String image = bundle.getString("image");
-        String name = bundle.getString("name");
+//        Bundle bundle = getIntent().getExtras();
+//        String image = bundle.getString("image");
+//        String name = bundle.getString("name");
 
         Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_SVP_user);
 
         handler = new Handler();
 
-        Glide.with(this).load(image).into(img_svp_videoThumb);
-        tv_SVP_videoName.setText(name);
+        Glide.with(this).load("https://www.serveit.com/media/1207/alan-mac-kenna-1-small.jpg").into(img_svp_videoThumb);
+        tv_SVP_videoName.setText("Demo Name");
         setAdapter();
         setVideo(videoURL);
     }
